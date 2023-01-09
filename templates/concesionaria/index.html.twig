@@ -1,0 +1,44 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <a class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showForm('{{ path('app_concesionaria_new') }}')"><i class="material-icons">add</i></a>
+            <table class="table">
+        <thead>
+            <tr>
+                <th></th>   
+                <th>Marca</th>
+                <th>Razon Social</th>
+                <th>Cuit</th>
+                <th>Cant Trámites</th>
+                <th>Cant Usuarios</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for concesionarium in concesionarias %}
+            <tr>
+                <td><img src="{{ concesionarium.logo }}" class="avatar-sm"/></td>
+                <td>{{ concesionarium.brand }}</td>
+                <td>{{ concesionarium.razonSocial }}</td>
+                <td>{{ concesionarium.cuit }}</td>
+                <td>{{ concesionarium.tramites | length }}</td>
+                <td>{{ concesionarium.users | length }}</td>
+                
+                <td>
+                    {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_concesionaria_show', {'id': concesionarium.id}) }}')"><i class="material-icons">search</i></a> #}
+                    <a class="btn btn-just-icon" onclick="showForm('{{ path('app_concesionaria_edit', {'id': concesionarium.id}) }}')"><i class="material-icons">edit</i></a>
+                    <a class="btn btn-just-icon" onclick="showForm('{{ path('app_concesionaria_users', {'id': concesionarium.id}) }}')"><i class="material-icons">badge</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No se encontraron concesionarias</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

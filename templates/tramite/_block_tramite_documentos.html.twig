@@ -1,0 +1,27 @@
+<style>
+    tr.row-danger {
+        background: #e91e6333;
+    }
+    tr.row-success {
+        background: #00ff8833;
+    }
+</style>
+<table class="table">
+    <thead class="text-warning">
+        <tr>
+            
+            <th>Documento</th>
+            <th>Cargado</th>
+            <th>Estado</th>
+            <th>Obs</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for docum in documentos %}
+            {% if ( docum.oculto ? is_granted_role_list(docum, app.user) : true) %}
+                {{include('/tramite/_block_tramite_documento.html.twig')}}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

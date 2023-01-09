@@ -1,0 +1,51 @@
+<div class="card-body">
+    <div class="form-group">
+        <div>
+            <img width="50" class="avatar" src="{{ asset('/img/faces/avatar-default-icon.png') }}"/>
+            
+            <label>Agregar Comentario</label>
+            <div style="display:flex">
+                <input id="txtCommentItem" type="text" multiline="true" class="form-control"/>
+                <div id="btnSendCommentItem" onclick="sendCommentItem()" class="btn btn-round btn-just-icon btn-info"><i  class="material-icons">send</i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function sendCommentItem(){
+        $("#btnSendCommentItem").addClass("disabled");
+        var comentario = $("#txtCommentItem").val();
+        var data ={comment: comentario};
+        $.ajax({
+             type: "POST",
+             url: "/portal/tramite/uploads/comment/add/{{tramite.id}}/{{tramiteItem.id}}",
+             async:true,
+             dataType: 'json',
+            data: data,
+             success: function (data) {
+                
+                $("#content-timeline").html(data);
+                $("#btnSendCommentItem").removeClass("disabled");
+                $("#modalContent").modal('hide');
+                $("#modalLong").modal('hide');
+                $("#modalLg").modal('hide');
+            }, 
+            error: function (err) {
+               if(err.statusText=="OK"){
+                $("#content-timeline").html(err.responseText);
+                $("#txtComment").val('');
+                $("#btnSendCommentItem").removeClass("disabled");
+                $("#modalLong").modal('hide');
+                $("#modalLg").modal('hide');
+               }else{
+                console.log(err);
+                swal({title:'Error', html: err.responseText, type:'error'});
+                $("#btnSendCommentItem").removeClass("disabled");
+              }
+                
+          }
+             });
+    }
+
+    
+</script>

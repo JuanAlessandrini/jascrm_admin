@@ -1,0 +1,29 @@
+
+    <div class="modal-header">
+        <h6>Detalle de {{itemTramite.documento.name}}</h6>
+    </div>
+    <div class="modal-body">
+            {% set items = tramite.items | filter (v => v.documento.id == itemTramite.documento.id) %}
+            <table class="table">
+                <thead class="text-warning">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Cargado </th>
+                        <th>Estado</th>
+                        <th>Ver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{item.getUpdatedAt | date('d/m/Y H:i')}}</td>
+                            <td>{{ item.getOriginalName }}</td>
+                            <td>{{ item.getUpdatedBy.getFullName }}</td>
+                            <td>{{ item.getStatus.getName }}</td>
+                            <td><a href="{{ item.getImageUrl }}" target="_blank"><i class="material-icons">search</i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>

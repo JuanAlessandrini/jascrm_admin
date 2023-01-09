@@ -1,0 +1,18 @@
+
+    {% include('homepage/base.html.twig') %}
+    {% block content %}
+
+      {% include('homepage/_nav_short.html.twig') %}
+  <section class="py-0 bg-primary-gradient">
+        <div class="bg-holder" style="background-image:url({{asset('homepage/public/assets/img/illustrations/footer-bg.png')}});background-position:center;background-size:cover;"></div>
+    <div class="container">
+          <div class="row flex-center py-8">
+            <section style="background: #ffffff6b;max-width:400px; padding:20px; margin:auto auto; margin-top:100px; border-radius: 10px; box-shadow: 3px 6px 10px #000000b0;">
+              {% include('security/login.html.twig') %}
+            </section>
+          </div>
+        </div>
+      
+    </section>
+      
+    {% endblock %} 

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error!{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper" style="margin-top:100px !important; padding:30px;">
+
+    <h1 style="color:gray;">Opps! parece que hubo un problema!</h1>
+    <section>
+    <p>{{message}}</p>
+    <p>Codigo: {{code}}</p>
+    <p>{{file}} ({{line}})</p>
+    <p>{{statusText}}</p>
+    </section>
+    <a class="btn" href="/">Inicio</a>
+</div>
+{% endblock %}

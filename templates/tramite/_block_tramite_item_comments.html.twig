@@ -1,0 +1,7 @@
+<div class="card-body">
+    <h6>Comentarios de: {{tramiteItem.documento.name}}</h6>
+    <div id="content-timeline" style="background: #e0dede;" class="timeline timeline-one-side" data-timeline-axis-style="dotted">
+        {% set comments = tramiteItem.comments %}
+        {{ include('/tramite/_block_tramite.html.twig')  }}
+    </div>
+</div>

@@ -1,0 +1,73 @@
+{% include 'dashboard/base.html.twig' %}
+{% block wrapper %}
+  
+  
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        {% include('dashboard/_menu.html.twig') %}
+        <!-- Layout container -->
+        <div class="layout-page">
+         {% include('dashboard/_navbar.html.twig') %}
+          <!-- Content wrapper -->
+          <div class="content-wrapper  card-body">
+          
+          {% block content %}
+            
+          {% endblock %}
+
+            
+
+            <div class="content-backdrop fade"></div>
+            {% include('dashboard/_footer.html.twig') %}
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+    {% endblock %}
+
+   
+<div class="modal fade" id="modalLg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+      </div>
+      <div class="modal-body" id="modalContentLg">
+        <p>Croissant jelly beans donut apple pie. Caramels bonbon lemon drops. Sesame snaps lemon drops lemon drops liquorice icing bonbon pastry pastry carrot cake. Dragée sweet sweet roll sugar plum.</p>
+        <p>Jelly-o cookie jelly gummies pudding cheesecake lollipop macaroon. Sweet chocolate bar sweet roll carrot cake. Sweet roll sesame snaps fruitcake brownie bear claw toffee bonbon brownie.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     <div class="modal fade" id="modalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div id="modalContent" class="modal-content">
+                    
+                </div>
+            </div>
+        </div>
+
+       
+     {% block scripts %}
+       <script src="{{asset('vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+       {# <link href="{{asset('js/plugins/bootstrap-select2/select2.css')}}" rel="stylesheet"/>
+       <link href="{{asset('js/plugins/bootstrap-select2/select2-bootstrap.css')}}" rel="stylesheet"/>
+       <script src="{{asset('js/plugins/bootstrap-select2/select2.min.js')}}"></script> #}
+        <script src="{{asset('js/functions.js?v=56')}}"></script>
+            
+    {% endblock %}
+       

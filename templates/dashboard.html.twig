@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('/img/apple-icon.png')}}">
+  <link rel="icon" type="image/png" href="{{asset('/img/apple-icon.png')}}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    {% block title %}{% endblock %}
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!-- Extra details for Live View on GitHub Pages -->
+  <!-- Canonical SEO -->
+  <link rel="canonical" href="https://www.camaracacsylsur.org.ar" />
+  <!--  Social tags      -->
+  <meta name="keywords" content="Cámara de Autotransporte de Cargas, Servicios y Logística de la Patagonia Sur">
+  <meta name="description" content="Cámara de Autotransporte de Cargas, Servicios y Logística de la Patagonia Sur.">
+  <!-- Schema.org markup for Google+ -->
+  <meta itemprop="name" content="Cámara de Autotransporte de Cargas, Servicios y Logística de la Patagonia Sur">
+  <meta itemprop="description" content="Cámara de Autotransporte de Cargas, Servicios y Logística de la Patagonia Sur.">
+  <meta itemprop="image" content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_thumbnail.jpg">
+  <!-- Twitter Card data -->
+  {# <meta name="twitter:card" content="product">
+  <meta name="twitter:site" content="@creativetim">
+  <meta name="twitter:title" content="Material Dashboard PRO by Creative Tim">
+  <meta name="twitter:description" content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design.">
+  <meta name="twitter:creator" content="@creativetim">
+  <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_thumbnail.jpg"> #}
+  <!-- Open Graph data -->
+  <meta property="fb:app_id" content="">
+  <meta property="og:title" content="CACSYLSUR" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.camaracacsylsur.org.ar" />
+  <meta property="og:image" content="{{asset('/img/logo-grande.png')}}" />
+  <meta property="og:description" content="Cámara de Autotransporte de Cargas, Servicios y Logística de la Patagonia Sur." />
+  <meta property="og:site_name" content="CACSYLSUR" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  {# <link href="{{ asset('/css/material-dashboard-pro.css?v=1.1.3') }}" rel="stylesheet" /> #}
+  <link href="{{ asset('/css/material-dashboard.min-v1.css?v=0.1.6') }}" rel="stylesheet" />
+  <link href="{{ asset('/css/styles.css?v={{random(123456789)}}') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  
+
+  <!--   Core JS Files   -->
+        <script src="{{asset('/js/core/jquery.min.js')}}"></script>
+        <script src="{{asset('/js/core/popper.min.js')}}"></script>
+        <script src="{{asset('/js/core/bootstrap-material-design.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/moment.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/sweetalert2.js')}}"></script>
+        <script src="{{asset('/js/plugins/jquery.validate.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/jquery.bootstrap-wizard.js')}}"></script>
+        <script src="{{asset('/js/plugins/bootstrap-selectpicker.js')}}"></script>
+        <script src="{{asset('/js/plugins/bootstrap-datetimepicker.min.js')}}"></script>
+        
+        
+        <script src="{{asset('/js/plugins/bootstrap-tagsinput.js')}}"></script>
+        <script src="{{asset('/js/plugins/jasny-bootstrap.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/fullcalendar.min.js')}}"></script>
+
+{# TABLE #}
+    {# Bootstrap Table #}
+    {# <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+  
+    <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/extensions/export/bootstrap-table-export.min.js"></script> #}
+    
+    {# Datatables #}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"> #}
+    {# <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bulma.min.css"> #}
+    
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    {# <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bulma.min.js"></script> #}
+    
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js"></script>
+    
+    
+
+        <style>
+            .btn-primary, .btn-rose{
+                color:white !important;
+            }
+            .style-title{
+                text-transform: capitalize;
+            }
+            select {
+
+                /* styling */
+                background-color: white;
+                border: thin solid #e2e0e0;
+                border-radius: 4px;
+                display: inline-block;
+                font: inherit;
+                line-height: 1.5em;
+                padding: 0.5em 3.5em 0.5em 1em;
+
+                /* reset */
+
+                margin: 0;      
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+
+
+/* arrows */
+
+select.classic {
+  background-image:
+    linear-gradient(45deg, transparent 50%, blue 50%),
+    linear-gradient(135deg, blue 50%, transparent 50%),
+    linear-gradient(to right, skyblue, skyblue);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+select.classic:focus {
+  background-image:
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    linear-gradient(to right, gray, gray);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+  border-color: grey;
+  outline: 0;
+}
+
+
+
+
+select.round {
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    radial-gradient(#ddd 70%, transparent 72%);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - .5em) .5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+  background-repeat: no-repeat;
+}
+
+select.round:focus {
+  background-image:
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    radial-gradient(gray 70%, transparent 72%);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - .5em) .5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+  background-repeat: no-repeat;
+  border-color: green;
+  outline: 0;
+}
+
+
+
+
+
+select.minimal {
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+select.minimal:focus {
+  background-image:
+    linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  border-color: gray;
+  outline: 0;
+}
+
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+
+
+        </style>
+</head>
+    <body class="">
+        <div class="wrapper ">
+            {% include 'dashboard-menu.html.twig' %}
+            <div class="main-panel">
+                {% include 'dashboard-navbar.html.twig' %}
+                <div class="content">
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-text">{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span class="alert-text">{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                {% endfor %}
+                    <div class="content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+                {% include 'dashboard-footer.html.twig' %}
+            </div>
+        </div>
+        <div class="modal fade" id="modalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div id="modalContent" class="modal-content">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade " id="modalLg" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div id="modalContentLg" class="modal-content">
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <script src="{{asset('/js/plugins/nouislider.min.js')}}"></script>
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
+        <script src="{{asset('/js/plugins/arrive.min.js')}}"></script>
+        <!--  Google Maps Plugin    -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
+        {# <script src="{{asset('/js/plugins/chartist.min.js')}}"></script> #}
+        
+        <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js">
+        
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="{{asset('/js/material-dashboard.min.js?v=2.1.2')}}" type="text/javascript"></script>
+       
+       <script src="{{asset('/js/functions.js?v=52')}}"></script>
+        <script src="{{asset('/js/plugins/choices.min.js?v=4')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        <script src="{{asset('js/print.min.js')}}"></script>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+      
+
+      <link rel="stylesheet" type="text/css" href="{{asset('js/print.min.css')}}">
+        
+        <script>
+        /*const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'es-ES';
+        recognition.continuous = true;
+        recognition.onresult = event => {
+          for (const result of event.results){
+            console.log (result[0].transcript);
+          }
+        }
+        recognition.start();*/
+            $(document).ready(function() {
+            $().ready(function() {
+                $sidebar = $('.sidebar');
+
+                $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                $full_page = $('.full-page');
+
+                $sidebar_responsive = $('body > .navbar-collapse');
+
+                window_width = $(window).width();
+
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                    $('.fixed-plugin .dropdown').addClass('open');
+                }
+
+                }
+
+                $('.fixed-plugin a').click(function(event) {
+                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                if ($(this).hasClass('switch-trigger')) {
+                    if (event.stopPropagation) {
+                    event.stopPropagation();
+                    } else if (window.event) {
+                    window.event.cancelBubble = true;
+                    }
+                }
+                });
+
+                $('.fixed-plugin .active-color span').click(function() {
+                $full_page_background = $('.full-page-background');
+
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+
+                var new_color = $(this).data('color');
+
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-color', new_color);
+                }
+
+                if ($full_page.length != 0) {
+                    $full_page.attr('filter-color', new_color);
+                }
+
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.attr('data-color', new_color);
+                }
+                });
+
+                $('.fixed-plugin .background-color .badge').click(function() {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+
+                var new_color = $(this).data('background-color');
+
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-background-color', new_color);
+                }
+                });
+
+                $('.fixed-plugin .img-holder').click(function() {
+                $full_page_background = $('.full-page-background');
+
+                $(this).parent('li').siblings().removeClass('active');
+                $(this).parent('li').addClass('active');
+
+
+                var new_image = $(this).find("img").attr('src');
+
+                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    $sidebar_img_container.fadeOut('fast', function() {
+                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                    $sidebar_img_container.fadeIn('fast');
+                    });
+                }
+
+                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $full_page_background.fadeOut('fast', function() {
+                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                    $full_page_background.fadeIn('fast');
+                    });
+                }
+
+                if ($('.switch-sidebar-image input:checked').length == 0) {
+                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                }
+
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                }
+                });
+
+                $('.switch-sidebar-image input').change(function() {
+                $full_page_background = $('.full-page-background');
+
+                $input = $(this);
+
+                if ($input.is(':checked')) {
+                    if ($sidebar_img_container.length != 0) {
+                    $sidebar_img_container.fadeIn('fast');
+                    $sidebar.attr('data-image', '#');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                    $full_page_background.fadeIn('fast');
+                    $full_page.attr('data-image', '#');
+                    }
+
+                    background_image = true;
+                } else {
+                    if ($sidebar_img_container.length != 0) {
+                    $sidebar.removeAttr('data-image');
+                    $sidebar_img_container.fadeOut('fast');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                    $full_page.removeAttr('data-image', '#');
+                    $full_page_background.fadeOut('fast');
+                    }
+
+                    background_image = false;
+                }
+                });
+
+                $('.switch-sidebar-mini input').change(function() {
+                $body = $('body');
+
+                $input = $(this);
+
+                if (md.misc.sidebar_mini_active == true) {
+                    $('body').removeClass('sidebar-mini');
+                    md.misc.sidebar_mini_active = false;
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                } else {
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                    setTimeout(function() {
+                    $('body').addClass('sidebar-mini');
+
+                    md.misc.sidebar_mini_active = true;
+                    }, 300);
+                }
+
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 180);
+                
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function() {
+                    clearInterval(simulateWindowResize);
+                }, 1000);
+
+                });
+            });
+            });
+        </script>
+        <script>
+        
+        $(document).ready(function() {
+                 jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+            'locale-compare-asc': function ( a, b ) {
+                return a.localeCompare(b, 'cs', { sensitivity: 'accent' })
+            },
+            'locale-compare-desc': function ( a, b ) {
+                return b.localeCompare(a, 'cs', { sensitivity: 'accent' })
+            }
+            })
+
+            jQuery.fn.dataTable.ext.type.search['locale-compare'] = function (data) {
+            return !data
+                ? ''
+                    : typeof data === 'string'
+                    ? data
+                    .replace(/\n/g, ' ')
+                    .replace(/[éÉěĚèêëÈÊË]/g, 'e')
+                    .replace(/[šŠ]/g, 's')
+                    .replace(/[čČçÇ]/g, 'c')
+                    .replace(/[řŘ]/g, 'r')
+                    .replace(/[žŽ]/g, 'z')
+                    .replace(/[ýÝ]/g, 'y')
+                    .replace(/[áÁâàÂÀ]/g, 'a')
+                    .replace(/[íÍîïÎÏ]/g, 'i')
+                    .replace(/[ťŤ]/g, 't')
+                    .replace(/[ďĎ]/g, 'd')
+                    .replace(/[ňŇ]/g, 'n')
+                    .replace(/[óÓ]/g, 'o')
+                    .replace(/[úÚůŮ]/g, 'u')
+                    : data
+            }
+                /*columnDefs : [
+                            { targets: 0, type: 'locale-compare' },
+                            { targets: 3, type: 'locale-compare' },
+                        ],*/
+                $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
+                $('#table').DataTable({
+                   
+                    "pageLength": 20,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'excel', 'pdf'
+                    ],
+                    language: {
+                         "decimal":        "",
+                        "emptyTable":     "No hay datos disponibles",
+                        "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty":      "Showing 0 to 0 of 0 entries",
+                        "infoFiltered":   "(filtrados desde _MAX_ registros totales)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ registros",
+                        "loadingRecords": "Loading...",
+                        "processing":     "",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron coincidencias.",
+                        "paginate": {
+                            "first":      "Primera",
+                            "last":       "Última",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activar para ordenar columna ascendente",
+                            "sortDescending": ": activar para ordenar columna descendente"
+                        }
+                    }
+                });
+
+                $('#table2').DataTable({
+                   
+                    "pageLength": 20,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'pdf'
+                    ],
+                    language: {
+                         "decimal":        "",
+                        "emptyTable":     "No hay datos disponibles",
+                        "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty":      "Showing 0 to 0 of 0 entries",
+                        "infoFiltered":   "(filtrados desde _MAX_ registros totales)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ registros",
+                        "loadingRecords": "Loading...",
+                        "processing":     "",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron coincidencias.",
+                        "paginate": {
+                            "first":      "Primera",
+                            "last":       "Última",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activar para ordenar columna ascendente",
+                            "sortDescending": ": activar para ordenar columna descendente"
+                        }
+                    }
+                });
+                
+             
+                     
+            });
+
+   </script>
+        <div id="msg-content"></div>
+    </body>
+</html>

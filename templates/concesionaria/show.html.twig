@@ -1,0 +1,31 @@
+
+   <div class="card-body">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ concesionarium.id }}</td>
+            </tr>
+            <tr>
+                <th>Razon_social</th>
+                <td>{{ concesionarium.razonSocial }}</td>
+            </tr>
+            <tr>
+                <th>Cuit</th>
+                <td>{{ concesionarium.cuit }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ concesionarium.brand }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ concesionarium.logo }}</td>
+            </tr>
+            <tr>
+                <th>Sucursales</th>
+                <td>{{ concesionarium.sucursales ? concesionarium.sucursales|json_encode : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>

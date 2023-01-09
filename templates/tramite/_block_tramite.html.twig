@@ -1,0 +1,30 @@
+{% for comment in comments %}
+    {% if comment.getTypeIcon == 'icon' %}
+    <div class="timeline-block ">
+        <span class="timeline-step text-sm bg-secondary p-3">
+            <i class="material-icons text-white text-sm opacity-10">{{comment.icon}}</i>
+        </span>
+        <div class="timeline-content" >
+                <div>
+                    <a class="text-sm text-secondary">{{comment.title ~ ': ' ~ comment.comment}}<br/>{{comment.createdAt | date('d/m/Y h:i')}}</a>
+                </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="timeline-block mb-3">
+        <span class="timeline-step bg-dark p-3">
+            <img class="avatar" width="40" src="{{comment.icon}}"/>
+        </span>
+        <div class="timeline-content pt-1">
+            <div class="timeline-globe" style="    background: white;">
+                <h6 class="text-dark text-sm font-weight-bold mb-0">{{comment.title}}</h6>
+                
+                <p class="text-sm text-dark mt-3 mb-2">{{comment.comment}}</p>
+            </div>
+            <p class="text-secondary small pull-right mt-1 mb-0">{{comment.createdAt | date('d/m/Y h:i')}}</p>
+        </div>
+
+    </div>
+    {% endif %}
+
+{% endfor %}

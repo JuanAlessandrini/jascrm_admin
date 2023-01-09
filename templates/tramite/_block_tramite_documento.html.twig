@@ -1,0 +1,47 @@
+{% set uploads = (tramite.items | filter (v => v.documento.id == docum.id)) | reverse %}
+<tr id="trDocument{{docum.id}}" class="{{(uploads | length) > 0 ? 'row-success' : 'row-danger' }}">
+    
+    {% set lastFile = (uploads | length) > 0 ? (uploads | first) : null %}
+    <td>{{docum.name}}</td>
+    <td><i class="material-icons {{(uploads | length) > 0 ? 'text-success' : 'text-danger' }}">{{ (uploads | length) > 0 ? 'check' : 'cancel' }}</i></td>
+    <td>
+        {% if is_granted("ROLE_GESTORIA") %}
+            {% set idStatus = ((uploads | length) > 0) ? (uploads | last).status.id : -1 %}
+            {% if idStatus != -1 %}
+                <select class="minimal cmb-status-item" data-tramite="{{tramite.id }}" data-tramite-item="{{(uploads | last).id }}">
+                    <option value></option>
+                    
+                    {% for statusItem in estados_documentos %}
+                        <option {{ idStatus == statusItem.id ? 'selected' : '' }} value="{{statusItem.id}}">{{statusItem.name}}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        {% else %}
+            {{(uploads | length) > 0 ? (uploads | first).status.name : 'N/A' }}
+        {% endif %}
+        
+    </td>
+    <td class="text-center">{% if (lastFile and (lastFile.comments | length) > 0) %}<div onclick="showForm('/portal/tramite/item/comment/show/{{tramite.id}}/{{lastFile.id}}')" class="just-icon btn btn-sm btn-round btn-info">{{((lastFile.comments | length)) }}</div>{% else %}0{% endif %}</td>
+    <td>
+        {% if is_granted_role_list(docum, app.user) %}
+            <label class="material-icons" id="lblUpload{{docum.id}}" for="upload{{docum.id}}">upload</label>
+        {% endif %}
+        <input type="file" class="upload-file" data-tramite="{{tramite.id}}" data-documento="{{docum.id}}" style="opacity:0; width: 2px;" id="upload{{docum.id}}"/>
+        {% if (uploads | length) > 0 %}
+            <a href="{{(uploads | first).getImageUrl}}" target="_blank"><i class="material-icons">search</i></a>
+            {% if (uploads | length) > 1 %}
+                <i onclick="showForm('/portal/tramite/uploads/detail/show/{{tramite.id}}/{{lastFile.id}}')" class="material-icons">history</i>
+            {% endif %}
+            {% if (lastFile) %}
+                <i onclick="showForm('/portal/tramite/uploads/comment/show/{{tramite.id}}/{{lastFile.id}}')" class="material-icons">add_comment</i>
+            {% endif %}
+           
+            {% if ((docum.fechas_manuales | length ) > 0) %}
+                <i onclick="showForm('/portal/tramite/item/fechas-manules/show/{{tramite.id}}/{{lastFile.id}}')" class="material-icons {{(docum.fechas_manuales | length ) > (lastFile.itemFechaManuals | length) ? 'text-danger' : 'text-info' }}">info</i>
+            {% endif %}
+            
+        {% endif %}
+            
+    
+    </td>
+</tr>

@@ -1,0 +1,66 @@
+
+<style>
+  .fechaManual{
+    display: flex;
+    justify-content: space-between;
+    align-content: space-around;
+    align-items: center;
+  }
+</style>
+
+    <div class=" card-body">
+        {% set documento = item.getDocumento %}
+        {% for fecha in documento.getFechaManual %}
+            <div class="fechaManual">
+            {% set fecha_setted = item.getItemFechaManuals | filter (itemFech => itemFech.tipo.id == fecha.id) | first %}
+            Fecha de <b>{{fecha.name}}</b>: <input type="date" class="form-control fecha_manual_input" data-id="{{fecha.id}}" value="{{fecha_setted ? (fecha_setted.value | date('Y-m-d')) : ''}}"/>
+
+            </div>
+        {% endfor %}
+    </div>
+    <div class=" card-footer">
+        <div class="btn btn-success" id="btnSaveFechaManual" onclick="saveFechaManual()">Guardar</div>
+    </div>
+
+    <script>
+        function saveFechaManual(){
+            var ids = [];
+            var values = [];
+            $("#btnSaveFechaManual").addClass("disabled");
+            $(".fecha_manual_input").each(function(){
+                if($(this).val()){
+                    ids.push($(this).attr("data-id"));
+                    values.push($(this).val());
+                }
+                
+            });
+            var data ={id: ids, value: values};
+            console.log(data);
+            if(ids.length > 0){
+                $.ajax({
+                    type: "POST",
+                    url: "/portal/tramite/item/fechas-manules/update/{{tramite.id}}/{{item.id}}",
+                    async:true,
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                        swal({title:'OK', html: data['message'], type:'success'});
+                        $("#btnSaveFechaManual").removeClass("disabled");
+                    }, 
+                    error: function (err) {
+                        console.log(err);
+                        if(err.statusText=="OK"){
+                            swal({title:'OK', html: err.responseText, type:'success'});
+                            $("#btnSaveFechaManual").removeClass("disabled");
+                        }else{
+                            console.log(err);
+                            swal({title:'Error', html: err.responseText, type:'error'});
+                            $("#btnSaveFechaManual").removeClass("disabled");
+                        }
+                        
+                    }
+                });
+            }
+            
+        }
+    </script>

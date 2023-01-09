@@ -1,0 +1,34 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <a class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showForm('{{ path('app_tipo_tramite_new') }}')"><i class="material-icons">add</i></a>
+            <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipo_tramite in tipo_tramites %}
+            <tr>
+                <td>{{ tipo_tramite.id }}</td>
+                <td>{{ tipo_tramite.name }}</td>
+                <td>
+                    {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_tipo_tramite_show', {'id': tipo_tramite.id}) }}')"><i class="material-icons">search</i></a> #}
+                    <a class="btn btn-just-icon" onclick="showForm('{{ path('app_tipo_tramite_edit', {'id': tipo_tramite.id}) }}')"><i class="material-icons">edit</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No se encontraron Tipos de Trámites</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

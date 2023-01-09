@@ -1,0 +1,92 @@
+<form action="{{path('app_user_new', {id: concesionaria.id})}}" method="POST" enctype='multipart/form-data'>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalLongTitle">Nuevo Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div id="modalBody" class="modal-body">
+        <div class="form-group">
+            <label>Concesionaria</label>
+             <select name="concesionaria" id="concesionaria" class="js-choice">
+                <option value="{{concesionaria.id}}">{{concesionaria.getRazonSocial}}</option>
+            </select>
+        </div>
+    {% set sucursales = (concesionaria.sucursales | split (',')) %}
+
+     <div class="form-group">
+            <label>Sucursales</label>
+             <select name="sucursal" id="sucursal" class="js-choice">
+                {% for sucursal in sucursales %}
+                    <option value="{{sucursal}}">{{sucursal}}</option>
+                {% endfor %}
+            </select>
+    </div>
+    <div class="form-group">
+            <label>Rol</label>
+             <select name="role" id="role" class="js-choice">
+                    <option value="COORDINADOR">COORDINADOR</option>
+                    <option value="COORDINADOR">VENDEDOR</option>
+            </select>
+    </div>
+    {{ include('user/_form.html.twig') }}
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-success"><i class="material-icons align-center">save</i> Crear</button>
+    </div>
+</form>
+<script>
+  // Note that the name "myDropzone" is the camelized
+  // id of the form.
+ 
+  
+  var concesionarias = new Choices('#concesionaria',{
+    allowHTML: true,
+    paste: false,
+    duplicateItemsAllowed: false,
+    delimiter: ',',
+    editItems: true,
+    removeItemButton: true,
+    }).disable();
+
+
+  var sucursales = new Choices('#sucursal',{
+    allowHTML: true,
+    paste: false,
+    duplicateItemsAllowed: false,
+    delimiter: ',',
+    editItems: true,
+    removeItemButton: true,
+    });
+
+var roles = new Choices('#role',{
+    allowHTML: true,
+    paste: false,
+    duplicateItemsAllowed: false,
+    delimiter: ',',
+    editItems: true,
+    removeItemButton: true,
+    });
+var textEmailFilter = new Choices('#user_email', {
+          allowHTML: true,
+          editItems: true,
+          maxItemCount: 1,
+          addItemText: (value) => {
+            return `Presiona 'Enter' para agregar <b>"${value}"</b>`;
+        },
+        maxItemText: (maxItemCount) => {
+            return `Solo ${maxItemCount} email puede ser agregado`;
+        },
+          addItemFilter: function(value) {
+            if (!value) {
+              return false;
+            }
+
+            const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            const expression = new RegExp(regex.source, 'i');
+            return expression.test(value);
+          },
+        });
+   
+</script>

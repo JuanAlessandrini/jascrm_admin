@@ -1,0 +1,45 @@
+<div class="form-group">
+    <div>
+        <img width="50" class="avatar" src="{{ asset('/img/faces/avatar-default-icon.png') }}"/>
+        
+        <label>Agregar Comentario</label>
+        <div style="display:flex">
+            <input id="txtComment" type="text" multiline="true" class="form-control"/>
+            <div id="btnSendComment" onclick="sendComment()" class="btn btn-round btn-just-icon btn-info"><i  class="material-icons">send</i></div>
+        </div>
+     </div>
+</div>
+<script>
+    function sendComment(){
+        $("#btnSendComment").addClass("disabled");
+        var comentario = $("#txtComment").val();
+        var data ={comment: comentario};
+        $.ajax({
+             type: "POST",
+             url: "/portal/comment/new/{{tramite.id}}",
+             async:true,
+             dataType: 'json',
+            data: data,
+             success: function (data) {
+                
+                $("#content-timeline").html(data);
+                $("#txtComment").val('');
+                $("#btnSendComment").removeClass("disabled");
+            }, 
+            error: function (err) {
+               if(err.statusText=="OK"){
+                $("#content-timeline").html(err.responseText);
+                $("#txtComment").val('');
+                $("#btnSendComment").removeClass("disabled");
+               }else{
+                console.log(err);
+                swal({title:'Error', html: err.responseText, type:'error'});
+                $("#btnSendComment").removeClass("disabled");
+              }
+                
+          }
+             });
+    }
+
+    
+</script>

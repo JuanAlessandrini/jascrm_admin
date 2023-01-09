@@ -1,0 +1,39 @@
+<form action="{{path('app_tipo_tramite_new')}}" method="POST">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalLongTitle">Tipo de Trámite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div id="modalBody" class="modal-body">
+    {{ include('tipo_tramite/_form.html.twig') }}
+    <table class="table">
+        <thead class="text-warning">
+            <tr>
+                <th>ID</th>
+                <th>Documento</th>
+                <th>Imagen</th>
+                <th>Papel</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for documento in documentos %}
+                <tr>
+                    <td>
+                        <input  type="checkbox" name="iddocumento[]" value="{{documento.id}}" {{documento.checked == 1 ? 'checked=""' : ''}}>
+                       
+                    </td>
+                    <td>{{documento.name}}</td>
+                    <td><i class="material-icons {{documento.request_image == true ? 'text-success' : 'text-danger' }}">{{documento.request_image == true ? 'check' : 'cancel' }}</i></td>
+                    <td><i class="material-icons {{documento.request_paper == true ? 'text-success' : 'text-danger' }}">{{documento.request_paper == true ? 'check' : 'cancel' }}</i></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-success"><i class="material-icons align-center">save</i> Guardar</button>
+    </div>
+</form>
+

@@ -1,0 +1,335 @@
+<style>
+    .timeline-globe{
+        border: 1px solid #d4d0d0;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+</style>
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tramite" data-toggle="tab">
+                                <i class="material-icons">folder</i> Tramite
+                                <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#vehiculo" data-toggle="tab">
+                                <i class="material-icons">front_loader</i> Maquinaria
+                                <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#documentacion" data-toggle="tab">
+                                <i class="material-icons">fact_check</i> Documentación
+                                <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#commentarios" data-toggle="tab">
+                                <i class="material-icons">question_answer</i> Comentarios
+                                <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tramite">
+
+                    {% if tramite.getVehiculo %}
+                        {% set haveVehiculo = true %}
+                    {% else %}
+                        {% set haveVehiculo = false %}
+                    {% endif %}
+
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Fecha Inicio</label>
+                                    <input type="date" class="form-control" name="created_at" value="{{haveVehiculo ? tramite.getCreatedAt | date('Y-m-d') : ''}}"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Fecha Fin</label>
+                                    <input type="date" class="form-control" name="finished_at" value="{{haveVehiculo ? tramite.getFinishedAt | date('Y-m-d') : ''}}"/>
+                                 </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    
+                                    <label>Fecha Inicio: <b>{{haveVehiculo ? tramite.getCreatedAt | date('d/m/Y') : ''}}</b></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Fecha Fin: <b>{{haveVehiculo ? (tramite.getFinishedAt ? tramite.getFinishedAt | date('d/m/Y') : '-') : '-'}}</b></label>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                    {% endif %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form_row(form.tipo) }}
+                            </div>
+
+                            {% if is_granted("ROLE_ADMIN") %}
+                                
+                                {% if tramite.cliente.id is defined %}
+                                        <div class="col-sm-6">
+                                            {{ form_row(form.status) }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    </div>  
+                                {% endif %}
+                                
+                                    {{ form_row(form.concesionaria) }}
+                                    {{ form_row(form.sucursal) }}
+                                
+                                {# <div class="form-group">
+                                    <label>Concesionaria</label>
+                                    <select data-error="Completar Concesionaria" id="choices-concesionaria" name="concesionaria">
+                                        <option value></option>
+                                    </select>
+                                </div> #}
+                                {# <div class="form-group">
+                                    <label>Sucursal</label>
+                                    <select data-error="Completar Sucursal" id="choices-sucursal" name="sucursal">
+                                    </select>
+                                </div> #}
+                                
+                            {% else %}
+                            
+                                
+                                <input type="hidden" name="tramite[concesionaria]" value="{{app.user.concesionaria.id}}"/>
+                                <input type="hidden" name="tramite[sucursal]" value="{{app.user.sucursal}}"/>
+                                <div class="col-sm-6">
+                                    <p><label>Sucursal: <b>{{app.user.sucursal}}</b></label></p>
+                                    <p><label>Estado: <b>{{tramite.status.name}}</b></label></p>
+                                </div>
+                            </div>  
+                            {% endif %}
+                   
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <div style="display: flex;">
+                            <div class="col-md-10">
+                                <select data-error="Completar Cliente" id="choices-single-remote-fetch" name="cliente">
+                                </select>
+                            </div>
+                            {% if haveVehiculo %}<div onclick="showForm('{{path('app_cliente_show',{id:tramite.cliente.id})}}')" class="btn btn-just-icon btn-round"><i class="material-icons">search</i></div>{% endif %}
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="tab-pane" id="vehiculo">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Dominio</label>
+                                <input data-error="Completar Dominio" type="text" required="required" class="form-control text-uppercase" name="dominio" value="{{haveVehiculo ? tramite.vehiculo.dominio : ''}}"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Modelo</label>
+                                <input type="text" data-error="Completar Modelo" class="form-control text-capitalize" required="required" name="modelo" value="{{haveVehiculo ? tramite.vehiculo.modelo : ''}}"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Año</label>
+                                <input type="number" data-error="Completar Año" min="1950" max="2022" required="required" class="form-control" name="anio" value="{{haveVehiculo ? tramite.vehiculo.anio : ''}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select class="form-control" data-error="Completar Tipo de Vehiculo" name="tipo_vehiculo" required="required" id="choices-tipo-vehiculo">
+                                    {{haveVehiculo ? "<option value='" ~ tramite.vehiculo.tipo.id ~ "'>"~ tramite.vehiculo.tipo.name ~ "</option>" : '<option value></option>'}}
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <input type="text" id="choices-marca"  data-error="Completar y seleccionar Marca" required="required" name="marca" value="{{haveVehiculo ? tramite.vehiculo.marca.name : ''}}"/>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <select class="form-control" name="estado_vehiculo"  data-error="Completar Estado" required="required" id="choices-estado-vehiculo" >
+                                {{haveVehiculo ? "<option value='" ~ tramite.vehiculo.estado.id ~ "'>"~ tramite.vehiculo.estado.name ~ "</option>" : ''}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Observaciones</label>
+                                <input type="text" class="form-control" name="observaciones" id="txt-observaciones" value="{{haveVehiculo ? tramite.vehiculo.observaciones : ''}}"/>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="tab-pane " id="documentacion">
+                    {{ include('tramite/_block_tramite_documentos.html.twig') }}
+                    {% if tramite.isAutorizado %}
+                        <div class="alert alert-warning"><i class="material-icons text-white alert-icon">warning</i>Entrega Autorizada</div>
+                    {% endif %}
+                </div>
+                <div class="tab-pane " id="commentarios">
+                    <div id="content-timeline" style="background: #e0dede;" class="timeline timeline-one-side" data-timeline-axis-style="dotted">
+                        {% set comments = tramite.comments %}
+                        {{ include('/tramite/_block_tramite.html.twig')  }}
+                    </div>
+                    {{include('tramite/_block_tramite_add_comment.html.twig')}}
+                </div>
+                
+            </div>
+           
+        </div>
+         
+    </div>
+    <div class="card-footer">
+        {% if is_granted("ROLE_ADMIN") or (not tramite.cliente.id is defined) %}
+            <input type="submit" name="submit" id="btnSubmit" class="btn btn-success" value="Guardar"/>
+        {% else %}
+            {% if not tramite.isAutorizado %}
+                <div id="btnAuth" onclick="showForm('/portal/tramite/autorizacion/comment/show/{{tramite.id}}/')"" class="btn btn-danger"><i class="material-icons text-white alert-icon">warning</i>Autorizar Entrega</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<script>
+  // Note that the name "myDropzone" is the camelized
+  // id of the form.
+
+  var concesionarias = [
+        {% for concesionaria in concesionarias %}
+        {% set sucursales = concesionaria.sucursales | split(',') %}
+            {value: '{{concesionaria.id}}', label: '{{concesionaria.getRazonSocial}}' , sucursales:  [{% for sucursal in sucursales %}{value:'{{sucursal}}', label: '{{sucursal}}'},{% endfor %}]},
+        {% endfor %}
+        ];
+
+  var sucursales = [];
+console.log(concesionarias);
+
+var tipo_tramites = new Choices('#tramite_tipo', {
+          allowHTML: false,
+          searchEnabled: true,
+          searchChoices: true,
+          {% if not tramite.tipo is defined %}
+            placeholder: true,
+            placeholderValue: {{tramite.tipo}}
+          {% endif %}
+        }){% if not tramite.cliente.id is defined %}.removeActiveItems(){% endif %};
+
+var clientes = new Choices('#choices-single-remote-fetch', {
+          allowHTML: false,
+          searchEnabled: true,
+          searchChoices: true,
+          searchPlaceholderValue: 'Buscar Cliente',
+          choices: [
+            {% for cliente in clientes %}
+                {value: '{{cliente.id}}', label: '{{cliente.name}}'},
+            {% endfor %}
+          ]
+        }){% if not tramite.cliente.id is defined %}.removeActiveItems(){% endif %};
+
+var tipoVehiculo = new Choices('#choices-tipo-vehiculo', {
+          allowHTML: false,
+          searchEnabled: true,
+          searchChoices: true,
+          searchPlaceholderValue: 'Selecciona Tipo',
+          choices: [
+            {% for tipo in tipos_vehiculo %}
+                {value: '{{tipo.id}}', label: '{{tipo.name}}'},
+            {% endfor %}
+          ]
+        });
+var estadoVehiculo = new Choices('#choices-estado-vehiculo', {
+          allowHTML: false,
+          searchEnabled: true,
+          searchChoices: true,
+          searchPlaceholderValue: 'Selecciona Estado',
+          choices: [
+            {% for tipo in estados_vehiculo %}
+                {value: '{{tipo.id}}', label: '{{tipo.name}}'},
+            {% endfor %}
+          ]
+        });
+var marca = new Choices('#choices-marca', {
+          allowHTML: false,
+          renderChoiceLimit: 1,
+          maxItemCount:1,
+          maxItemText: (maxItemCount) => {
+            return `Solo se puede seleccionar ${maxItemCount} marca`;
+            },
+         
+          addItems: true,
+          addItemText: 'Presiona Enter para agregar',
+          searchEnabled: true,
+          choices: [
+            {% for marca in marcas %}
+                {value: '{{marca.id}}', label: '{{marca.name}}'},
+            {% endfor %}
+          ]
+        });
+
+{% if is_granted("ROLE_ADMIN") %}
+    {% if tramite.cliente.id is defined %}
+            var status = new Choices('#tramite_status', {
+            allowHTML: false,
+            searchEnabled: true,
+            searchChoices: true,
+        });
+    {% endif %}
+    var concesionaria = new Choices('#tramite_concesionaria', {
+        allowHTML: false,
+        searchEnabled: true,
+        searchChoices: true,
+        placeholder: true,
+        placeholderValue: 'Seleccionar',
+        searchPlaceholderValue: 'Buscar Concesionaria',
+        //choices: concesionarias
+    }){% if not tramite.cliente.id is defined %}.removeActiveItems(){% endif %};
+
+    var sucursal = new Choices('#tramite_sucursal', {
+        allowHTML: false,
+        searchEnabled: true,
+        searchChoices: true,
+    });
+{% endif %}
+$("#tramite_concesionaria").on('change', function(){
+    concesionaria = $("#tramite_concesionaria").val();
+    sucursales = concesionarias.filter((element)=>element.value == concesionaria)[0]['sucursales'];
+    console.log(sucursales);
+     sucursal.setChoices( sucursales,'value','label',true);
+    
+});
+</script>

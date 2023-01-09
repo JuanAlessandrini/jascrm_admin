@@ -1,0 +1,17 @@
+
+        <div >
+            <label>Logo</label>
+           
+                {% if concesionarium.id %}
+                    <input  style="opacity:0" type="file" onchange="readURL(this)" name="fileimg" id="fileimg">
+                    <label for="fileimg"><img id="imgLogo" src="{{concesionarium.getLogo is not null ? concesionarium.getLogo :  asset('img/no-logo.png') }}" width="200"></label>
+                {% else %}
+                    <input style="opacity:0" type="file" onchange="readURL(this)" required="required" name="fileimg" id="fileimg">
+                    <label for="fileimg"><img id="imgLogo" src="{{asset('img/no-logo.png')}}" width="200"></label>
+                {% endif %}
+           
+        </div>
+        {{ form_widget(form) }}
+       
+
+

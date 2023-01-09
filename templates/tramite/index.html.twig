@@ -1,0 +1,49 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block content %}
+   
+<a class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showFormLg('{{ path('app_tramite_new') }}')"><i class="material-icons">add</i></a>
+<div class="card card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dominio</th>
+                <th>Tramite</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tramite in tramites %}
+            <tr>
+                <td>{{ tramite.id }}</td>
+                <td>{{ tramite.vehiculo.dominio }}</td>
+                <td>{{ tramite.tipo.name }}</td>
+                <td>{{ tramite.cliente.name }}</td>
+                <td><select data-tramite="{{tramite.id}}" class="minimal cmb-status">
+                    {% if is_granted("ROLE_ADMIN") %}
+                        {% for status in statusList %}
+                            <option {{tramite.status.id == status.id ? 'selected' : ''}} value="{{ status.id }}">{{ status.name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option>{{tramite.status.name}}</option>
+                    {% endif %}
+                </select></td>
+                <td>
+                    {# <a class="material-icons" onclick="showFormLg('{{ path('app_tramite_show', {'id': tramite.id}) }}')">search</a> #}
+                    <a  class="material-icons" onclick="showFormLg('{{ path('app_tramite_edit', {'id': tramite.id}) }}')">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">No se encontraron trámites</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <a class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showForm({{ path('app_cliente_new') }})"><i class="material-icons">add</i></a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Provincia</th>
+                        <th>Ciudad</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.name }}</td>
+                        <td>{{ cliente.province.name }}</td>
+                        <td>{{ cliente.city }}</td>
+    
+                        <td>
+                            {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_cliente_show', {'id': cliente.id}) }}')"><i class="material-icons">search</i></a> #}
+                            <a class="btn btn-just-icon" onclick="showForm('{{ path('app_cliente_edit', {'id': cliente.id}) }}')"><i class="material-icons">edit</i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">No se encontraron Clientes</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+   
+{% endblock %}

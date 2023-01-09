@@ -1,0 +1,116 @@
+<div class="sidebar" data-color="azure" data-background-color="black" data-image="{{asset('/img/background-case.jpeg')}}">
+      {% if app.user %}
+        {% set perfil = ((app.user.getRoles  | first) == "ROLE_ADMIN" ? "ADMIN" : "CONCESIONARIO") %}
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+          <a href="/" class="simple-text logo-mini">
+            <img src="{{asset('img/favicon.png')}}" width="50"/>
+          </a>
+          <a href="/" class="simple-text logo-normal">
+            LEONARDO DASCOLA
+          </a>
+        </div>
+        <div class="sidebar-wrapper">
+          <div class="user">
+            <div class="photo">
+              <img src="{{asset('/img/faces/avatar-default-icon.png')}}" />
+            </div>
+            <div class="user-info">
+              <a data-toggle="collapse" href="#collapseExample" class="username">
+                <span>
+                  {{app.user.getFirstName ~' '~app.user.getLastName}}
+                  <br/><b><small>{{perfil}} </small></b>
+                </span>
+              </a>
+              <div class="collapse" id="collapseExample">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link" 
+                    {# href="{{path('app_user_profile', {id: app.user.id})}}" #}
+                    >
+                      <span class="sidebar-mini"> PE </span>
+                      <span class="sidebar-normal"> Perfil </span>
+                    </a>
+                  </li>
+                
+                </ul>
+              </div>
+            </div>
+          </div>
+          <ul class="nav">
+              <li class="nav-item {{ controller_name == 'Dashboard' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_dashboard')}}">
+                    <i class="material-icons">dashboard</i>
+                    <p> Dashboard </p>
+                  </a>
+              </li>
+              {% if is_granted("ROLE_ADMIN") %}
+              <li class="nav-item {{ controller_name == 'Tramites' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_tramite_index')}}">
+                    <i class="material-icons">folder</i>
+                    <p> Trámites </p>
+                  </a>
+              </li>
+              <br/>
+                <li class="nav-item {{ controller_name == 'Concesionarias' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_concesionaria_index')}}">
+                    <i class="material-icons">business</i>
+                    <p> Concesionarias </p>
+                  </a>
+              </li>
+              <li class="nav-item {{ controller_name == 'Clientes' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_cliente_index')}}">
+                    <i class="material-icons">people</i>
+                    <p> Clientes </p>
+                  </a>
+              </li>
+               <li class="nav-item {{ controller_name == 'Tipos de Trámite' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_tipo_tramite_index')}}">
+                    <i class="material-icons">drive_file_move_rtl</i>
+                    <p> Tipos de Trámite </p>
+                  </a>
+              </li>
+              <li class="nav-item {{ controller_name == 'Documentos' ? 'active' : '' }} ">
+                  <a class="nav-link" href="{{path('app_documento_index')}}">
+                    <i class="material-icons">post_add</i>
+                    <p> Documentos </p>
+                  </a>
+              </li>
+              {% else %}
+                <li class="nav-item {{ controller_name == 'Tramites' ? 'active' : '' }} ">
+                    <a class="nav-link" href="{{path('app_tramite_index')}}">
+                      <i class="material-icons">folder</i>
+                      <p> Trámites </p>
+                    </a>
+                </li>
+                <li class="nav-item {{ controller_name == 'Clientes' ? 'active' : '' }} ">
+                    <a class="nav-link" href="{{path('app_cliente_index')}}">
+                      <i class="material-icons">people</i>
+                      <p> Clientes </p>
+                    </a>
+                </li>
+              {% endif %}
+            
+          
+          </ul>
+          
+          <ul class="nav">
+
+              <li class="nav-item  ">
+              <a class="nav-link" href="{{path('app_logout')}}">
+                <i class="material-icons">logout</i>
+                <p> Salir </p>
+              </a>
+            </li>
+            
+          
+          </ul>
+        
+
+        </div>
+      {% endif %}
+    </div>
