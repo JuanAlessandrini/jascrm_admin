@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard/dashboard_base.html.twig' %}
 
 {% block title %}Edit Entity{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>Edit Entity</h1>
 
     {{ include('entity/_form.html.twig', {'button_label': 'Update'}) }}

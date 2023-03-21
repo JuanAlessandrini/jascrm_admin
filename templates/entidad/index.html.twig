@@ -1,0 +1,41 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Entidad index{% endblock %}
+
+{% block content %}
+    <h1>Entidad index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Has_impuestos</th>
+                <th>Has_perception</th>
+                <th>Has_retencion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entidad in entidads %}
+            <tr>
+                <td>{{ entidad.id }}</td>
+                <td>{{ entidad.name }}</td>
+                <td>{{ entidad.hasImpuestos ? 'Yes' : 'No' }}</td>
+                <td>{{ entidad.hasPerception ? 'Yes' : 'No' }}</td>
+                <td>{{ entidad.hasRetencion ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_entidad_show', {'id': entidad.id}) }}">show</a>
+                    <a href="{{ path('app_entidad_edit', {'id': entidad.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entidad_new') }}">Create new</a>
+{% endblock %}

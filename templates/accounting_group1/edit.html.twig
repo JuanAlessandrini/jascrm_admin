@@ -1,0 +1,13 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Edit AccountingGroup1{% endblock %}
+
+{% block content %}
+    <h1>Edit AccountingGroup1</h1>
+
+    {{ include('accounting_group1/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_accounting_group1_index') }}">back to list</a>
+
+    {{ include('accounting_group1/_delete_form.html.twig') }}
+{% endblock %}

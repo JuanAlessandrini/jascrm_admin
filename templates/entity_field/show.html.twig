@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EntityField{% endblock %}
+
+{% block body %}
+    <h1>EntityField</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity_field.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity_field.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity_field.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entity_field_index') }}">back to list</a>
+
+    <a href="{{ path('app_entity_field_edit', {'id': entity_field.id}) }}">edit</a>
+
+    {{ include('entity_field/_delete_form.html.twig') }}
+{% endblock %}

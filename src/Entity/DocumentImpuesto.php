@@ -18,7 +18,7 @@ class DocumentImpuesto
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Impuesto::class)
+     * @ORM\ManyToOne(targetEntity=SubCuenta::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
@@ -39,12 +39,12 @@ class DocumentImpuesto
         return $this->id;
     }
 
-    public function getType(): ?Impuesto
+    public function getType(): ?SubCuenta
     {
         return $this->type;
     }
 
-    public function setType(?Impuesto $type): self
+    public function setType(?SubCuenta $type): self
     {
         $this->type = $type;
 

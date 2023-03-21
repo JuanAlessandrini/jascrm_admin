@@ -1,13 +1,121 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Edit Document{% endblock %}
-
-{% block body %}
-    <h1>Edit Document</h1>
-
-    {{ include('document/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_document_index') }}">back to list</a>
-
-    {{ include('document/_delete_form.html.twig') }}
-{% endblock %}
+<style>
+    ul.table{
+        height: 250px;
+        overflow: scroll;
+        border: 1px solid #d8d7d7;
+        border-radius: 5px;
+    }
+     ul.tableImp{
+        height: 150px;
+        overflow: scroll;
+        border: 1px solid #d8d7d7;
+        border-radius: 5px;
+    }
+    ul.table>li{
+        list-style:none;
+    }
+     ul.tableImp>li{
+        list-style:none;
+    }
+    ul.table>li>div{
+       display: flex;
+       /* border-bottom: 1px solid #eae6e6;*/
+            justify-content: space-between;
+    }
+    ul.tableImp>li>div{
+       display: flex;
+       /* border-bottom: 1px solid #eae6e6;*/
+            justify-content: space-between;
+    }
+    ul.table>li>div>div:first-child{
+        width: 100%;
+    }
+    ul.tableImp>li>div>div:first-child{
+        width: 100%;
+    }
+      
+</style>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><strong>{{document.customer.name}}</strong> | {{document.tipo.name}} {{ document.emisor }}-{{ document.numero }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Fecha: {{ (document.getCreatedAt | date('d/m/Y')) }}</label>
+                
+            </div>
+            <div class="col-sm-3">
+               <label>Código: {{ document.codigo }}</label>
+                
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex">
+                    <label>Emisor: {{ document.emisor }}</label>
+                    <label>Número: {{ document.numero }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <label>Cliente: {{ document.vendor.name }}</label>
+                
+            </div>
+            <div class="col-sm-2">
+                
+                <label>Campaña: {{ document.campania }}</label>
+            </div>
+             <div class="col-sm-3">
+                <label>Sucursal: {{ document.sucursal }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="d-flex">
+                    <label>Detalle</label>
+                    
+                </div>
+                <ul 
+                    class="tableImp detail" 
+                    >
+                
+                        {% for detalle in document.detail %}
+                            <li>
+                                    {{ detalle.concepto.name ~ ' ' ~ detalle.ammount }}
+                                </li>
+                        {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+         <div class="row">
+            <div class="col-sm-8">
+                <div class="d-flex">
+                    <label>Impuestos</label>
+                    
+                </div>
+                <ul 
+                    class="tableImp impuestos" 
+                   >
+                
+                        {% for impuesto in document.impuestos %}
+                            <li>
+                                    {{ impuesto.type.name ~ ' ' ~ impuesto.value }}
+                                </li>
+                        {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-4 " style="align-self: end;">
+                <label>Total: {{ document.total }}</label>
+               
+            </div>
+            
+        </div>
+            
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        
+    </div>

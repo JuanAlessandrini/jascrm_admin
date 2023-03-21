@@ -47,6 +47,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $last_name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class)
+     */
+    private $default_cliente;
+
    
     
 
@@ -185,6 +190,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getDefaultCliente(): ?Customer
+    {
+        return $this->default_cliente;
+    }
+
+    public function setDefaultCliente(?Customer $default_cliente): self
+    {
+        $this->default_cliente = $default_cliente;
 
         return $this;
     }

@@ -1,11 +1,38 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}New Document{% endblock %}
+{{ include('document/_form.html.twig') }}
 
-{% block body %}
-    <h1>Create new Document</h1>
+<script>
+    var element1 = document.querySelector('#document_vendor');
+    var choices = new Choices(element1);
+     {% if view_field ('sucursal', document) %}
+        var element2 = document.querySelector('#document_sucursal');
+        var choices = new Choices(element2, {
+            choices:[
+            {% for sucursal in (document.customer.sucursales | split (',')) %}
+                {
+                    value: '{{sucursal}}',
+                    label: '{{sucursal}}',
+                    selected: true,
+                    disabled: false,
+                },
+            {% endfor %}
+            ]
+        });
+    {% endif %}
 
-    {{ include('document/_form.html.twig') }}
+    var element3 = document.querySelector('#document_codigo');
+    var choices = new Choices(element3, {
+         choices:[
+        {% for codigo in (document.tipo.code | split (',')) %}
+            {
+                value: '{{codigo}}',
+                label: '{{codigo}}',
+                selected: true,
+                disabled: false,
+            },
+        {% endfor %}
+        ]
+    });
+    
+</script>
 
-    <a href="{{ path('app_document_index') }}">back to list</a>
-{% endblock %}

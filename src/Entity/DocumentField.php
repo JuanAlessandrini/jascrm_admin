@@ -18,38 +18,17 @@ class DocumentField
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=EntityField::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $type;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $value;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="fields")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $document;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?EntityField
-    {
-        return $this->type;
-    }
-
-    public function setType(?EntityField $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+   
 
     public function getValue(): ?string
     {

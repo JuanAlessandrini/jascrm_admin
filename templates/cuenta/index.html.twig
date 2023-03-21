@@ -1,0 +1,35 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Cuenta index{% endblock %}
+
+{% block content %}
+    <h1>Cuenta index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cuentum in cuentas %}
+            <tr>
+                <td>{{ cuentum.id }}</td>
+                <td>{{ cuentum.name }}</td>
+                <td>
+                    <a href="{{ path('app_cuenta_show', {'id': cuentum.id}) }}">show</a>
+                    <a href="{{ path('app_cuenta_edit', {'id': cuentum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cuenta_new') }}">Create new</a>
+{% endblock %}

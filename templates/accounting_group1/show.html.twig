@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AccountingGroup1{% endblock %}
+
+{% block body %}
+    <h1>AccountingGroup1</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ accounting_group1.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ accounting_group1.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ accounting_group1.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_accounting_group1_index') }}">back to list</a>
+
+    <a href="{{ path('app_accounting_group1_edit', {'id': accounting_group1.id}) }}">edit</a>
+
+    {{ include('accounting_group1/_delete_form.html.twig') }}
+{% endblock %}

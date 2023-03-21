@@ -1,0 +1,11 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}New AccountingGroup1{% endblock %}
+
+{% block content %}
+    <h1>Create new AccountingGroup1</h1>
+
+    {{ include('accounting_group1/_form.html.twig') }}
+
+    <a href="{{ path('app_accounting_group1_index') }}">back to list</a>
+{% endblock %}

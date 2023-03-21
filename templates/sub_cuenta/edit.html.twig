@@ -1,0 +1,13 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Edit SubCuenta{% endblock %}
+
+{% block content %}
+    <h1>Edit SubCuenta</h1>
+
+    {{ include('sub_cuenta/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_sub_cuenta_index') }}">back to list</a>
+
+    {{ include('sub_cuenta/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,8 +1,8 @@
 <!-- Menu -->
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="overflow-x: scroll;">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="{{path('app_dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -76,17 +76,17 @@
             <li class="menu-item">
               <div class="menu-link">
                 <select id="clienteSelect" class="select2 form-select-lg">
-                  <option disabled>Seleccionar Cliente</option>
-                  <option value="1">Cliente 1</option>
-                  <option value="2">Cliente 2</option>
-                  <option value="3">Cliente 3</option>
+                  <option value>Seleccionar Cliente</option>
+                  {% for cliente in clientes %}
+                    <option {{ app.user.getDefaultCliente is not same as null ? (app.user.getDefaultCliente == cliente ? 'selected' : '') : ''}} value="{{cliente.id}}"  >{{cliente.name}}</option>
+                  {% endfor %}
                 </select>
               </a>
             </li>
 
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+              <a href="{{path('app_dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -96,14 +96,15 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Documentos</span>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Account Settings">Documento</div>
-              </a>
-              
-            </li>
-            
+            {% for documento in documentos %}
+              <li class="menu-item">
+                <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-collection"></i>
+                  <div data-i18n="Account Settings">{{documento.name}}</div>
+                </a>
+                
+              </li>
+            {% endfor %}
  
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Altas</span></li>
@@ -114,6 +115,7 @@
                 <div data-i18n="Basic">Clientes / Proveedores</div>
               </a>
             </li>
+
 
           <!-- Reports -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Reportes</span></li>
@@ -134,18 +136,65 @@
                 <div data-i18n="Basic">Mis Clientes</div>
               </a>
             </li>
-
-
-            <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Admin</span></li>
-            <!-- Cards -->
-            <li class="menu-item">
-              <a href="{{path('app_customer_index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Basic">Adm Entidad</div>
-              </a>
-            </li>
+            {% if is_granted("ROLE_ADMIN") %}
+              <li class="menu-header small text-uppercase"><span class="menu-header-text">Contabilidad</span></li>
+                <li class="menu-item">
+                  <a href="{{path('app_accounting_group1_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Grupo1</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{path('app_accounting_group2_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Grupo2</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{path('app_cuenta_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Cuentas</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{path('app_sub_cuenta_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Sub Cuentas</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{path('app_cuenta_auxiliar_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Auxiliares</div>
+                  </a>
+                </li>
             
+
+              <!-- Components -->
+              <li class="menu-header small text-uppercase"><span class="menu-header-text">Admin</span></li>
+              <!-- Cards -->
+              
+              <li class="menu-item">
+                <a href="{{path('app_entidad_field_index')}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
+                  <div data-i18n="Basic">Campos</div>
+                </a>
+              </li>
+              <!-- Cards -->
+              <li class="menu-item">
+                <a href="{{path('app_entidad_type_doc_index')}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
+                  <div data-i18n="Basic">Tipo Entidad</div>
+                </a>
+              </li>
+              <!-- Cards -->
+              <li class="menu-item">
+                <a href="{{path('app_entidad_index')}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
+                  <div data-i18n="Basic">Adm Entidad</div>
+                </a>
+              </li>
+            {% endif %}
           </ul>
         </aside>
         <!-- / Menu -->

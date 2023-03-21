@@ -1,4 +1,165 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<style>
+    ul.table{
+        height: 250px;
+        overflow: scroll;
+        border: 1px solid #d8d7d7;
+        border-radius: 5px;
+    }
+     ul.tableImp{
+        height: 150px;
+        overflow: scroll;
+        border: 1px solid #d8d7d7;
+        border-radius: 5px;
+    }
+    ul.table>li{
+        list-style:none;
+    }
+     ul.tableImp>li{
+        list-style:none;
+    }
+    ul.table>li>div{
+       display: flex;
+       /* border-bottom: 1px solid #eae6e6;*/
+            justify-content: space-between;
+    }
+    ul.tableImp>li>div{
+       display: flex;
+       /* border-bottom: 1px solid #eae6e6;*/
+            justify-content: space-between;
+    }
+    ul.table>li>div>div:first-child{
+        width: 100%;
+    }
+    ul.tableImp>li>div>div:first-child{
+        width: 100%;
+    }
+      
+</style>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{customer.id ? 'Editar Cliente' : 'Nuevo Cliente' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="nav-align-top mb-4">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Datos</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-bank" aria-controls="navs-top-profile" aria-selected="false" tabindex="-1">Bancos</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.cuit) }}
+                    {{ form_row(form.address) }}
+                    {{ form_row(form.city) }}
+                    {{ form_row(form.sucursales) }}
+                    
+                </div>
+                <div class="tab-pane fade" id="navs-top-bank" role="tabpanel">
+                    <div class="col-sm-12">
+                        <div class="d-flex">
+                            <label>Cuentas Asignadas</label>
+                            <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item" data-collection-holder-class="bankAccounts"><span class="tf-icons bx bx-plus"></span></button>
+                        </div>
+                        <ul 
+                            class="table bankAccounts" 
+                            data-index="{{ form.bankAccounts|length > 0 ? form.bankAccounts|last.vars.name + 1 : 0 }}"
+                            data-prototype="{{ form_widget(form.bankAccounts.vars.prototype)|e('html_attr') }}">
+                        
+                                {% for cuenta in form.bankAccounts %}
+                                    
+                                    <li>
+                                        <div>
+                                        {{form_row(cuenta.banco)}}
+                                        {{form_row(cuenta.cbu)}}
+                                        {{form_row(cuenta.sucursal)}}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                        </ul>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+            
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+{{ form_end(form, {'render_rest': false}) }}
+
+<script>
+    $( document ).ready(function() {
+        var opciones = new Choices('#customer_sucursales',{
+            allowHTML: true,
+            delimiter: ',',
+            editItems: false,
+            removeItemButton: true,      
+            searchFields: ['label'],  
+            searchChoices: true,
+           
+        });
+
+       
+
+    });
+
+var addFormToCollection = (e) => {
+  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  var item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+  var element3 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+    var choices = new Choices(element3, {
+       
+    });
+};
+
+var addFormImpToCollection = (e) => {
+  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  var item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+  // var element4 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+  // var choices = new Choices(element4, {   
+    // });
+};
+
+    document
+  .querySelectorAll('.add_item')
+  .forEach(btn => {
+      btn.addEventListener("click", addFormToCollection)
+  });
+
+  
+</script>

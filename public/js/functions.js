@@ -1,10 +1,15 @@
 
 
 function showForm(name){
-    getHtmlContent(name, function(res){
-        $("#modalContent").html(res);
-        $("#modalLong").modal();
-    });
+  console.log('dispara ajax');
+  getHtmlContent(name, function(res){
+      $("#modalContent").html(res);
+      // $("#modalLg").modal();
+      options = {};
+      var myModal = new bootstrap.Modal(document.getElementById('modalLg'), options)
+      // var modal = new bootstrap.Modal(document.getElementById('modalLg'));
+      myModal.show();
+  });
     
 }
 
@@ -17,7 +22,7 @@ function getHtmlContent(name, callback){
         },
         error: function(err){
           console.log(err);
-          new Swal('Error',  err.responseText, 'error');
+          new Swal('Error',  err.statusText, 'error');
         }
       });
 }
@@ -182,6 +187,27 @@ function readURL(input) {
   }
   
 }
+$(document).on("change", "#clienteSelect", function(){
+  var valor = $(this).val();
+  var data = {'value': valor};
+$.ajax({
+    type: "POST",
+    url: "/portal/customer/change-client",
+    async:true,
+    data: data,
+    
+    success: function (data) {
+    //  console.log(data);
+     
+       swal({title:'OK', html: 'Cliente seleccionado', type:'success'});
+   }, 
+   error: function (err) {
+      
+        swal({title:'Error', html: err.responseText, type:'error'});
+      
+  }
+    });
+});
 
 $(document).on("change", ".upload-file", function(event){
   var formData = new FormData();

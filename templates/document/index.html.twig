@@ -1,45 +1,45 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard/dashboard_base.html.twig' %}
 
-{% block title %}Document index{% endblock %}
+{% block content %}
 
-{% block body %}
-    <h1>Document index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Created_at</th>
-                <th>Modified_at</th>
-                <th>Campania</th>
-                <th>Codigo</th>
-                <th>Numero</th>
-                <th>Total</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for document in documents %}
-            <tr>
-                <td>{{ document.id }}</td>
-                <td>{{ document.createdAt ? document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ document.modifiedAt ? document.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ document.campania }}</td>
-                <td>{{ document.codigo }}</td>
-                <td>{{ document.numero }}</td>
-                <td>{{ document.total }}</td>
-                <td>
-                    <a href="{{ path('app_document_show', {'id': document.id}) }}">show</a>
-                    <a href="{{ path('app_document_edit', {'id': document.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_document_new') }}">Create new</a>
+    <div class="card">
+        <label class="h4 text-center">{{entidadTypeDoc.name}}</label>
+        <div class="card-body">
+            <button class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showFormLg('{{ path('app_document_new', {typeEnt: entidadTypeDoc.id}) }}')"><a>Nuevo</a></button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Sucursal</th>
+                        <th>Número</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        
+                        <th  class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for documento in documents %}
+                    <tr>
+                        <td>{{ documento.getCreatedAt | date('d/m/Y') }}</td>
+                        <td>{{ documento.sucursal }}</td>
+                        <td>{{ documento.numero }}</td>
+                        <td>{{ documento.vendor.name }}</td>
+                        
+                        <td>{{ documento.total }}</td>
+                        <td  class="text-right">
+                        {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_documento_show', {'id': documento.id}) }}')"><i class="material-icons">search</i></a> #}
+                                    <a class="btn btn-just-icon " onclick="showFormLg('{{ path('app_document_edit', {'id': documento.id}) }}')"><i class="bx bx-pencil me-1"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">No se encontraron Documentos</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Edit CuentaAuxiliar{% endblock %}
+
+{% block content %}
+    <h1>Edit CuentaAuxiliar</h1>
+
+    {{ include('cuenta_auxiliar/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_cuenta_auxiliar_index') }}">back to list</a>
+
+    {{ include('cuenta_auxiliar/_delete_form.html.twig') }}
+{% endblock %}

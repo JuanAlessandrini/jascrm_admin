@@ -1,7 +1,7 @@
 <?php
 namespace App\Extensions\Twig;
 
-use App\Entity\Documento;
+use App\Entity\Document;
 use App\Entity\User;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -12,6 +12,8 @@ class MyExtension extends AbstractExtension
     {
         return [
             new TwigFunction('is_granted_role_list', [$this, 'is_granted_role_list']),
+            new TwigFunction('view_field', [$this, 'view_field']),
+            
         ];
     }
 
@@ -48,6 +50,20 @@ class MyExtension extends AbstractExtension
         foreach ($subrol->getPermisos() as $permiso) {
             $modulos.= " ".$permiso->getModulo()->getName();
             if (strtoupper($permiso->getModulo()->getName())  == strtoupper($module)){
+                return true;
+            }
+        }
+        // throw new \Exception('Chequeando permiso en modulo '.$modulos, 1);
+        return false;
+    }
+
+    public function view_field(string $field,Document $document)
+    {
+        
+        
+        foreach ($document->getTipo()->getFields() as $campo) {
+            
+            if ($campo->getName() == $field){
                 return true;
             }
         }

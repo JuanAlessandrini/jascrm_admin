@@ -1,0 +1,37 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}AccountingGroup1 index{% endblock %}
+
+{% block content %}
+    <h1>AccountingGroup1 index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for accounting_group1 in accounting_group1s %}
+            <tr>
+                <td>{{ accounting_group1.id }}</td>
+                <td>{{ accounting_group1.name }}</td>
+                <td>{{ accounting_group1.type }}</td>
+                <td>
+                    <a href="{{ path('app_accounting_group1_show', {'id': accounting_group1.id}) }}">show</a>
+                    <a href="{{ path('app_accounting_group1_edit', {'id': accounting_group1.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_accounting_group1_new') }}">Create new</a>
+{% endblock %}

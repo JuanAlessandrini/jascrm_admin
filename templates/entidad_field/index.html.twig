@@ -1,0 +1,37 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}EntidadField index{% endblock %}
+
+{% block content %}
+    <h1>EntidadField index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entidad_field in entidad_fields %}
+            <tr>
+                <td>{{ entidad_field.id }}</td>
+                <td>{{ entidad_field.name }}</td>
+                <td>{{ entidad_field.type }}</td>
+                <td>
+                    <a href="{{ path('app_entidad_field_show', {'id': entidad_field.id}) }}">show</a>
+                    <a href="{{ path('app_entidad_field_edit', {'id': entidad_field.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entidad_field_new') }}">Create new</a>
+{% endblock %}

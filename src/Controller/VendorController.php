@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Vendor;
 use App\Form\VendorType;
+use App\Controller\BaseController;
 use App\Repository\VendorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,9 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/vendor")
+ * @Route("/portal/proveedores")
  */
-class VendorController extends AbstractController
+class VendorController extends BaseController
 {
     /**
      * @Route("/", name="app_vendor_index", methods={"GET"})
@@ -22,6 +23,8 @@ class VendorController extends AbstractController
     {
         return $this->render('vendor/index.html.twig', [
             'vendors' => $vendorRepository->findAll(),
+            'documentos'=>$this->documents,
+            'clientes'=>$this->clientes,
         ]);
     }
 
@@ -31,7 +34,7 @@ class VendorController extends AbstractController
     public function new(Request $request, VendorRepository $vendorRepository): Response
     {
         $vendor = new Vendor();
-        $form = $this->createForm(VendorType::class, $vendor);
+        $form = $this->createForm(VendorType::class, $vendor,['action'=>$this->generateUrl('app_vendor_new'),'method'=>'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,6 +46,7 @@ class VendorController extends AbstractController
         return $this->renderForm('vendor/new.html.twig', [
             'vendor' => $vendor,
             'form' => $form,
+            'clientes'=>$this->clientes
         ]);
     }
 
@@ -53,6 +57,7 @@ class VendorController extends AbstractController
     {
         return $this->render('vendor/show.html.twig', [
             'vendor' => $vendor,
+            'clientes'=>$this->clientes
         ]);
     }
 
@@ -73,6 +78,7 @@ class VendorController extends AbstractController
         return $this->renderForm('vendor/edit.html.twig', [
             'vendor' => $vendor,
             'form' => $form,
+            'clientes'=>$this->clientes
         ]);
     }
 

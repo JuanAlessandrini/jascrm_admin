@@ -1,0 +1,11 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}New CuentaAuxiliar{% endblock %}
+
+{% block content %}
+    <h1>Create new CuentaAuxiliar</h1>
+
+    {{ include('cuenta_auxiliar/_form.html.twig') }}
+
+    <a href="{{ path('app_cuenta_auxiliar_index') }}">back to list</a>
+{% endblock %}

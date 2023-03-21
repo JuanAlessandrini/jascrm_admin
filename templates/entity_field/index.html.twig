@@ -1,0 +1,37 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}EntityField index{% endblock %}
+
+{% block content %}
+    <h1>EntityField index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity_field in entity_fields %}
+            <tr>
+                <td>{{ entity_field.id }}</td>
+                <td>{{ entity_field.name }}</td>
+                <td>{{ entity_field.type }}</td>
+                <td>
+                    <a href="{{ path('app_entity_field_show', {'id': entity_field.id}) }}">show</a>
+                    <a href="{{ path('app_entity_field_edit', {'id': entity_field.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entity_field_new') }}">Create new</a>
+{% endblock %}
