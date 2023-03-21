@@ -67,6 +67,7 @@ class DocumentType extends AbstractType
                 'choice_label'=>'name',
                 'multiple'=>false,
                 'expanded'=>false,
+                'placeholder' => '',
                 'empty_data' => 'Seleccionar',
                 'data'=>null,
                 'query_builder' => function (SubCuentaRepository $er) {
