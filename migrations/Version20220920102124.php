@@ -20,13 +20,13 @@ final class Version20220920102124 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $users = [
-            ['name' => 'jas.softwares@gmail.com', 'role'=> '[]', 'first_name'=>'Juan', 'last_name'=>'Alessandrini', 'password' => '$2y$13$S/hXjNEQwakDwxQCGQBTieIUnszC4ENNkF/p9/X74S/rjb32ZDIM6'],
+            ['name' => 'jas.softwares@gmail.com', 'role'=> '[]', 'firstname'=>'Juan', 'lastname'=>'Alessandrini', 'password' => '$2y$13$S/hXjNEQwakDwxQCGQBTieIUnszC4ENNkF/p9/X74S/rjb32ZDIM6'],
             ['name'=>'leodascola@gmail.com', 'role'=>'[]', 'firstname'=>'Leonardo', 'lastname'=>'Dascola', 'password'=>'$2y$13$x1bZY2CJHUEUSQ6XzYxUhOTCZ0kCpta0KWMcw1h6zqXjijegyYjli']
         ];
     
         foreach ($users as $user) {
             
-            $this->addSql("INSERT INTO `leoadmin`.`user` (`email`, `first_name`, `last_name`, `roles`, `password`) VALUES(:name, :first_name, :last_name, :role, :password )", $user);
+            $this->addSql("INSERT INTO `leoadmin`.`user` (`email`, `first_name`, `last_name`, `roles`, `password`) VALUES(:name, :firstname, :lastname, :role, :password )", $user);
 
             //$this->addSql("UPDATE `leoadmin`.`user` SET `roles` = '[ROLE_ADMIN' WHERE `email` = '".$user['name']."'");
         }
