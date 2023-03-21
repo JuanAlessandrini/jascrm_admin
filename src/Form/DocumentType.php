@@ -42,6 +42,7 @@ class DocumentType extends AbstractType
             ->add('codigo', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Codigo'])
             ->add('emisor', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Emisor'])
             ->add('numero', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Numero'])
+            ->add('subtotal', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase suma-total'], 'label'=>'Monto'])
             ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase disabled'], 'label'=>'Total'])
             ->add('sucursal', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Sucursal'])
             ->add('campania', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'],
@@ -57,6 +58,20 @@ class DocumentType extends AbstractType
             ])
             ->add('impuestos', CollectionType::class, [
                 'entry_type' => DocumentImpuestoType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label'=>false
+            ])
+            ->add('percepciones', CollectionType::class, [
+                'entry_type' => DocumentPerceptionType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label'=>false
+            ])
+            ->add('retenciones', CollectionType::class, [
+                'entry_type' => DocumentRetencionType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,

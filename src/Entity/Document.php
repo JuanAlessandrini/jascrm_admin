@@ -118,6 +118,21 @@ class Document extends BaseEntity
      */
     private $cuenta_bancaria;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DocumentPercepcion::class, mappedBy="document", orphanRemoval=true,cascade={"persist"})
+     */
+    private $percepciones;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DocumentRetention::class, mappedBy="document",cascade={"persist"})
+     */
+    private $retenciones;
+
+    /**
+     * @ORM\Column(type="decimal", precision=15, scale=2, nullable=true)
+     */
+    private $subtotal;
+
    
 
     public function __construct()
@@ -125,6 +140,8 @@ class Document extends BaseEntity
         $this->fields = new ArrayCollection();
         $this->impuestos = new ArrayCollection();
         $this->detail = new ArrayCollection();
+        $this->percepciones = new ArrayCollection();
+        $this->retenciones = new ArrayCollection();
         
     }
 
@@ -411,6 +428,78 @@ class Document extends BaseEntity
     public function setCuentaBancaria(?BankAccount $cuenta_bancaria): self
     {
         $this->cuenta_bancaria = $cuenta_bancaria;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DocumentPercepcion>
+     */
+    public function getPercepciones(): Collection
+    {
+        return $this->percepciones;
+    }
+
+    public function addPercepcione(DocumentPercepcion $percepcione): self
+    {
+        if (!$this->percepciones->contains($percepcione)) {
+            $this->percepciones[] = $percepcione;
+            $percepcione->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removePercepcione(DocumentPercepcion $percepcione): self
+    {
+        if ($this->percepciones->removeElement($percepcione)) {
+            // set the owning side to null (unless already changed)
+            if ($percepcione->getDocument() === $this) {
+                $percepcione->setDocument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DocumentRetention>
+     */
+    public function getRetenciones(): Collection
+    {
+        return $this->retenciones;
+    }
+
+    public function addRetencione(DocumentRetention $retencione): self
+    {
+        if (!$this->retenciones->contains($retencione)) {
+            $this->retenciones[] = $retencione;
+            $retencione->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRetencione(DocumentRetention $retencione): self
+    {
+        if ($this->retenciones->removeElement($retencione)) {
+            // set the owning side to null (unless already changed)
+            if ($retencione->getDocument() === $this) {
+                $retencione->setDocument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSubtotal(): ?string
+    {
+        return $this->subtotal;
+    }
+
+    public function setSubtotal(?string $subtotal): self
+    {
+        $this->subtotal = $subtotal;
 
         return $this;
     }

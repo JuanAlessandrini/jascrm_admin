@@ -14,9 +14,21 @@
     }
     ul.table>li{
         list-style:none;
+            display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: stretch;
+        padding: 10px;
+        border-bottom: solid 1px #ececec;
     }
      ul.tableImp>li{
         list-style:none;
+            display: flex;
+            justify-content: space-between;
+            align-content: space-between;
+            align-items: stretch; 
+            padding: 10px;
+            border-bottom: solid 1px #ececec;
     }
     ul.table>li>div{
        display: flex;
@@ -43,72 +55,147 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-sm-3">
-                <label>Fecha: {{ (document.getCreatedAt | date('d/m/Y')) }}</label>
-                
-            </div>
-            <div class="col-sm-3">
-               <label>Código: {{ document.codigo }}</label>
-                
-            </div>
-            <div class="col-sm-6">
-                <div class="d-flex">
-                    <label>Emisor: {{ document.emisor }}</label>
-                    <label>Número: {{ document.numero }}</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-7">
-                <label>Cliente: {{ document.vendor.name }}</label>
-                
-            </div>
-            <div class="col-sm-2">
-                
-                <label>Campaña: {{ document.campania }}</label>
-            </div>
-             <div class="col-sm-3">
-                <label>Sucursal: {{ document.sucursal }}</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="d-flex">
-                    <label>Detalle</label>
+            {% if view_field ('created_at', document) %}
+                <div class="col-sm-3">
+                    <label>Fecha: <strong>{{ (document.getCreatedAt | date('d/m/Y')) }}</strong></label>
                     
                 </div>
-                <ul 
-                    class="tableImp detail" 
-                    >
+            {% endif %}
+            {% if view_field ('codigo', document) %}
+                <div class="col-sm-3">
+                    <label>Código: <strong>{{ document.codigo }}</strong></label>
+                </div>
+            {% endif %}
+                <div class="col-sm-6">
+                    <div class="d-flex">
+                        {% if view_field ('emisor', document) %}
+                            <label>Emisor: <strong>{{ document.emisor }}</strong></label>
+                        {% endif %}
+                        {% if view_field ('numero', document) %}
+                            <label>Número: <strong>{{ document.numero }}</strong></label>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+        <div class="row">
+            {% if view_field ('vendor', document) %}
+                <div class="col-sm-6">
+                    <label>Cliente: <strong>{{ document.vendor.name }}</strong></label>
+                </div>
+            {% endif %}
+            {% if view_field ('campania', document) %}
+                <div class="col-sm-2">
+                    <label>Campaña: <strong>{{ document.campania }}</strong></label>
+                </div>
+            {% endif %}
+            {% if view_field ('sucursal', document) %}
+                <div class="col-sm-4  text-end">
+                    <label>Sucursal: <strong>{{ document.sucursal }}</strong></label>
+                </div>
+            {% endif %}
+        </div>
+        {% if view_field ('concepto_caja', document) %}
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <label> Concepto: <strong>{{ (document.getConceptoCaja.name) }}</strong></label>
+                </div>
                 
-                        {% for detalle in document.detail %}
-                            <li>
-                                    {{ detalle.concepto.name ~ ' ' ~ detalle.ammount }}
-                                </li>
-                        {% endfor %}
-                </ul>
+                <div class="col-sm-4  text-end" style="align-self: end;">
+                     {% if view_field ('subtotal', document) %}
+                        <label>Monto: <strong>{{ document.subtotal }}</strong></label>
+                    {% endif %}
+                </div>
             </div>
+        {% endif %}
+        {% if view_field ('cuenta_bancaria', document) %}
+            
+            <div class="row" id="cont_document_cuenta_bancaria">
+                <div class="col-sm-12">
+                    <label> Banco: <strong>{{ (document.getCuentaBancaria ? document.getCuentaBancaria.getBanco.name : 'No Aplica') }}</strong></label>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            {% if view_field ('detail', document) %}
+                <div class="col-sm-12">
+                    <div class="d-flex">
+                        <label>Detalle</label>
+                        
+                    </div>
+                    <ul 
+                        class="tableImp detail" 
+                        >
+                    
+                            {% for detalle in document.detail %}
+                                <li>
+                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.ammount }}</label>
+                                    </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             
         </div>
          <div class="row">
-            <div class="col-sm-8">
-                <div class="d-flex">
-                    <label>Impuestos</label>
+            {% if view_field ('impuestos', document) %}
+                <div class="col-sm-8">
+                    <div class="d-flex">
+                        <label>Impuestos</label>
+                        
+                    </div>
+                    <ul 
+                        class="tableImp impuestos" 
+                    >
                     
+                            {% for impuesto in document.impuestos %}
+                                <li>
+                                        <label>{{ impuesto.type.name }}</label><label>{{impuesto.value }}</label>
+                                    </li>
+                            {% endfor %}
+                    </ul>
                 </div>
-                <ul 
-                    class="tableImp impuestos" 
-                   >
-                
-                        {% for impuesto in document.impuestos %}
-                            <li>
-                                    {{ impuesto.type.name ~ ' ' ~ impuesto.value }}
-                                </li>
-                        {% endfor %}
-                </ul>
-            </div>
-            <div class="col-sm-4 " style="align-self: end;">
-                <label>Total: {{ document.total }}</label>
+            {% endif %}
+
+            {% if view_field ('percepciones', document) %} 
+                <div class="col-sm-8">
+                    <div class="d-flex">
+                        <label>Percepciones</label>
+                        
+                    </div>
+                    <ul 
+                        class="tableImp " 
+                    >
+                    
+                            {% for impuesto in document.percepciones %}
+                                <li>
+                                        <label>{{ impuesto.type.name }}</label><label>{{ impuesto.ammount }}</label>
+                                    </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if view_field ('retenciones', document) %} 
+                <div class="col-sm-8">
+                    <div class="d-flex">
+                        <label>Retenciones</label>
+                        
+                    </div>
+                    <ul 
+                        class="tableImp " 
+                    >
+                    
+                            {% for impuesto in document.retenciones %}
+                                <li>
+                                        <label>{{ impuesto.type.name }}</label><label>{{ impuesto.ammount }}</label>
+                                    </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="col-sm-4 text-end" style="align-self: end;">
+                <label>Total: <strong>{{ document.total }}</strong></label>
                
             </div>
             

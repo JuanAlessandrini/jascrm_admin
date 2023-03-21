@@ -45,9 +45,7 @@
         <div class="row">
             {% if view_field ('created_at', document) %}
                 <div class="col-sm-3">
-                
                     {{ form_row(form.created_at) }}
-                    
                 </div>
             {% endif %}
              {% if view_field ('codigo', document) %}
@@ -89,9 +87,15 @@
         {% if view_field ('concepto_caja', document) %}
             
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-8">
                     {{ form_row(form.concepto_caja) }}
                 </div>
+                {% if view_field ('subtotal', document) %}
+                    <div class="col-sm-4 " style="align-self: end;">
+                        {{ form_row(form.subtotal) }}
+                    
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
         {% if view_field ('cuenta_bancaria', document) %}
@@ -124,27 +128,61 @@
             </div>
         {% endif %}
         <div class="row">
-            {% if view_field ('impuestos', document) %}
-            
-                <div class="col-sm-8">
+            <div class="col-sm-8">
+                {% if view_field ('impuestos', document) %}
+                        <div class="d-flex">
+                            <label>Impuestos</label>
+                            <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item_imp" data-collection-holder-class="impuestos"><span class="tf-icons bx bx-plus"></span></button>
+                        </div>
+                        <ul 
+                            class="tableImp impuestos" 
+                            data-index="{{ form.impuestos|length > 0 ? form.impuestos|last.vars.name + 1 : 0 }}"
+                            data-prototype="{{ form_widget(form.impuestos.vars.prototype)|e('html_attr') }}">
+                        
+                                {% for impuesto in document.impuestos %}
+                                    <li>
+                                            {{ impuesto.type.name ~ ' ' ~ impuesto.value }}
+                                        </li>
+                                {% endfor %}
+                        </ul>
+                    
+                {% endif %}
+
+                {% if view_field ('percepciones', document) %}            
                     <div class="d-flex">
-                        <label>Impuestos</label>
-                        <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item_imp" data-collection-holder-class="impuestos"><span class="tf-icons bx bx-plus"></span></button>
+                        <label>Percepciones</label>
+                        <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item_per" data-collection-holder-class="percepciones"><span class="tf-icons bx bx-plus"></span></button>
                     </div>
                     <ul 
-                        class="tableImp impuestos" 
-                        data-index="{{ form.impuestos|length > 0 ? form.impuestos|last.vars.name + 1 : 0 }}"
-                        data-prototype="{{ form_widget(form.impuestos.vars.prototype)|e('html_attr') }}">
+                        class="tableImp percepciones" 
+                        data-index="{{ form.percepciones|length > 0 ? form.percepciones|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ form_widget(form.percepciones.vars.prototype)|e('html_attr') }}">
                     
-                            {% for impuesto in document.impuestos %}
+                            {% for percepcion in document.percepciones %}
                                 <li>
-                                        {{ impuesto.type.name ~ ' ' ~ impuesto.value }}
+                                        {{ percepcion.type.name ~ ' ' ~ percepcion.ammount }}
                                     </li>
                             {% endfor %}
                     </ul>
-                </div>
-            {% endif %}
-
+                {% endif %}
+                {% if view_field ('retenciones', document) %}            
+                    <div class="d-flex">
+                        <label>Retenciones</label>
+                        <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item_ret" data-collection-holder-class="retenciones"><span class="tf-icons bx bx-plus"></span></button>
+                    </div>
+                    <ul 
+                        class="tableImp retenciones" 
+                        data-index="{{ form.retenciones|length > 0 ? form.retenciones|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ form_widget(form.retenciones.vars.prototype)|e('html_attr') }}">
+                    
+                            {% for retencion in document.retenciones %}
+                                <li>
+                                        {{ retencion.type.name ~ ' ' ~ retencion.ammount }}
+                                    </li>
+                            {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
             {% if view_field ('total', document) %}
                 <div class="col-sm-4 " style="align-self: end;">
                     {{ form_row(form.total) }}
@@ -204,6 +242,46 @@ var addFormImpToCollection = (e) => {
     });
 };
 
+var addFormPerToCollection = (e) => {
+  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  var item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+  
+};
+
+var addFormRetToCollection = (e) => {
+  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  var item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+  //var element4 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+  //  var choices = new Choices(element4, {     
+    // });
+};
+
     document
   .querySelectorAll('.add_item_link')
   .forEach(btn => {
@@ -214,6 +292,16 @@ var addFormImpToCollection = (e) => {
   .querySelectorAll('.add_item_imp')
   .forEach(btn => {
       btn.addEventListener("click", addFormImpToCollection)
+  });
+  document
+  .querySelectorAll('.add_item_per')
+  .forEach(btn => {
+      btn.addEventListener("click", addFormPerToCollection)
+  });
+  document
+  .querySelectorAll('.add_item_ret')
+  .forEach(btn => {
+      btn.addEventListener("click", addFormRetToCollection)
   });
 
   $(document).on("change", ".suma-total", function(){
