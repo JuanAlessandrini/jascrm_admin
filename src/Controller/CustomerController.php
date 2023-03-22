@@ -39,7 +39,7 @@ class CustomerController extends BaseController
         $form = $this->createForm(CustomerType::class, $customer,['action'=>$this->generateUrl('app_customer_new'),'method'=>'POST']);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $customerRepository->add($customer, true);
 
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
