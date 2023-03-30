@@ -46,9 +46,15 @@ class BankAccount
      */
     private $documents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cheque::class, mappedBy="movimiento_en_cuenta")
+     */
+    private $cheques;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->cheques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +134,36 @@ class BankAccount
             // set the owning side to null (unless already changed)
             if ($document->getCuentaBancaria() === $this) {
                 $document->setCuentaBancaria(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cheque>
+     */
+    public function getCheques(): Collection
+    {
+        return $this->cheques;
+    }
+
+    public function addCheque(Cheque $cheque): self
+    {
+        if (!$this->cheques->contains($cheque)) {
+            $this->cheques[] = $cheque;
+            $cheque->setMovimientoEnCuenta($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheque(Cheque $cheque): self
+    {
+        if ($this->cheques->removeElement($cheque)) {
+            // set the owning side to null (unless already changed)
+            if ($cheque->getMovimientoEnCuenta() === $this) {
+                $cheque->setMovimientoEnCuenta(null);
             }
         }
 

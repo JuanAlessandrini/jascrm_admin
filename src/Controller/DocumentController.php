@@ -7,6 +7,7 @@ use App\Entity\EntidadTypeDoc;
 use App\Form\DocumentType;
 use App\Controller\BaseController;
 use App\Repository\DocumentRepository;
+use App\Repository\GranoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class DocumentController extends BaseController
     /**
      * @Route("/view/{typeEnt}", name="app_document_index", methods={"GET"})
      */
-    public function index(DocumentRepository $documentRepository, EntidadTypeDoc $typeEnt): Response
+    public function index(DocumentRepository $documentRepository,GranoRepository $granoRepository, EntidadTypeDoc $typeEnt): Response
     {
         if ($this->getUser()->getDefaultCliente()==null){
             throw new \Exception("Debes seleccionar un cliente", 1);
@@ -34,7 +35,9 @@ class DocumentController extends BaseController
             )),
             'documentos'=>$this->documents,
             'entidadTypeDoc'=> $typeEnt,
-            'controller_name'=>$typeEnt->getName()
+            'controller_name'=>$typeEnt->getName(),
+            'campanias'=>$this->getCampanias(),
+            'granos'=>$granoRepository->findAll()
         ]);
     }
 
@@ -118,5 +121,16 @@ class DocumentController extends BaseController
         }
 
         return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function getCampanias(){
+        $camp = [];
+        $anio =  (int) date('Y');
+        $retro = -3;
+        for ($i=0; $i < 5; $i++) { 
+            
+            array_push($camp, ($anio + $i + $retro));
+        }
+        return $camp;
     }
 }

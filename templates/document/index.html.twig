@@ -5,7 +5,7 @@
     <div class="card">
         <label class="h4 text-center">{{entidadTypeDoc.name}}</label>
         <div class="card-body">
-            <button class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showFormLg('{{ path('app_document_new', {typeEnt: entidadTypeDoc.id}) }}')"><a>Nuevo</a></button>
+            <button class="btn btn-round btn-primary pull-right btn-just-icon" onclick="showFormFullScreen('{{ path('app_document_new', {typeEnt: entidadTypeDoc.id}) }}')"><a>Nuevo</a></button>
             <table class="table">
                 <thead>
                     <tr>
@@ -29,7 +29,7 @@
                         <td>{{ documento.total }}</td>
                         <td  class="text-right">
                         {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_documento_show', {'id': documento.id}) }}')"><i class="material-icons">search</i></a> #}
-                                    <a class="btn btn-just-icon " onclick="showFormLg('{{ path('app_document_edit', {'id': documento.id}) }}')"><i class="bx bx-pencil me-1"></i></a>
+                                    <a class="btn btn-just-icon " onclick="showFormFullScreen('{{ path('app_document_edit', {'id': documento.id}) }}')"><i class="bx bx-pencil me-1"></i></a>
                         </td>
                     </tr>
                 {% else %}

@@ -13,7 +13,25 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
+                <div class="nav-item d-flex align-items-center" style="top: -10px;position: absolute;">
+                  {% if entidadTypeDoc is defined %}
+                    <div id="accordionPopoutIcon" class="accordion  mt-3 accordion-header-primary">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header text-body d-flex justify-content-between" id="accordionPopoutIconOne">
+                          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionPopoutIcon-1" aria-controls="accordionPopoutIcon-1" aria-expanded="true">
+                            <i class='bx bx-filter-alt' ></i>
+                            Filtros
+                          </button>
+                        </h2>
+
+                        <div id="accordionPopoutIcon-1" class="accordion-collapse collapse" data-bs-parent="#accordionPopoutIcon" style="">
+                          <div class="accordion-body">
+                            {% include 'document/filters.html.twig' %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
                   {# <i class="bx bx-search fs-4 lh-0"></i>
                   <input
                     type="text"

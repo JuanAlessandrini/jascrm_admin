@@ -6,9 +6,12 @@ use App\Entity\Document;
 use App\Entity\Customer;
 use App\Entity\Vendor;
 use App\Entity\SubCuenta;
+use App\Entity\Cheque;
+use App\Entity\Grano;
 use App\Entity\BankAccount;
 use App\Repository\VendorRepository;
 use App\Repository\CustomerRepository;
+use App\Repository\GranoRepository;
 use App\Repository\SubCuentaRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,6 +37,7 @@ class DocumentType extends AbstractType
             ->add('vendor',EntityType::class, [
                 'class'=>Vendor::class,
                 'choice_label'=>'name',
+                'placeholder'=>'Seleccionar Cliente',
                 'query_builder' => function (VendorRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.name', 'ASC');
@@ -43,12 +47,21 @@ class DocumentType extends AbstractType
             ->add('emisor', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Emisor'])
             ->add('numero', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Numero'])
             ->add('subtotal', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase suma-total'], 'label'=>'Monto'])
-            ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase disabled'], 'label'=>'Total'])
+            ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase disabled ver-total'], 'label'=>'Total'])
             ->add('sucursal', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Sucursal'])
             ->add('campania', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'],
             'choices' => [
                 '2023'=>'2023','2024' =>'2024','2025'=> '2025']
              , 'label'=>'Campaña'])
+            ->add('grano',EntityType::class, [
+                'class'=>Grano::class,
+                'choice_label'=>'name',
+                'placeholder'=>'Seleccionar Grano',
+                'query_builder' => function (GranoRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.name', 'ASC');
+                },
+                'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Grano'])
             ->add('detail', CollectionType::class, [
                 'entry_type' => DocumentDetailType::class,
                 'entry_options' => ['label' => false],
@@ -94,7 +107,23 @@ class DocumentType extends AbstractType
                     ->setParameter('tipo', 'Concepto')
                     ->setParameter('caja', 'Caja y Bancos');
                 },
-                'attr'=>['class'=>'form-control '], 'label'=>'Medio de Pago'])
+                'attr'=>['class'=>'form-control '], 'label'=>'Origen / Destino'])
+            ->add('medio_pago', ChoiceType::class, ['attr'=>['class'=>'form-control'],
+            'placeholder'=>'Seleccionar...',
+            'choices' => [
+                'Efectivo'=>'Efectivo',
+                'Transferencia' =>'Transferencia',
+                'Tarjeta'=> 'Tarjeta',
+                'Cheque'=>'Cheque'
+                ]
+                , 'label'=>'Medio de Pago'])
+            ->add('cheques', CollectionType::class, [
+                'entry_type' => ChequeType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label'=>false
+            ])
             ;
 
         $formModifier = function (FormInterface $form,Document $document) {

@@ -28,7 +28,7 @@ class BankAccountType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.name', 'ASC');
                 },
-                'attr'=>['class'=>'form-control js-choice-select'], 'label'=>'Cliente'])
+                'attr'=>['class'=>'form-control js-choice-select'], 'label'=>'Banco'])
             ->add('cbu',TextType::class, ['required'=>true,
                     'attr'=>['max'=>'999999999999999999999', 'maxlength'=>'22','class'=>'form-control'], 
                     'label'=>'CBU',

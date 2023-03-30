@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Grano{% endblock %}
+
+{% block body %}
+    <h1>Edit Grano</h1>
+
+    {{ include('grano/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_grano_index') }}">back to list</a>
+
+    {{ include('grano/_delete_form.html.twig') }}
+{% endblock %}

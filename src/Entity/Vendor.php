@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VendorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Vendor extends BaseEntity
      * @ORM\Column(type="string", length=50)
      */
     private $city;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cheque::class, mappedBy="librador")
+     */
+    private $cheques;
+
+    public function __construct()
+    {
+        $this->cheques = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Vendor extends BaseEntity
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cheque>
+     */
+    public function getCheques(): Collection
+    {
+        return $this->cheques;
+    }
+
+    public function addCheque(Cheque $cheque): self
+    {
+        if (!$this->cheques->contains($cheque)) {
+            $this->cheques[] = $cheque;
+            $cheque->setLibrador($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheque(Cheque $cheque): self
+    {
+        if ($this->cheques->removeElement($cheque)) {
+            // set the owning side to null (unless already changed)
+            if ($cheque->getLibrador() === $this) {
+                $cheque->setLibrador(null);
+            }
+        }
 
         return $this;
     }

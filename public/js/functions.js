@@ -27,7 +27,7 @@ function getHtmlContent(name, callback){
       });
 }
 function showFormLg(name){
-  console.log('dispara ajax');
+  //console.log('dispara ajax');
   getHtmlContent(name, function(res){
       $("#modalContentLg").html(res);
       // $("#modalLg").modal();
@@ -41,18 +41,21 @@ function showFormLg(name){
 }
 
 function showFormFullScreen(name){
-  console.log('dispara ajax');
+  //console.log('dispara ajax');
   getHtmlContent(name, function(res){
       $("#modalContentLg").html(res);
       let w = ($(window).width() * 0.8) + "px";
       let h = ($(window).height() * 0.7)  + "px";
-      console.log("size: " + w + " x " + h);
+      //console.log("size: " + w + " x " + h);
       $(".modal-dialog").css({'margin-top': '0px', 'margin': '0px', 'max-width': 'none'});
       $(".modal-dialog").width(w);
       $(".modal-dialog").height(h);
       $(".modal-dialog").css('top',($(window).height() * 0.05)  + "px");
       $(".modal-dialog").css('margin', 'auto auto');
-      $("#modalLg").modal();
+      options = {};
+      var myModal = new bootstrap.Modal(document.getElementById('modalLg'), options)
+      // var modal = new bootstrap.Modal(document.getElementById('modalLg'));
+      myModal.show();
   });
 
   

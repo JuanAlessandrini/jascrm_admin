@@ -35,6 +35,7 @@ class DocumentDetailType extends AbstractType
                         ->setParameter('caja', 'Caja y Bancos');
                 },
                 'attr'=>['class'=>'form-control  js-choice-cuenta'], 'label'=>'Concepto'])
+                ->add('cantidad', NumberType::class, ['attr'=>['class'=>'form-control style-title number'], 'label'=>'Cantidad'])
                 ->add('ammount', NumberType::class, ['attr'=>['class'=>'form-control style-title suma-total number'], 'label'=>'Monto'])
         ;
     }

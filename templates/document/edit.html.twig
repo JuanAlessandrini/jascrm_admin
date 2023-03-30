@@ -6,6 +6,15 @@
         border: 1px solid #d8d7d7;
         border-radius: 5px;
     }
+    
+    strong.field{
+        border: 1px solid gray;
+    border-radius: 3px;
+    padding: 3px 5px 3px 9px;
+    min-width: 120px;
+    display: block;
+    background: #edebeb;
+    }
      ul.tableImp{
         height: 150px;
         overflow: scroll;
@@ -56,54 +65,60 @@
     <div class="modal-body">
         <div class="row">
             {% if view_field ('created_at', document) %}
-                <div class="col-sm-3">
-                    <label>Fecha: <strong>{{ (document.getCreatedAt | date('d/m/Y')) }}</strong></label>
+                <div class="col-sm-6">
+                    <label>Fecha: <strong class="field">{{ (document.getCreatedAt | date('d/m/Y')) }}</strong class="field"></label>
                     
                 </div>
             {% endif %}
             {% if view_field ('codigo', document) %}
                 <div class="col-sm-3">
-                    <label>Código: <strong>{{ document.codigo }}</strong></label>
+                    <label>Código: <strong class="field">{{ document.codigo }}</strong></label>
                 </div>
             {% endif %}
-                <div class="col-sm-6">
-                    <div class="d-flex">
-                        {% if view_field ('emisor', document) %}
-                            <label>Emisor: <strong>{{ document.emisor }}</strong></label>
-                        {% endif %}
-                        {% if view_field ('numero', document) %}
-                            <label>Número: <strong>{{ document.numero }}</strong></label>
-                        {% endif %}
-                    </div>
-                </div>
+            <div class="col-sm-3  text-end">
+                {% if view_field ('sucursal', document) %}
+                    <label>Sucursal: <strong class="field">{{ document.sucursal }}</strong></label>
+                {% endif %}
+                
+            </div>
         </div>
         <div class="row">
-            {% if view_field ('vendor', document) %}
-                <div class="col-sm-6">
-                    <label>Cliente: <strong>{{ document.vendor.name }}</strong></label>
+                {% if view_field ('vendor', document) %}
+                    <div class="col-sm-6">
+                        <label>Cliente: <strong class="field">{{ document.vendor.name }}</strong></label>
+                    </div>
+                {% endif %}
+                <div class="col-sm-3">
+                    <div >
+                        {% if view_field ('emisor', document) %}
+                            <label>Emisor: <strong class="field">{{ document.emisor }}</strong></label><br/>
+                        {% endif %}
+                        {% if view_field ('numero', document) %}
+                            <label>Número: <strong class="field">{{ document.numero }}</strong></label><br/>
+                        {% endif %}
+                        
+                    </div>
                 </div>
-            {% endif %}
-            {% if view_field ('campania', document) %}
-                <div class="col-sm-2">
-                    <label>Campaña: <strong>{{ document.campania }}</strong></label>
+                <div class="col-sm-3 text-end">
+                    {% if view_field ('campania', document) %}
+                        <label>Campaña: <strong class="field">{{ document.campania }}</strong></label>                
+                    {% endif %}
+                    {% if view_field ('grano', document) %}
+                        <label>Grano: <strong class="field">{{ document.grano.name ?? "-" }}</strong></label>                
+                    {% endif %}
                 </div>
-            {% endif %}
-            {% if view_field ('sucursal', document) %}
-                <div class="col-sm-4  text-end">
-                    <label>Sucursal: <strong>{{ document.sucursal }}</strong></label>
-                </div>
-            {% endif %}
         </div>
+       
         {% if view_field ('concepto_caja', document) %}
             
             <div class="row">
                 <div class="col-sm-8">
-                    <label> Concepto: <strong>{{ (document.getConceptoCaja.name) }}</strong></label>
+                    <label> Concepto: <strong class="field">{{ (document.getConceptoCaja.name) }}</strong></label>
                 </div>
                 
                 <div class="col-sm-4  text-end" style="align-self: end;">
                      {% if view_field ('subtotal', document) %}
-                        <label>Monto: <strong>{{ document.subtotal }}</strong></label>
+                        <label>Monto: <strong class="field">{{ document.subtotal }}</strong></label>
                     {% endif %}
                 </div>
             </div>
@@ -112,7 +127,7 @@
             
             <div class="row" id="cont_document_cuenta_bancaria">
                 <div class="col-sm-12">
-                    <label> Banco: <strong>{{ (document.getCuentaBancaria ? document.getCuentaBancaria.getBanco.name : 'No Aplica') }}</strong></label>
+                    <label> Banco: <strong class="field">{{ (document.getCuentaBancaria ? document.getCuentaBancaria.getBanco.name : 'No Aplica') }}</strong></label>
                 </div>
             </div>
         {% endif %}
@@ -129,13 +144,30 @@
                     
                             {% for detalle in document.detail %}
                                 <li>
-                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.ammount }}</label>
+                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.ammount }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
                 </div>
             {% endif %}
-            
+            {% if view_field ('cheque', document) %} 
+                <div class="col-sm-8">
+                    <div class="d-flex">
+                        <label>Cheques</label>
+                        
+                    </div>
+                    <ul class="tableImp " >
+                            <li>
+                                <label><strong>Numero</strong></label><label><strong>Vencimiento</strong></label><label><strong>Monto</strong></label>
+                            </li>
+                            {% for cheque in document.cheques %}
+                                <li>
+                                    <label>{{ cheque.numero }}</label><label>{{ cheque.vencimiento | date('d/m/Y')}}</label><label>{{ cheque.monto }}</label>
+                                </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
          <div class="row">
             {% if view_field ('impuestos', document) %}
@@ -195,7 +227,7 @@
             {% endif %}
 
             <div class="col-sm-4 text-end" style="align-self: end;">
-                <label>Total: <strong>{{ document.total }}</strong></label>
+                <label>Total: <strong class="field">{{ document.total }}</strong></label>
                
             </div>
             

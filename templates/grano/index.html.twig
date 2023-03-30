@@ -1,0 +1,40 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% set title = 'Clientes' %}
+
+{% block content %}
+  <div>
+            <button type="button" onclick="showFormLg('{{path('app_grano_new')}}');" class="btn btn-primary me-2 ">
+                <span class="tf-icons bx bx-add-alt"></span> Nuevo
+            </button>
+            <div class="card card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Nombre Corto</th>
+                        <th>acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for grano in granos %}
+                    <tr>
+                        <td>{{ grano.id }}</td>
+                        <td>{{ grano.name }}</td>
+                        <td>{{ grano.short }}</td>
+                        <td>
+                            <a class="btn btn-just-icon " onclick="showFormFullScreen('{{ path('app_grano_edit', {'id': grano.id}) }}')"><i class="bx bx-pencil me-1"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+    </div>
+</div>
+{% endblock %}

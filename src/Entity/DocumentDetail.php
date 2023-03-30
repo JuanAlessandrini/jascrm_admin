@@ -34,6 +34,11 @@ class DocumentDetail
      */
     private $document;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $cantidad;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class DocumentDetail
     public function setDocument(?Document $document): self
     {
         $this->document = $document;
+
+        return $this;
+    }
+
+    public function getCantidad(): ?string
+    {
+        return $this->cantidad;
+    }
+
+    public function setCantidad(string $cantidad): self
+    {
+        $this->cantidad = $cantidad;
 
         return $this;
     }

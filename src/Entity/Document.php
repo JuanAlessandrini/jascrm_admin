@@ -133,6 +133,21 @@ class Document extends BaseEntity
      */
     private $subtotal;
 
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $medio_pago;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cheque::class, mappedBy="document", orphanRemoval=true,cascade={"persist"})
+     */
+    private $cheques;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Grano::class)
+     */
+    private $grano;
+
    
 
     public function __construct()
@@ -142,6 +157,7 @@ class Document extends BaseEntity
         $this->detail = new ArrayCollection();
         $this->percepciones = new ArrayCollection();
         $this->retenciones = new ArrayCollection();
+        $this->cheques = new ArrayCollection();
         
     }
 
@@ -500,6 +516,60 @@ class Document extends BaseEntity
     public function setSubtotal(?string $subtotal): self
     {
         $this->subtotal = $subtotal;
+
+        return $this;
+    }
+
+    public function getMedioPago(): ?string
+    {
+        return $this->medio_pago;
+    }
+
+    public function setMedioPago(?string $medio_pago): self
+    {
+        $this->medio_pago = $medio_pago;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cheque>
+     */
+    public function getCheques(): Collection
+    {
+        return $this->cheques;
+    }
+
+    public function addCheque(Cheque $cheque): self
+    {
+        if (!$this->cheques->contains($cheque)) {
+            $this->cheques[] = $cheque;
+            $cheque->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheque(Cheque $cheque): self
+    {
+        if ($this->cheques->removeElement($cheque)) {
+            // set the owning side to null (unless already changed)
+            if ($cheque->getDocument() === $this) {
+                $cheque->setDocument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGrano(): ?Grano
+    {
+        return $this->grano;
+    }
+
+    public function setGrano(?Grano $grano): self
+    {
+        $this->grano = $grano;
 
         return $this;
     }

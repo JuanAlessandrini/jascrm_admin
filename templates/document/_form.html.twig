@@ -44,58 +44,68 @@
     <div class="modal-body">
         <div class="row">
             {% if view_field ('created_at', document) %}
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     {{ form_row(form.created_at) }}
                 </div>
             {% endif %}
              {% if view_field ('codigo', document) %}
-                <div class="col-sm-3">
-                {{ form_row(form.codigo) }}
-                    
+                <div class="col-sm-2">
+                    {{ form_row(form.codigo) }}
                 </div>
             {% endif %}
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="d-flex">
                     {% if view_field ('emisor', document) %}
-                        {{ form_row(form.emisor) }}
+                        <div style="width:30%">
+                            {{ form_row(form.emisor) }}
+                        </div>
                     {% endif %}
                     {% if view_field ('numero', document) %}
                         {{ form_row(form.numero) }}
                     {% endif %}
+                    
                 </div>
             </div>
-        </div>
-        <div class="row">
-            {% if view_field ('vendor', document) %}
-                <div class="col-sm-7">
-                    {{ form_row(form.vendor) }}
-                    
-                </div>
-            {% endif %}
-            {% if view_field ('campania', document) %}
-                <div class="col-sm-2">
-                    
-                    {{ form_row(form.campania) }}
-                </div>
-            {% endif %}
             {% if view_field ('sucursal', document) %}
                 <div class="col-sm-3">
                     {{ form_row(form.sucursal) }}
                 </div>
             {% endif %}
         </div>
+        <div class="row">
+            {% if view_field ('vendor', document) %}
+                <div class="col-sm-7">
+                    {{ form_row(form.vendor) }}
+                </div>
+            {% endif %}
+            {% if view_field ('campania', document) %}
+                <div class="col-sm-2">
+                    {{ form_row(form.campania) }}
+                </div>
+            {% endif %}
+            {% if view_field ('grano', document) %}
+                <div class="col-sm-3">
+                    {{ form_row(form.grano) }}
+                </div>
+            {% endif %}
+            
+        </div>
         {% if view_field ('concepto_caja', document) %}
             
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-5">
                     {{ form_row(form.concepto_caja) }}
                 </div>
-                {% if view_field ('subtotal', document) %}
-                    <div class="col-sm-4 " style="align-self: end;">
+                <div class="col-sm-4">
+                    {% if view_field ('medio_pago', document) %}
+                            {{ form_row(form.medio_pago) }}
+                    {% endif %}
+                </div>
+                <div class="col-sm-3 " style="align-self: end;">
+                    {% if view_field ('subtotal', document) %}
                         {{ form_row(form.subtotal) }}
-                    
-                    </div>
-                {% endif %}
+                    {% endif %}    
+                </div>
             </div>
         {% endif %}
         {% if view_field ('cuenta_bancaria', document) %}
@@ -106,6 +116,26 @@
                 </div>
             </div>
         {% endif %}
+        {% if view_field ('cheque', document) %}
+            <div class="row" id="cont_document_cheques">
+                <div class="d-flex">
+                    <label>Cheques</label>
+                    <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-round add_item_cheque" data-collection-holder-class="cheques"><span class="tf-icons bx bx-plus"></span></button>
+                </div>
+                <ul 
+                    class="tableImp cheques" 
+                    data-index="{{ form.cheques|length > 0 ? form.cheques|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(form.cheques.vars.prototype)|e('html_attr') }}">
+                
+                        {% for cheque in document.cheques %}
+                            <li>
+                                    {{ cheque.bank.name ~ ' ' ~ cheques.monto }}
+                                </li>
+                        {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
         {% if view_field ('detail', document) %}
             <div class="row">
                 <div class="col-sm-12">
@@ -214,73 +244,31 @@ var addFormToCollection = (e) => {
   collectionHolder.appendChild(item);
 
   collectionHolder.dataset.index++;
-  var element3 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
-    var choices = new Choices(element3, {
-       
-    });
-};
-
-var addFormImpToCollection = (e) => {
-  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-  var item = document.createElement('li');
-
-  item.innerHTML = collectionHolder
-    .dataset
-    .prototype
-    .replace(
-      /__name__/g,
-      collectionHolder.dataset.index
-    );
-
-  collectionHolder.appendChild(item);
-
-  collectionHolder.dataset.index++;
-  var element4 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
-    var choices = new Choices(element4, {
-       
-    });
-};
-
-var addFormPerToCollection = (e) => {
-  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-  var item = document.createElement('li');
-
-  item.innerHTML = collectionHolder
-    .dataset
-    .prototype
-    .replace(
-      /__name__/g,
-      collectionHolder.dataset.index
-    );
-
-  collectionHolder.appendChild(item);
-
-  collectionHolder.dataset.index++;
+  if(e.currentTarget.dataset.collectionHolderClass=='detail'){
+      var elementDetail = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+        var choices = new Choices(elementDetail, {
+        
+        });
+    }
   
-};
+  if(e.currentTarget.dataset.collectionHolderClass=='cheques'){
+      var elementCheque = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+        var choices = new Choices(elementCheque, {
+        
+        });
+    }
 
-var addFormRetToCollection = (e) => {
-  var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+    if(e.currentTarget.dataset.collectionHolderClass=='impuestos'){
+      var elementImp = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
+        var choices = new Choices(elementImp, {
+        
+        });
+    }
+}
+  
 
-  var item = document.createElement('li');
 
-  item.innerHTML = collectionHolder
-    .dataset
-    .prototype
-    .replace(
-      /__name__/g,
-      collectionHolder.dataset.index
-    );
 
-  collectionHolder.appendChild(item);
-
-  collectionHolder.dataset.index++;
-  //var element4 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
-  //  var choices = new Choices(element4, {     
-    // });
-};
 
     document
   .querySelectorAll('.add_item_link')
@@ -289,19 +277,25 @@ var addFormRetToCollection = (e) => {
   });
 
   document
+  .querySelectorAll('.add_item_cheque')
+  .forEach(btn => {
+      btn.addEventListener("click", addFormToCollection)
+  });
+
+  document
   .querySelectorAll('.add_item_imp')
   .forEach(btn => {
-      btn.addEventListener("click", addFormImpToCollection)
+      btn.addEventListener("click", addFormToCollection)
   });
   document
   .querySelectorAll('.add_item_per')
   .forEach(btn => {
-      btn.addEventListener("click", addFormPerToCollection)
+      btn.addEventListener("click", addFormToCollection)
   });
   document
   .querySelectorAll('.add_item_ret')
   .forEach(btn => {
-      btn.addEventListener("click", addFormRetToCollection)
+      btn.addEventListener("click", addFormToCollection)
   });
 
   $(document).on("change", ".suma-total", function(){
@@ -312,7 +306,7 @@ var addFormRetToCollection = (e) => {
                 total += parseFloat(val);
             }
         });
-        $("#document_total").val(total);
+        $(".ver-total").val(total);
   });
 
 var $concepto_caja = $('#document_concepto_caja');
@@ -324,6 +318,23 @@ $concepto_caja.change(function() {
     $($cuenta_bancaria).fadeOut();
   }else{
     $($cuenta_bancaria).fadeIn();
+  }
+});
+var $medio_pago = $('#document_medio_pago');
+var $monto = $('#document_subtotal');
+var $cont_cheques = $('#cont_document_cheques');
+
+
+$medio_pago.change(function() {
+  var valor = $('#document_medio_pago option:selected').val();
+  if(valor == 'Cheque' ){
+    $($monto).removeClass("suma-total");
+    $($monto).addClass("ver-total");
+    $($cont_cheques).fadeIn();
+  }else{
+    $($monto).removeClass("ver-total");
+    $($monto).addClass("suma-total");
+    $($cont_cheques).fadeOut();
   }
 });
 </script>
