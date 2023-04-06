@@ -74,8 +74,8 @@
 
             <!-- Dashboard -->
             <li class="menu-item">
-              <div class="menu-link">
-                <select id="clienteSelect" class="select2 form-select-lg">
+              <div >
+                <select id="clienteSelect" class="select2 form-select">
                   <option value>Seleccionar Cliente</option>
                   {% for cliente in clientes %}
                     <option {{ app.user.getDefaultCliente is not same as null ? (app.user.getDefaultCliente == cliente ? 'selected' : '') : ''}} value="{{cliente.id}}"  >{{cliente.name}}</option>
