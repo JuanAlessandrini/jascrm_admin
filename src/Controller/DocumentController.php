@@ -19,21 +19,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class DocumentController extends BaseController
 {
     /**
-     * @Route("/view/{typeEnt}", name="app_document_index", methods={"GET"})
+     * @Route("/view/{typeEnt}", name="app_document_index", methods={"GET", "POST"})
      */
-    public function index(DocumentRepository $documentRepository,GranoRepository $granoRepository, EntidadTypeDoc $typeEnt): Response
+    public function index(Request $request, DocumentRepository $documentRepository,GranoRepository $granoRepository, EntidadTypeDoc $typeEnt): Response
     {
         if ($this->getUser()->getDefaultCliente()==null){
             throw new \Exception("Debes seleccionar un cliente", 1);
             
         }
-        return $this->render('document/index.html.twig', [
-            'clientes'=>$this->clientes,
-            'documents' => $documentRepository->findBy(Array(
+
+        if($request->isMethod("POST")){
+            $documentos = $documentRepository->aplicaFiltros($request, $this->getUser()->getDefaultCliente(), $typeEnt);
+        }else{
+            $documentos = $documentRepository->findBy(Array(
                 'customer'=>$this->getUser()->getDefaultCliente(),
                 'tipo'=>$typeEnt
-            )),
+            ));
+            
+        }
+
+        return $this->render('document/index.html.twig', [
+            'clientes'=>$this->clientes,
+            'documents' => $documentos,
             'documentos'=>$this->documents,
+            'reportes'=>$this->reportes,
             'entidadTypeDoc'=> $typeEnt,
             'controller_name'=>$typeEnt->getName(),
             'campanias'=>$this->getCampanias(),
@@ -123,14 +132,5 @@ class DocumentController extends BaseController
         return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    private function getCampanias(){
-        $camp = [];
-        $anio =  (int) date('Y');
-        $retro = -3;
-        for ($i=0; $i < 5; $i++) { 
-            
-            array_push($camp, ($anio + $i + $retro));
-        }
-        return $camp;
-    }
+    
 }

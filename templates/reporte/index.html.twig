@@ -1,9 +1,9 @@
 {% extends 'dashboard/dashboard_base.html.twig' %}
 
-{% block title %}Cuenta index{% endblock %}
+{% block title %}EntityTypeDoc index{% endblock %}
 
 {% block content %}
-    <h1>Cuentas</h1>
+
 
     <table class="table">
         <thead>
@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for cuentum in cuentas %}
+        {% for reporte in reportes %}
             <tr>
-                <td>{{ cuentum.id }}</td>
-                <td>{{ cuentum.name }}</td>
+                <td>{{ reporte.id }}</td>
+                <td>{{ reporte.name }}</td>
                 <td>
-                    <a href="{{ path('app_cuenta_show', {'id': cuentum.id}) }}">show</a>
-                    <a href="{{ path('app_cuenta_edit', {'id': cuentum.id}) }}">edit</a>
+                    <a href="{{ path('app_reporte_show', {'id': reporte.id}) }}">show</a>
+                    <a href="{{ path('app_reporte_edit', {'id': reporte.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_cuenta_new') }}">Create new</a>
+    <a href="{{ path('app_reporte_new') }}">Create new</a>
 {% endblock %}

@@ -22,9 +22,11 @@ class CustomerController extends BaseController
     public function index(CustomerRepository $customerRepository): Response
     {
         return $this->render('customer/index.html.twig', [
+            'controller_name'=>'Mis Clientes',
             'customers' => $customerRepository->findAll(),
             'documentos'=>$this->documents,
-            'clientes'=>$this->clientes
+            'clientes'=>$this->clientes,
+            'reportes'=>$this->reportes,
         ]);
     }
 

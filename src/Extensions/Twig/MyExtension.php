@@ -5,6 +5,7 @@ use App\Entity\Document;
 use App\Entity\User;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\Twig_SimpleFilter;
 class MyExtension extends AbstractExtension
 {
     private $log;
@@ -13,6 +14,9 @@ class MyExtension extends AbstractExtension
         return [
             new TwigFunction('is_granted_role_list', [$this, 'is_granted_role_list']),
             new TwigFunction('view_field', [$this, 'view_field']),
+            new TwigFunction('cast_to_array', [$this, 'cast_to_array']),
+            // new Twig_SimpleFilter('cast_to_array', array($this, 'cast_to_array')),
+            
             
         ];
     }
@@ -69,5 +73,12 @@ class MyExtension extends AbstractExtension
         }
         // throw new \Exception('Chequeando permiso en modulo '.$modulos, 1);
         return false;
+    }
+
+    public function cast_to_array($stdClassObject){
+        // $response = json_encode($stdClassObject, true);
+        $response = (array)($stdClassObject);
+        // $response = json_decode($response);
+        return $response;
     }
 }

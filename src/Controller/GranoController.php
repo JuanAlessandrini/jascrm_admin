@@ -21,6 +21,7 @@ class GranoController extends BaseController
     public function index(GranoRepository $granoRepository): Response
     {
         return $this->render('grano/index.html.twig', [
+            'controller_name'=>'Granos',
             'granos' => $granoRepository->findAll(),
             'documentos'=>$this->documents,
             'clientes'=>$this->clientes

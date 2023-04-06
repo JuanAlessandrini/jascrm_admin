@@ -1,0 +1,37 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Reportes{% endblock %}
+    {% block navbar %}
+        {% include 'reporte/filters.html.twig' %}
+    {% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>Promedio</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in td %}
+                <tr>
+                    <td>{{row.concepto.concepto}}</td>
+                    <td>{{row.cantidad}}</td>
+                    <td>{{row.promedio}}</td>
+                    <td>{{row.total}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no se encontraron registros</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {# {{ td | json_encode}} #}
+    </div>
+</div>
+{% endblock %}

@@ -58,7 +58,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">administración</span>
+              <span style="font-size:1.2em" class=" demo menu-text fw-bolder ms-2">Administración</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -85,7 +85,7 @@
             </li>
 
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item {{ controller_name is defined ? (controller_name == 'Dashboard' ? 'active' : '') : ''}}">
               <a href="{{path('app_dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Panel de Control</div>
@@ -97,7 +97,7 @@
               <span class="menu-header-text">Documentos</span>
             </li>
             {% for documento in documentos %}
-              <li class="menu-item">
+              <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
                 <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-collection"></i>
                   <div data-i18n="Account Settings">{{documento.name}}</div>
@@ -109,7 +109,7 @@
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Altas</span></li>
             <!-- Cards -->
-            <li class="menu-item">
+            <li class="menu-item {{ controller_name is defined ? (controller_name == 'Clientes' ? 'active' : '') : ''}}">
               <a href="{{path('app_vendor_index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Basic">Clientes / Proveedores</div>
@@ -120,67 +120,76 @@
           <!-- Reports -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Reportes</span></li>
             <!-- Cards -->
-            <li class="menu-item">
-              <a href="{{path('app_customer_index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Basic">IVA</div>
-              </a>
-            </li>
+            {% if reportes is defined %}
+              {% for reporte in reportes %}
+              <li class="menu-item {{ controller_name is defined ? (controller_name == reporte.name ? 'active' : '') : ''}}">
+                <a href="{{path('app_reporte_view', {id:reporte.id})}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-detail"></i>
+                  <div data-i18n="Basic">{{reporte.name}}</div>
+                </a>
+              </li>
+              {% endfor %}
+            {% endif %}
 
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Configuración</span></li>
             <!-- Cards -->
-            <li class="menu-item">
-              <a href="{{path('app_customer_index')}}" class="menu-link">
+            <li class="menu-item {{ controller_name is defined ? (controller_name == 'Mis Clientes' ? 'active' : '') : ''}}">
+              <a href="{{path('app_customer_index')}}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Basic">Mis Clientes</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{{path('app_grano_index')}}" class="menu-link">
+            <li class="menu-item {{ controller_name is defined ? (controller_name == 'Granos' ? 'active' : '') : ''}}">
+              <a href="{{path('app_grano_index')}}" class="menu-link ">
                 <i class='menu-icon bx bxs-coffee-bean'></i>
                 <div data-i18n="Basic">Granos</div>
               </a>
             </li>
             {% if is_granted("ROLE_ACCOUNT") %}
               <li class="menu-header small text-uppercase"><span class="menu-header-text">Contabilidad</span></li>
-                <li class="menu-item">
+                <li class="menu-item {{ controller_name is defined ? (controller_name == 'Grupo 1' ? 'active' : '') : ''}}">
                   <a href="{{path('app_accounting_group1_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Basic">Grupo1</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ controller_name is defined ? (controller_name == 'Grupo 2' ? 'active' : '') : ''}}">
                   <a href="{{path('app_accounting_group2_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Basic">Grupo2</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ controller_name is defined ? (controller_name == 'Cuentas' ? 'active' : '') : ''}}">
                   <a href="{{path('app_cuenta_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Basic">Cuentas</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ controller_name is defined ? (controller_name == 'SubCuentas' ? 'active' : '') : ''}}">
                   <a href="{{path('app_sub_cuenta_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Basic">Sub Cuentas</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                {# <li class="menu-item {{ controller_name is defined ? (controller_name == 'Auxiliares' ? 'active' : '') : ''}}">
                   <a href="{{path('app_cuenta_auxiliar_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Basic">Auxiliares</div>
                   </a>
-                </li>
+                </li> #}
                {% endif %}
             {% if is_granted("ROLE_ADMIN") %}
 
               <!-- Components -->
               <li class="menu-header small text-uppercase"><span class="menu-header-text">Admin</span></li>
               <!-- Cards -->
-              
+               <li class="menu-item">
+                <a href="{{path('app_reporte_index')}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
+                  <div data-i18n="Basic">Reportes</div>
+                </a>
+              </li>
               <li class="menu-item">
                 <a href="{{path('app_entidad_field_index')}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-cog"></i>

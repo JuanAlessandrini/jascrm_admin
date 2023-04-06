@@ -1,0 +1,118 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Reportes{% endblock %}
+    {% block navbar %}
+        {% include 'reporte/filters.html.twig' %}
+    {% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for campo in reporte.campos %}
+                        {% if (campo.name)  is not same as 'total' %}
+                            <th>{{campo.description}}</th>
+                        {% endif %}
+                    {% endfor %}
+                    {% for concepto in reporte.conceptos %}
+                            <th>{{concepto.name}}</th>
+                    {% endfor %}
+                    {% for campo in reporte.campos %}
+                        {% if (campo.name)  == 'total' %}
+                            <th>{{campo.description}}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for documento in listaDocumentos %}
+                {# {% set jsondoc = documento | json_encode() %}
+                {% set campos = jsondoc  %} #}
+                
+                <tr>
+                    {% for field in reporte.campos %}
+                        {% if (field.name)  is not same as 'total' %}
+                            {% for key, value in cast_to_array(documento) %}
+                                {% set campo = key | replace({'App': '','Entity': '','Document': '','\\':''}) %}
+                                
+                            
+                                {% if (campo | trim) == (field.name ) %}
+                                    {% if (field.name == 'vendor' or field.name == 'grano') %}
+                                        <td>{{value.name}}</td>
+                                    {% else %}
+                                        
+                                            {% if value.timestamp is defined %}
+                                                <td>{{ value | date('d/m/Y') }}</td>
+                                            {% else %}
+                                                <td>{{ value }}</td>
+                                            {% endif %}
+                                        
+                                    {% endif %}
+                                
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    {% for field in reporte.conceptos %}
+                        {% set encuentra = false %}
+                        {% for key, value in cast_to_array(documento.detail) %}
+                            {% set campo = key | replace({'App': '','Entity': '','Document': '','\\':''}) %}
+                            {% if (campo | trim) == (field.name ) %}
+                                {% set encuentra = true %}
+                                {% if value.timestamp is defined %}
+                                    <td>{{ value | date('d/m/Y') }}</td>
+                                {% else %}
+                                    <td>{{ value }}</td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if encuentra == false %}
+                            {% for key, value in cast_to_array(documento) %}
+                                {% set campo = key | replace({'App': '','Entity': '','Document': '','\\':''}) %}
+                                {% if (campo | trim) == (field.name ) %}
+                                    {% set encuentra = true %}
+                                    
+                                    <td>{{ value }}</td>
+                                    
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if encuentra == false %}
+                            <td style="text-align:right">0.00</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% for field in reporte.campos %}
+                        {% if (field.name)  == 'total' %}
+                            {% for key, value in cast_to_array(documento) %}
+                                {% set campo = key | replace({'App': '','Entity': '','Document': '','\\':''}) %}
+                                
+                            
+                                {% if (campo | trim) == (field.name ) %}
+                                    {% if (field.name == 'vendor' or field.name == 'grano') %}
+                                        <td>{{value.name}}</td>
+                                    {% else %}
+                                        
+                                            {% if value.timestamp is defined %}
+                                                <td>{{ value | date('d/m/Y') }}</td>
+                                            {% else %}
+                                                <td>{{ value }}</td>
+                                            {% endif %}
+                                        
+                                    {% endif %}
+                                
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

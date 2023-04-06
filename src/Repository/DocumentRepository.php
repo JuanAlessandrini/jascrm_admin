@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Document;
+use App\Entity\Reporte;
+use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,118 @@ class DocumentRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+           
+    public function aplicaFiltros($request, $customer, $typeEnt){
+        $query = $this->createQueryBuilder('d')
+        ->join('d.vendor', 'v')
+        ->join('d.grano', 'g')
+        ->andWhere('d.customer = :customer')
+        ->andWhere('d.tipo = :tipo')
+        ->setParameter('customer', $customer)
+        ->setParameter('tipo', $typeEnt)
+        ;
+
+        if($request->get('fromdate')){
+            $query->andWhere('d.created_at >= :fechafrom')
+            ->setParameter('fechafrom', new \DateTime($request->get('fromdate')));
+        }
+
+        if($request->get('todate')){
+            $query->andWhere('d.created_at <= :todate')
+            ->setParameter('todate', new \DateTime($request->get('todate')));
+        }
+
+        if($request->get('codigo')){
+            $query->andWhere('d.codigo = :codigo')
+            ->setParameter('codigo', $request->get('codigo'));
+        }
+        if($request->get('nrocmpbte')){
+            $query->andWhere('d.numero = :nrocmpbte')
+            ->setParameter('nrocmpbte', $request->get('nrocmpbte'));
+        }
+        if($request->get('proveedor')){
+            $query
+                ->andWhere('v.name LIKE :vendor')
+                ->setParameter('vendor', '%'.$request->get('proveedor').'%');
+        }
+        if($request->get('campana')){
+            $query
+                ->andWhere('d.campania = :campana')
+                ->setParameter('campana', $request->get('campana'));
+        }
+
+        if($request->get('grano')){
+            $query
+                ->andWhere('g.id = :grano')
+                ->setParameter('grano', $request->get('grano'));
+        }
+        
+        
+
+        $result = $query->orderBy('d.id', 'ASC')
+        ->setMaxResults(100)
+        ->getQuery()
+        ->getResult();
+
+        return $result;
+    }
+
+    public function getBaseReport($request, Reporte $report, Customer $customer){
+
+        $query = $this->createQueryBuilder('d')
+        ->join('d.vendor', 'v')
+        ->join('d.grano', 'g')
+        ->andWhere('d.customer = :customer')
+        ->andWhere('d.tipo IN (:tipos)')
+        ->setParameter('customer', $customer)
+        ->setParameter('tipos', $report->getTipos())
+        ;
+
+        if($request->get('fromdate')){
+            $query->andWhere('d.created_at >= :fechafrom')
+            ->setParameter('fechafrom', new \DateTime($request->get('fromdate')));
+        }
+
+        if($request->get('todate')){
+            $query->andWhere('d.created_at <= :todate')
+            ->setParameter('todate', new \DateTime($request->get('todate')));
+        }
+
+        if($request->get('codigo')){
+            $query->andWhere('d.codigo = :codigo')
+            ->setParameter('codigo', $request->get('codigo'));
+        }
+        if($request->get('nrocmpbte')){
+            $query->andWhere('d.numero = :nrocmpbte')
+            ->setParameter('nrocmpbte', $request->get('nrocmpbte'));
+        }
+        if($request->get('proveedor')){
+            $query
+                ->andWhere('v.name LIKE :vendor')
+                ->setParameter('vendor', '%'.$request->get('proveedor').'%');
+        }
+        if($request->get('campana')){
+            $query
+                ->andWhere('d.campania = :campana')
+                ->setParameter('campana', $request->get('campana'));
+        }
+
+        if($request->get('grano')){
+            $query
+                ->andWhere('g.id = :grano')
+                ->setParameter('grano', $request->get('grano'));
+        }
+        
+        
+
+        $result = $query->orderBy('d.id', 'ASC')
+        ->setMaxResults(100)
+        ->getQuery()
+        ->getResult();
+
+        return $result;
     }
 
 //    /**

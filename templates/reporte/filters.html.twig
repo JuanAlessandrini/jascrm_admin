@@ -1,0 +1,101 @@
+{# {% for campo in entidadTypeDoc.fields %}
+    {{campo.name}}
+{% endfor %} #}
+<div class=" card-body">
+    <form action="{{path("app_reporte_view", {id:reporte.id})}}" method="POST" >
+        <div class="row" style="border: 1px solid #d9d9d9;padding: 13px;border-radius: 11px;">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Fecha desde</label>
+                            <input type="date" value="{{date('last year') | date('Y-m-d')}}" class="form-control filter" name="fromdate" id="fromdate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Fecha Hasta</label>
+                            <input type="date" class="form-control filter" value="{{date('now') | date('Y-m-d')}}" name="todate" id="todate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Código</label>
+                            <select class="form-control filter" id="codigo" name="codigo">
+                                <option value>Todos</option>
+                                <option value>A</option>
+                                <option value>B</option>
+                                <option value>C</option>
+                                <option value>M</option>
+                                <option value>X</option>
+                                <option value>Z</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Nro Comprobante</label>
+                            <input type="text" value="" class="form-control filter" id="nrocmpbte" name="nrocmpbte"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Proveedor</label>
+                            <input type="text" class="form-control filter" id="proveedor" name="proveedor"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Campaña</label>
+                            <select class="form-control filter" id="campana" name="campana">
+                                <option value>Todas</option>
+                                {% for campania in campanias %}
+                                    <option value="{{campania}}">{{campania}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Grano</label>
+                            <select class="form-control filter" id="grano" name="grano">
+                                <option value>Todos</option>
+                                {% for grano in granos %}
+                                    <option value="{{grano.id}}">{{grano.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {# <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Aplicado</label>
+                            <select class="form-control filter" id="aplicado" name="aplicado">
+                                <option value>Todos</option>
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+            <div class="col-sm-12 padding-5">
+                <p></p>
+                <button class="btn btn-primary">Buscar <i class='bx bx-search-alt-2' ></i></button>
+                
+            </div>
+        </div>
+    </form>
+</div>

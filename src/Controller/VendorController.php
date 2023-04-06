@@ -22,9 +22,11 @@ class VendorController extends BaseController
     public function index(VendorRepository $vendorRepository): Response
     {
         return $this->render('vendor/index.html.twig', [
+            'controller_name'=>'Clientes',
             'vendors' => $vendorRepository->findAll(),
             'documentos'=>$this->documents,
             'clientes'=>$this->clientes,
+            'reportes'=>$this->reportes,
         ]);
     }
 

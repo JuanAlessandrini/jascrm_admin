@@ -28,6 +28,7 @@ class DashboardController extends BaseController
             'controller_name' => 'HomeController',
             'documentos'=>$this->documents,
             'clientes'=>$this->clientes,
+            'reportes'=>$this->reportes,
         ]);
     }
 

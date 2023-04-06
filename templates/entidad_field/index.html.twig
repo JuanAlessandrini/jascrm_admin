@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Derscription</th>
                 <th>Type</th>
                 <th>actions</th>
             </tr>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ entidad_field.id }}</td>
                 <td>{{ entidad_field.name }}</td>
+                <td>{{ entidad_field.description }}</td>
                 <td>{{ entidad_field.type }}</td>
                 <td>
                     <a href="{{ path('app_entidad_field_show', {'id': entidad_field.id}) }}">show</a>

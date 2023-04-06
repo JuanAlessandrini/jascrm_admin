@@ -8,7 +8,9 @@
         {% include('dashboard/_menu.html.twig') %}
         <!-- Layout container -->
         <div class="layout-page  align-top">
-         {% include('dashboard/_navbar.html.twig') %}
+          {% block navbar %}
+            {% include('dashboard/_navbar.html.twig') %}
+          {% endblock %}
           <!-- Content wrapper -->
           <div class="content-wrapper  card-body">
             

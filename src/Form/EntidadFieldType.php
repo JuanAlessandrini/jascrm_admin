@@ -20,6 +20,7 @@ class EntidadFieldType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description')
             ->add('type', ChoiceType::class,[
                 'choices'=>[
                     'Texto'=>'text',
