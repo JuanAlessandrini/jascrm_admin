@@ -88,13 +88,13 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
-                    <a href="auth-forgot-password-basic.html">
+                    {# <a href="auth-forgot-password-basic.html">
                       <small>Olvidate la Password?</small>
-                    </a>
+                    </a> #}
                   </div>
                   <div class="input-group input-group-merge">
                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    <span onclick="viewPwd()" class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
@@ -113,19 +113,23 @@
                   {% endif %}
               </form>
 
-              <p class="text-center">
+              {# <p class="text-center">
                 <span>Nuevo en la plataforma?</span>
                 <a href="auth-register-basic.html">
                   <span>Crear una cuenta</span>
                 </a>
-              </p>
+              </p> #}
             </div>
           </div>
           <!-- /Register -->
         </div>
       </div>
     </div>
-
+  <script>
+    function viewPwd(){
+      $("#inputPassword").attr('type') == 'password' ? $("#inputPassword").attr('type', 'text') : $("#inputPassword").attr('type', 'password')
+    }
+  </script>
     <!-- / Content -->
 
      {% endblock %}
