@@ -44,8 +44,8 @@ class DocumentType extends AbstractType
                 },
                 'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Cliente'])
             ->add('codigo', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Codigo'])
-            ->add('emisor', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Emisor'])
-            ->add('numero', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Numero'])
+            ->add('emisor', NumberType::class, ['attr'=>['class'=>'form-control '], 'label'=>'Emisor'])
+            ->add('numero', NumberType::class, ['attr'=>['class'=>'form-control '], 'label'=>'Numero'])
             ->add('subtotal', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase suma-total'], 'label'=>'Monto'])
             ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase disabled ver-total'], 'label'=>'Total'])
             ->add('sucursal', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Sucursal'])
@@ -53,6 +53,8 @@ class DocumentType extends AbstractType
             'choices' => [
                 '2023'=>'2023','2024' =>'2024','2025'=> '2025']
              , 'label'=>'Campaña'])
+             ->add('centro_costo', ChoiceType::class, ['attr'=>['class'=>'form-control'],
+             'label'=>'Centro de Costo'])
             ->add('grano',EntityType::class, [
                 'class'=>Grano::class,
                 'choice_label'=>'name',

@@ -7,6 +7,7 @@
      {% if view_field ('sucursal', document) %}
         var element2 = document.querySelector('#document_sucursal');
         var choices = new Choices(element2, {
+            itemSelectText: '',
             choices:[
             {% for sucursal in (document.customer.sucursales | split (',')) %}
                 {
@@ -33,6 +34,24 @@
         {% endfor %}
         ]
     });
+
+
+     {% if view_field('centro_costo', document) %}
+        var element4 = document.querySelector('#document_centro_costo');
+        var choices = new Choices(element4, {
+            itemSelectText: '',
+            choices:[
+            {% for centroCosto in ((app.user.getDefaultCliente.getCentroCostos ?? 'Servicios de Siembra, Servicios de Cosecha') | split (',')) %}
+                {
+                    value: '{{centroCosto}}',
+                    label: '{{centroCosto}}',
+                    selected: true,
+                    disabled: false,
+                },
+            {% endfor %}
+            ]
+        });
+    {% endif %}
     
 </script>
 

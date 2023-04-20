@@ -3,11 +3,12 @@
 {% block title %}Edit Cuenta{% endblock %}
 
 {% block content %}
-    <h1>Edit Cuenta</h1>
+    <h1>Editar Cuenta</h1>
 
-    {{ include('cuenta/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('cuenta/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('app_cuenta_index') }}">back to list</a>
-
-    {{ include('cuenta/_delete_form.html.twig') }}
+    <div class="d-flex">
+        <a class="btn" href="{{ path('app_cuenta_index') }}">Volver</a>
+        {{ include('cuenta/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

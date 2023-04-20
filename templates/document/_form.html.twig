@@ -1,5 +1,10 @@
 {{ form_start(form) }}
 <style>
+@media (min-width: 640px){
+    .choices__list--dropdown .choices__item--selectable, .choices__list[aria-expanded] .choices__item--selectable {
+        padding-right: 0px !important;
+    }
+}
     ul.table{
         height: 250px;
         overflow: scroll;
@@ -53,29 +58,22 @@
                     {{ form_row(form.codigo) }}
                 </div>
             {% endif %}
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <div class="d-flex">
                     {% if view_field ('emisor', document) %}
                         <div style="width:30%">
-                            {{ form_row(form.emisor) }}
+                            {{ form_row(form.emisor, {'type': 'number'}) }}
                         </div>
                     {% endif %}
                     {% if view_field ('numero', document) %}
-                        {{ form_row(form.numero) }}
+                        {{ form_row(form.numero, {'type': 'number'}) }}
                     {% endif %}
                     
                 </div>
             </div>
             {% if view_field ('sucursal', document) %}
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     {{ form_row(form.sucursal) }}
-                </div>
-            {% endif %}
-        </div>
-        <div class="row">
-            {% if view_field ('vendor', document) %}
-                <div class="col-sm-7">
-                    {{ form_row(form.vendor) }}
                 </div>
             {% endif %}
             {% if view_field ('campania', document) %}
@@ -83,9 +81,22 @@
                     {{ form_row(form.campania) }}
                 </div>
             {% endif %}
+        </div>
+        <div class="row">
+            {% if view_field ('vendor', document) %}
+                <div class="col-sm-6">
+                    {{ form_row(form.vendor) }}
+                </div>
+            {% endif %}
+            
             {% if view_field ('grano', document) %}
                 <div class="col-sm-3">
                     {{ form_row(form.grano) }}
+                </div>
+            {% endif %}
+             {% if view_field ('centro_costo', document) %}
+                <div class="col-sm-3">
+                    {{ form_row(form.centro_costo) }}
                 </div>
             {% endif %}
             
@@ -264,6 +275,7 @@ var addFormToCollection = (e) => {
         
         });
     }
+
 }
   
 

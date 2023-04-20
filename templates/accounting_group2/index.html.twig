@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,8 @@
                 <td>{{ accounting_group2.id }}</td>
                 <td>{{ accounting_group2.name }}</td>
                 <td>
-                    <a href="{{ path('app_accounting_group2_show', {'id': accounting_group2.id}) }}">show</a>
-                    <a href="{{ path('app_accounting_group2_edit', {'id': accounting_group2.id}) }}">edit</a>
+                    
+                    <a href="{{ path('app_accounting_group2_edit', {'id': accounting_group2.id}) }}"><i class='bx bxs-edit-alt'></i></a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_accounting_group2_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_accounting_group2_new') }}">Nueva</a>
 {% endblock %}

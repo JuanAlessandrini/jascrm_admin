@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,8 @@
                 <td>{{ cuentum.id }}</td>
                 <td>{{ cuentum.name }}</td>
                 <td>
-                    <a href="{{ path('app_cuenta_show', {'id': cuentum.id}) }}">show</a>
-                    <a href="{{ path('app_cuenta_edit', {'id': cuentum.id}) }}">edit</a>
+                    <a href="{{ path('app_cuenta_show', {'id': cuentum.id}) }}"><i class='bx bxs-search-alt-2'></i></a>
+                    <a href="{{ path('app_cuenta_edit', {'id': cuentum.id}) }}"><i class='bx bxs-edit-alt'></i></a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_cuenta_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_cuenta_new') }}">Nueva</a>
 {% endblock %}

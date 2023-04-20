@@ -19,7 +19,7 @@ class AccountingGroup2Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Nombre'])
             ->add('group1',EntityType::class, [
                 'class'=>AccountingGroup1::class,
                 'choice_label'=>'name',

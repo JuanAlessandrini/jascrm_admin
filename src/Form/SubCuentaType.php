@@ -20,7 +20,7 @@ class SubCuentaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Nombre'])
             ->add('cuenta',EntityType::class, [
                 'class'=>Cuenta::class,
                 'choice_label'=>'name',

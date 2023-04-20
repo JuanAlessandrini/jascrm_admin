@@ -148,6 +148,11 @@ class Document extends BaseEntity
      */
     private $grano;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $centro_costo;
+
    
 
     public function __construct()
@@ -570,6 +575,18 @@ class Document extends BaseEntity
     public function setGrano(?Grano $grano): self
     {
         $this->grano = $grano;
+
+        return $this;
+    }
+
+    public function getCentroCosto(): ?string
+    {
+        return $this->centro_costo;
+    }
+
+    public function setCentroCosto(?string $centro_costo): self
+    {
+        $this->centro_costo = $centro_costo;
 
         return $this;
     }

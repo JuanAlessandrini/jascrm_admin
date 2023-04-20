@@ -3,9 +3,9 @@
 {% block title %}New SubCuenta{% endblock %}
 
 {% block content %}
-    <h1>Create new SubCuenta</h1>
-
+    <h3>Crear Nueva SubCuenta</h3>
+    
     {{ include('sub_cuenta/_form.html.twig') }}
 
-    <a href="{{ path('app_sub_cuenta_index') }}">back to list</a>
+    <a class="btn" href="{{ path('app_sub_cuenta_index') }}">Volver</a>
 {% endblock %}

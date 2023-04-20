@@ -57,6 +57,7 @@
                     {{ form_row(form.cuit) }}
                     {{ form_row(form.address) }}
                     {{ form_row(form.city) }}
+                    {{ form_row(form.centro_costos) }}
                     {{ form_row(form.sucursales) }}
                     
                 </div>
@@ -108,6 +109,15 @@
            
         });
 
+    var ccostos = new Choices('#customer_centro_costos',{
+            allowHTML: true,
+            delimiter: ',',
+            editItems: false,
+            removeItemButton: true,      
+            searchFields: ['label'],  
+            searchChoices: true,
+           
+        });
        
 
     });

@@ -20,7 +20,7 @@ class CuentaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Nombre'])
             ->add('grupo',EntityType::class, [
                 'class'=>AccountingGroup2::class,
                 'choice_label'=>'name',

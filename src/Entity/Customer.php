@@ -69,6 +69,11 @@ class Customer extends BaseEntity
      */
     private $cuentaBancarias;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $centro_costos;
+
     
 
     public function __construct()
@@ -273,6 +278,18 @@ class Customer extends BaseEntity
                 $cuentaBancaria->setCliente(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCentroCostos(): ?string
+    {
+        return $this->centro_costos;
+    }
+
+    public function setCentroCostos(?string $centro_costos): self
+    {
+        $this->centro_costos = $centro_costos;
 
         return $this;
     }

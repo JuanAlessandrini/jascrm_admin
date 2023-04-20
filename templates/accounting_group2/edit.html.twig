@@ -3,11 +3,12 @@
 {% block title %}Edit AccountingGroup2{% endblock %}
 
 {% block content %}
-    <h1>Edit AccountingGroup2</h1>
+    <h1>Editar SubGrupo de Cuentas</h1>
 
     {{ include('accounting_group2/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_accounting_group2_index') }}">back to list</a>
-
-    {{ include('accounting_group2/_delete_form.html.twig') }}
+    <div class="d-flex">
+        <a class="btn" href="{{ path('app_accounting_group2_index') }}">Volver</a>
+        {{ include('accounting_group2/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

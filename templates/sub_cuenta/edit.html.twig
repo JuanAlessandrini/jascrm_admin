@@ -3,11 +3,11 @@
 {% block title %}Edit SubCuenta{% endblock %}
 
 {% block content %}
-    <h1>Edit SubCuenta</h1>
+    <h1>Editar SubCuenta</h1>
 
-    {{ include('sub_cuenta/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_sub_cuenta_index') }}">back to list</a>
-
-    {{ include('sub_cuenta/_delete_form.html.twig') }}
+    {{ include('sub_cuenta/_form.html.twig', {'button_label': 'Actualizar'}) }}
+    <div class="d-flex">
+        <a class="btn" href="{{ path('app_sub_cuenta_index') }}">Volver</a>
+        {{ include('sub_cuenta/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
