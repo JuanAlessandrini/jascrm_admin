@@ -20,7 +20,7 @@ class EmailClass extends AbstractController{
                 //Server settings
                 //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = "mail.[dominio]";                     //Set the SMTP server to send through
+                $mail->Host       = $_ENV['MAIL_DOMAIN'];                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;  
                 $mail->Port       = 587;                                   //Enable SMTP authentication
                 $mail->Username   = $smtpUsuario;                     //SMTP username
@@ -213,5 +213,19 @@ class EmailClass extends AbstractController{
             'mail'=>$emailPaciente, 
             'name'=>$nombrePaciente.' '.$apellidoPaciente
             ]), [], "Confirmación de Turno", $bodyHTML, $bodyAlt);
+    }
+
+    public function sendRecoveryPasswordEmail($user, $resetToken, $bodyHtml, $bodyAlt){
+        // try {
+                  
+                $this->sendMail(Array([
+                    'name'=>$user->getFullName(),
+                    'mail'=>$user->getEmail()
+                ]), [], 'Recupero de Contraseña', $bodyHtml, $bodyAlt);
+            
+        // } catch (\Throwable $th) {
+        //     throw new \Exception("Error enviando Email", 1);
+            
+        // }
     }
 }

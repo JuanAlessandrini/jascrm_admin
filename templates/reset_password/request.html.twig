@@ -1,0 +1,24 @@
+{% include('dashboard/base.html.twig') %}
+   {% block styles %}
+       <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/css/pages/page-auth.css')}}" />
+    {% endblock %}
+  {% block wrapper %}
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <h3 class="text-center">Recupera tu password</h3>
+    <div style="max-width:400px; margin:auto;" class="section">
+        <div class="section card card-body">
+            {{ form_start(requestForm) }}
+                {{ form_row(requestForm.email) }}
+                <div>
+                    <small>
+                        Ingresa tu dirección de email y te enviaremos un email con un link para recuperar tu password.
+                    </small>
+                </div>
+
+                <button class="btn btn-primary">Enviar Email</button>
+            {{ form_end(requestForm) }}
+        </div>
+    </div>
+{% endblock %}

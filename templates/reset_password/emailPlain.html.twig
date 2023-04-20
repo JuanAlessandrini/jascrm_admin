@@ -1,0 +1,9 @@
+Hola!\r\n
+Para resetear tu contraseña, por favor segui el siguiente link\r\n
+{{ url('app_reset_password', {token: resetToken.token}) }}
+\r\n
+\r\n
+Este link expira en {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+\r\n
+\r\n
+Saludos!

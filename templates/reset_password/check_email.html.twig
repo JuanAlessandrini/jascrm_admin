@@ -1,0 +1,45 @@
+{% include('dashboard/base.html.twig') %}
+   {% block styles %}
+       <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/css/pages/page-auth.css')}}" />
+    {% endblock %}
+  {% block wrapper %}
+<style>
+    .login-form{
+        max-width: 50%;
+        min-width: 200px;
+        margin: 10% auto;
+        text-align: center;
+        background: #ffffff82;
+        border-radius: 11px;
+        padding: 20px;
+        font-family: Arial;
+        color: #05294e;
+        box-shadow: 3px 2px 30px #00000087;
+    }
+</style>
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-text">{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span class="alert-text">{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                {% endfor %}
+    <div class="login-form">
+        <p>
+            Si ingresaste un mail existente, vas a estar recibiendo un link que puedes utilizar para recuperar tu password.
+            Este link expira en {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+        </p>
+        <p>Si no recibes un email, por favor verifica la carpeta 'Spam' o repite el proceso: <a href="{{ path('app_forgot_password_request') }}">Probar nuevamente</a>.</p>
+    </div>
+{% endblock %}

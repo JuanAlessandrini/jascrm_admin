@@ -1,0 +1,36 @@
+{% include('dashboard/base.html.twig') %}
+   {% block styles %}
+       <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/css/pages/page-auth.css')}}" />
+    {% endblock %}
+  {% block wrapper %}
+    <style>
+    .login-form{
+        max-width: 50%;
+        min-width: 200px;
+        margin: 10% auto;
+        text-align: center;
+        background: #ffffff82;
+        border-radius: 11px;
+        padding: 20px;
+        font-family: Arial;
+        color: #05294e;
+        box-shadow: 3px 2px 30px #00000087;
+    }
+    .contentFields{
+        max-width:250px;
+        
+    }
+</style>
+    
+
+    {{ form_start(resetForm, {'attr': {'class': 'login-form'}}) }}
+        <h3 class="text-center">Recuperar Password</h3>
+        <div class="text-center w-100 margin-auto">
+            <div class="contentFields" style="margin: auto auto;">
+                {{ form_row(resetForm.plainPassword) }}
+            </div>
+        </div>
+        <button class="btn btn-primary">Actualizar Password</button>
+    {{ form_end(resetForm) }}
+
+{% endblock %}
