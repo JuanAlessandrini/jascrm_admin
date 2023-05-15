@@ -24,8 +24,8 @@ class CustomerType extends AbstractType
             ->add('address',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'] )
             ->add('city',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Localidad'] )
             // ->add('campanias',TextType::class, ['required'=>false,'attr'=>['class'=>'form-control'], 'label'=>'Campañas'] )
-            ->add('sucursales',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Sucursales'] )
-            ->add('centro_costos',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Centros de Costos'] )
+            ->add('sucursales',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Sucursales','required'=>false] )
+            ->add('centro_costos',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Centros de Costos','required'=>false] )
             ->add('bankAccounts', CollectionType::class, [
                 'entry_type' => BankAccountType::class,
                 'entry_options' => ['label' => false],

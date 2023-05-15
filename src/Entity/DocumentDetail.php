@@ -39,6 +39,11 @@ class DocumentDetail
      */
     private $cantidad;
 
+    /**
+     * @ORM\Column(type="decimal", precision=15, scale=2)
+     */
+    private $precio_unitario;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class DocumentDetail
     public function setCantidad(string $cantidad): self
     {
         $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    public function getPrecioUnitario(): ?string
+    {
+        return $this->precio_unitario;
+    }
+
+    public function setPrecioUnitario(string $precio_unitario): self
+    {
+        $this->precio_unitario = $precio_unitario;
 
         return $this;
     }

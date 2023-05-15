@@ -1,19 +1,27 @@
 {{ form_start(form) }}
+
 <style>
 @media (min-width: 640px){
     .choices__list--dropdown .choices__item--selectable, .choices__list[aria-expanded] .choices__item--selectable {
         padding-right: 0px !important;
     }
 }
+.container {
+  overflow: auto;
+}
+
+.choices__list {
+  overflow: visible;
+}
     ul.table{
         height: 250px;
-        overflow: scroll;
+        overflow: auto;
         border: 1px solid #d8d7d7;
         border-radius: 5px;
     }
      ul.tableImp{
-        height: 150px;
-        overflow: scroll;
+        height: 200px;
+        overflow: auto;
         border: 1px solid #d8d7d7;
         border-radius: 5px;
     }
@@ -39,7 +47,7 @@
     ul.tableImp>li>div>div:first-child{
         width: 100%;
     }
-      
+   
 </style>
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Nueva {{document.tipo.name ?? 'Unknow'}} - <strong>{{document.customer.name ?? 'Unknow'}}</strong></h5>
@@ -154,8 +162,8 @@
                         <label>Detalle</label>
                         <button type="button" class="pull-right btn rounded-pill btn-primary btn-icon btn-rnd add_item_link" data-collection-holder-class="detail"><i class="tf-icons bx bx-plus"></i></button>
                     </div>
-                    <ul 
-                        class="tableImp detail" 
+                    <div >
+                    <ul class="tableImp detail" 
                         data-index="{{ form.detail|length > 0 ? form.detail|last.vars.name + 1 : 0 }}"
                         data-prototype="{{ form_widget(form.detail.vars.prototype)|e('html_attr') }}">
                     
