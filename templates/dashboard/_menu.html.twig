@@ -96,16 +96,61 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Documentos</span>
             </li>
-            {% for documento in documentos %}
-              <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
-                <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-collection"></i>
-                  <div data-i18n="Account Settings">{{documento.name}}</div>
-                </a>
-                
-              </li>
-            {% endfor %}
- 
+            
+            <li class="menu-item" style="">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div >Ventas</div>
+              </a>
+              <ul class="menu-sub">
+                {% for documento in documentos | filter(doc => doc.entidad.name == 'Ventas') %}
+                  <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
+                    <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-collection"></i>
+                      <div data-i18n="Account Settings">{{documento.name}}</div>
+                    </a>
+                    
+                  </li>
+                {% endfor %}
+                {% for documento in documentos | filter(doc => doc.entidad.name == 'Cobro') %}
+                  <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
+                    <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-collection"></i>
+                      <div data-i18n="Account Settings">{{documento.name}}</div>
+                    </a>
+                    
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li class="menu-item" style="">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div >Compras</div>
+              </a>
+              <ul class="menu-sub">
+                {% for documento in documentos | filter(doc => doc.entidad.name == 'Compras') %}
+                  <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
+                    <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-collection"></i>
+                      <div data-i18n="Account Settings">{{documento.name}}</div>
+                    </a>
+                    
+                  </li>
+                {% endfor %}
+                {% for documento in documentos | filter(doc => doc.entidad.name == 'Pago') %}
+                  <li class="menu-item {{ controller_name is defined ? (controller_name == documento.name ? 'active' : '') : ''}}">
+                    <a href="{{path('app_document_index', {typeEnt: documento.id})}}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-collection"></i>
+                      <div data-i18n="Account Settings">{{documento.name}}</div>
+                    </a>
+                    
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+            
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Altas</span></li>
             <!-- Cards -->
