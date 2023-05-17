@@ -329,6 +329,25 @@ var addFormToCollection = (e) => {
         $(".ver-total").val(total);
   });
 
+$(document).on("change", ".suma-subtotal-pu", function(){
+        var subtotal = 0;
+        var pu = $(this).val();
+        var cant = $(this).closest("li").find(".suma-subtotal-cant").val();
+
+        if(!isNaN(cant)){
+            if(!isNaN(pu)){
+                subtotal = parseFloat(pu * cant);
+                $(this).closest("li").find(".suma-total").val(subtotal);
+            }else{
+                console.log(pu);
+            }
+        }else{
+                console.log(cant);
+            }
+    
+        
+  });
+
 var $concepto_caja = $('#document_concepto_caja');
 var $cuenta_bancaria = $('#cont_document_cuenta_bancaria')
 
