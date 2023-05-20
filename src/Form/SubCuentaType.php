@@ -35,7 +35,7 @@ class SubCuentaType extends AbstractType
                 'Percepcion'=>'Percepcion',
                 'Producto'=>'Producto',
                 'Retencion'=>'Retencion',
-            ]])
+            ],'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Tipo'])
                 ;
     }
 
