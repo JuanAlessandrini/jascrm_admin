@@ -1,3 +1,43 @@
 
-    {{ form_widget(form) }}
-   
+{{ form_start(form) }}
+<style>
+    select.form-control>option::before {
+        content: '▢ ';
+    }
+    select.form-control>option:checked::before {
+        content: '☑ ';
+    }
+</style>
+<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Usuario</strong></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-8">
+                {{ form_row(form.email) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                {{ form_row(form.first_name) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                {{ form_row(form.last_name) }}
+            </div>
+        </div>
+        <div >
+                <label>Clientes</label>
+                {{ form_row(form.clientes)}}
+        </div>
+            
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success">Grabar</button>
+    </div>
+{{ form_end(form, {'render_rest': false}) }}

@@ -52,6 +52,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $default_cliente;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Customer::class, inversedBy="users",cascade={"persist"})
+     */
+    private $clientes;
+
    
     
 
@@ -60,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->received_comments = new ArrayCollection();
         $this->readed_comments = new ArrayCollection();
+        $this->clientes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +208,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDefaultCliente(?Customer $default_cliente): self
     {
         $this->default_cliente = $default_cliente;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Customer>
+     */
+    public function getClientes(): Collection
+    {
+        return $this->clientes;
+    }
+
+    public function addCliente(Customer $cliente): self
+    {
+        if (!$this->clientes->contains($cliente)) {
+            $this->clientes[] = $cliente;
+        }
+
+        return $this;
+    }
+
+    public function removeCliente(Customer $cliente): self
+    {
+        $this->clientes->removeElement($cliente);
 
         return $this;
     }

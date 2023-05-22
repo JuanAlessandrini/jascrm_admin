@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Services\EmailClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * @Route("/portal/user")
  */
-class UserController extends AbstractController
+class UserController extends BaseController
 {
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
@@ -25,25 +26,33 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'controller_name'=>'Usuarios',
+            'documentos'=>$this->documents,
+            'clientes'=>$this->clientes
         ]);
     }
 
     /**
-     * @Route("/new/{id}", name="app_user_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
-    public function new(Concesionaria $concesionaria, Request $request, UserRepository $userRepository,UserPasswordEncoderInterface $encoder, EmailClass $emailClass): Response
+    public function new( Request $request, UserRepository $userRepository,UserPasswordEncoderInterface $encoder, EmailClass $emailClass): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['action'=>$this->generateUrl('app_user_new'),'method'=>'POST']);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->add($user, true);
-            $encoded = $encoder->encodePassword($user, $form->get('password')->getData());
-            $user->setRoles(['ROLE_'.$request->get('role')]);
-            $user->setConcesionaria($concesionaria);
-            $user->setSucursal($request->get('sucursal'));
+        if ($form->isSubmitted() ) {
+            
+            $encoded = $encoder->encodePassword($user, "nueva123");
+            if($request->get('clientes')){
+                $user->setRoles(['ROLE_ACCOUNT']);
+            }else{
+                $user->setRoles(['ROLE_USER']);
+            }
             $user->setPassword($encoded);
+            $userRepository->add($user, true);
+            
+            
             $em->persist($user);
             $em->flush();
             // $bodyHtml = $this->getBodyHtml($user,$form->get('password')->getData());
@@ -53,13 +62,14 @@ class UserController extends AbstractController
             //     'name'=>$user->getFullName()
             // ]), '', 'Bienvenid@', $bodyHtml, $bodyAlt);
 
-            return $this->redirectToRoute('app_concesionaria_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
-            'concesionaria'=>$concesionaria
+            'documentos'=>$this->documents,
+            'clientes'=>$this->clientes
         ]);
     }
 
@@ -76,14 +86,14 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="app_user_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="app_user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['action'=>$this->generateUrl('app_user_edit', Array('id'=>$user->getId())),'method'=>'POST']);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $userRepository->add($user, true);
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

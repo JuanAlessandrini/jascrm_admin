@@ -74,6 +74,11 @@ class Customer extends BaseEntity
      */
     private $centro_costos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="clientes")
+     */
+    private $users;
+
     
 
     public function __construct()
@@ -83,6 +88,7 @@ class Customer extends BaseEntity
         $this->bankAccounts = new ArrayCollection();
         $this->movimientoContables = new ArrayCollection();
         $this->cuentaBancarias = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,6 +296,33 @@ class Customer extends BaseEntity
     public function setCentroCostos(?string $centro_costos): self
     {
         $this->centro_costos = $centro_costos;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addCliente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeCliente($this);
+        }
 
         return $this;
     }

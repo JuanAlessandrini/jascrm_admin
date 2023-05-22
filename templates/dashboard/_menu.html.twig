@@ -175,7 +175,8 @@
               </li>
               {% endfor %}
             {% endif %}
-
+            
+            {% if is_granted("ROLE_ACCOUNT") %}
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Configuración</span></li>
             <!-- Cards -->
@@ -191,7 +192,14 @@
                 <div data-i18n="Basic">Granos</div>
               </a>
             </li>
-            {% if is_granted("ROLE_ACCOUNT") %}
+            
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Admin</span></li>
+                <li class="menu-item {{ controller_name is defined ? (controller_name == 'Usuarios' ? 'active' : '') : ''}}">
+                  <a href="{{path('app_user_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Basic">Usuarios</div>
+                  </a>
+                </li>
               <li class="menu-header small text-uppercase"><span class="menu-header-text">Contabilidad</span></li>
                 <li class="menu-item {{ controller_name is defined ? (controller_name == 'Grupo 1' ? 'active' : '') : ''}}">
                   <a href="{{path('app_accounting_group1_index')}}" class="menu-link">
