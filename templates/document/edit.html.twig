@@ -6,7 +6,9 @@
         border: 1px solid #d8d7d7;
         border-radius: 5px;
     }
-    
+    ul>li.header{
+        background: #f1f1f1;
+    }
     strong.field{
         border: 1px solid gray;
     border-radius: 3px;
@@ -57,12 +59,14 @@
     }
       
 </style>
+<div >
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><strong>{{document.customer.name}}</strong> | {{document.tipo.name}} {{ document.emisor }}-{{ document.numero }}</h5>
+        <button type="button" onclick="imprimir()" class="btn btn-just-icon float-right"><i class='bx bxs-printer' ></i></button>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" id="context-printable">
         <div class="row">
             {% if view_field ('created_at', document) %}
                 <div class="col-sm-6">
@@ -85,7 +89,9 @@
         <div class="row">
                 {% if view_field ('vendor', document) %}
                     <div class="col-sm-6">
-                        <label>Cliente: <strong class="field">{{ document.vendor.name }}</strong></label>
+                        <label>Cliente: <strong class="field">{{ document.vendor.name }}</strong></label><br/>
+                        CUIT: <strong>{{document.vendor.cuit}}</strong><br/>
+                        Domicilio: <strong>{{document.vendor.address}}</strong>
                     </div>
                 {% endif %}
                 <div class="col-sm-3">
@@ -106,6 +112,9 @@
                     {% if view_field ('grano', document) %}
                         <label>Grano: <strong class="field">{{ document.grano.name ?? "-" }}</strong></label>                
                     {% endif %}
+                    {% if view_field ('centro_costo', document) %}
+                       <label>Centro Costo: <strong>{{ (document.getCentroCosto) }}</strong></label>
+                    {% endif %}
                 </div>
         </div>
        
@@ -118,7 +127,7 @@
                 
                 <div class="col-sm-4  text-end" style="align-self: end;">
                      {% if view_field ('subtotal', document) %}
-                        <label>Monto: <strong class="field">{{ document.subtotal }}</strong></label>
+                        <label>Monto: <strong class="field pesos">{{ document.subtotal }}</strong></label>
                     {% endif %}
                 </div>
             </div>
@@ -141,10 +150,12 @@
                     <ul 
                         class="tableImp detail" 
                         >
-                    
+                    <li class="header">
+                        <label>Concepto</label><label>Cantidad</label><label>Precio Unitario</label><label>Monto</label>
+                    </li>
                             {% for detalle in document.detail %}
                                 <li>
-                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.ammount }}</label>
+                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.getPrecioUnitario }}</label><label class="pesos">{{ detalle.ammount }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -157,12 +168,12 @@
                         
                     </div>
                     <ul class="tableImp " >
-                            <li>
+                            <li class="header">
                                 <label><strong>Numero</strong></label><label><strong>Vencimiento</strong></label><label><strong>Monto</strong></label>
                             </li>
                             {% for cheque in document.cheques %}
                                 <li>
-                                    <label>{{ cheque.numero }}</label><label>{{ cheque.vencimiento | date('d/m/Y')}}</label><label>{{ cheque.monto }}</label>
+                                    <label>{{ cheque.numero }}</label><label>{{ cheque.vencimiento | date('d/m/Y')}}</label><label class="pesos">{{ cheque.monto }}</label>
                                 </li>
                             {% endfor %}
                     </ul>
@@ -179,10 +190,12 @@
                     <ul 
                         class="tableImp impuestos" 
                     >
-                    
+                    <li class="header">
+                        <label><strong>Concepto</strong></label><label><strong>Monto</strong></label>
+                    </li>
                             {% for impuesto in document.impuestos %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label>{{impuesto.value }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{impuesto.value }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -198,10 +211,12 @@
                     <ul 
                         class="tableImp " 
                     >
-                    
+                    <li class="header">
+                        <label><strong>Concepto</strong></label><label><strong>Monto</strong></label>
+                    </li>
                             {% for impuesto in document.percepciones %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label>{{ impuesto.ammount }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{ impuesto.ammount }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -216,10 +231,12 @@
                     <ul 
                         class="tableImp " 
                     >
-                    
+                    <li class="header">
+                        <label><strong>Concepto</strong></label><label><strong>Monto</strong></label>
+                    </li>
                             {% for impuesto in document.retenciones %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label>{{ impuesto.ammount }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{ impuesto.ammount }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -227,9 +244,16 @@
             {% endif %}
 
             <div class="col-sm-4 text-end" style="align-self: end;">
-                <label>Total: <strong class="field">{{ document.total }}</strong></label>
+                <label>Total: <strong class="field pesos">{{ document.total }}</strong></label>
                
             </div>
+            {% if view_field ('centro_costo', document) %}
+                <div class="col-sm-8">
+                    <label>Observaciones: <strong class="field">
+                    {{ (document.observaciones) }}</strong>
+                    </label>
+                </div>
+            {% endif %}
             
         </div>
             
@@ -238,3 +262,16 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         
     </div>
+ </div>
+    <script>
+    function imprimir(){
+        printJS({
+            printable:'context-printable', 
+            type:'html', 
+            showModal:true,
+            css: '/css/tablePdf.css',
+            /*header: "<div style='display:block;'><img width='100' src='{{ asset('img/logo-grande.png')}}'></img><h4>Listado de Asistencias</h4></div>", */
+            style: 'tr{border-bottom: 1px solid rgb(203, 203, 203);} table{display:block;}'
+        });
+    }
+</script>

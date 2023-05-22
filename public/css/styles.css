@@ -18,3 +18,6 @@ img.avatar-xsm{
 input.form-check-input[type="checkbox"] {
     margin: auto auto !important;
 }
+.pesos::before{
+    content: '$ ';
+}

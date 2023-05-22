@@ -44,6 +44,11 @@ class Vendor extends BaseEntity
      */
     private $cheques;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $condicion_impositiva;
+
     public function __construct()
     {
         $this->cheques = new ArrayCollection();
@@ -128,6 +133,18 @@ class Vendor extends BaseEntity
                 $cheque->setLibrador(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCondicionImpositiva(): ?string
+    {
+        return $this->condicion_impositiva;
+    }
+
+    public function setCondicionImpositiva(?string $condicion_impositiva): self
+    {
+        $this->condicion_impositiva = $condicion_impositiva;
 
         return $this;
     }

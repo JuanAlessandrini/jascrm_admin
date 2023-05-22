@@ -93,7 +93,8 @@
         <div class="row">
             {% if view_field ('vendor', document) %}
                 <div class="col-sm-6">
-                    {{ form_row(form.vendor) }}
+                    {{ form_row(form.vendor) }}<br/>
+                    
                 </div>
             {% endif %}
             
@@ -236,6 +237,11 @@
                 <div class="col-sm-4 " style="align-self: end;">
                     {{ form_row(form.total) }}
                 
+                </div>
+            {% endif %}
+            {% if view_field ('observaciones', document) %}
+                <div class="col-sm-8">
+                    {{ form_row(form.observaciones) }}
                 </div>
             {% endif %}
         </div>

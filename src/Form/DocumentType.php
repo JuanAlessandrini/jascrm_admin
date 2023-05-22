@@ -126,6 +126,7 @@ class DocumentType extends AbstractType
                 'by_reference' => false,
                 'label'=>false
             ])
+            ->add('observaciones', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Observaciones'])
             ;
 
         $formModifier = function (FormInterface $form,Document $document) {

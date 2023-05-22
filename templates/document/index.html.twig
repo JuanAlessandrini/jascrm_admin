@@ -27,7 +27,7 @@
                             <td>{{ documento.numero }}</td>
                             <td>{{ documento.vendor.name }}</td>
                             
-                            <td class="text-end">{{ documento.total }}</td>
+                            <td class="text-end pesos">{{ documento.total }}</td>
                             <td  class="text-right">
                             {# <a class="btn btn-just-icon" onclick="showForm('{{ path('app_documento_show', {'id': documento.id}) }}')"><i class="material-icons">search</i></a> #}
                                         <a class="btn btn-just-icon " onclick="showFormFullScreen('{{ path('app_document_edit', {'id': documento.id}) }}')"><i class="bx bx-pencil me-1"></i></a>

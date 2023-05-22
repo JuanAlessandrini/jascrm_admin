@@ -153,6 +153,11 @@ class Document extends BaseEntity
      */
     private $centro_costo;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $observaciones;
+
    
 
     public function __construct()
@@ -587,6 +592,18 @@ class Document extends BaseEntity
     public function setCentroCosto(?string $centro_costo): self
     {
         $this->centro_costo = $centro_costo;
+
+        return $this;
+    }
+
+    public function getObservaciones(): ?string
+    {
+        return $this->observaciones;
+    }
+
+    public function setObservaciones(?string $observaciones): self
+    {
+        $this->observaciones = $observaciones;
 
         return $this;
     }
