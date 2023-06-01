@@ -79,6 +79,11 @@ class Customer extends BaseEntity
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $provincia;
+
     
 
     public function __construct()
@@ -323,6 +328,18 @@ class Customer extends BaseEntity
         if ($this->users->removeElement($user)) {
             $user->removeCliente($this);
         }
+
+        return $this;
+    }
+
+    public function getProvincia(): ?string
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(?string $provincia): self
+    {
+        $this->provincia = $provincia;
 
         return $this;
     }

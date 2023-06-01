@@ -57,6 +57,7 @@
                     {{ form_row(form.cuit) }}
                     {{ form_row(form.address) }}
                     {{ form_row(form.city) }}
+                    {{ form_row(form.provincia) }}
                     {{ form_row(form.centro_costos) }}
                     {{ form_row(form.sucursales) }}
                     
@@ -139,9 +140,9 @@ var addFormToCollection = (e) => {
 
   collectionHolder.dataset.index++;
   var element3 = document.querySelector('#'+item.childNodes[0].childNodes[0].childNodes[1].id);
-    var choices = new Choices(element3, {
+    /*var choices = new Choices(element3, {
        
-    });
+    });*/
 };
 
 var addFormImpToCollection = (e) => {

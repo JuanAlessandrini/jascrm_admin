@@ -68,7 +68,12 @@ class VendorController extends BaseController
      */
     public function edit(Request $request, Vendor $vendor, VendorRepository $vendorRepository): Response
     {
-        $form = $this->createForm(VendorType::class, $vendor);
+        $form = $this->createForm(VendorType::class, $vendor,
+            [
+                'action'=> $this->generateUrl('app_vendor_edit', ['id'=>$vendor->getId()]),
+                'method' => 'POST'
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

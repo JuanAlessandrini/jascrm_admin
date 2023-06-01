@@ -23,6 +23,7 @@ class CustomerType extends AbstractType
             ->add('cuit',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'CUIT'] )
             ->add('address',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'] )
             ->add('city',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Localidad'] )
+            ->add('provincia',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Provincia'] )
             // ->add('campanias',TextType::class, ['required'=>false,'attr'=>['class'=>'form-control'], 'label'=>'Campañas'] )
             ->add('sucursales',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Sucursales','required'=>false] )
             ->add('centro_costos',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Centros de Costos','required'=>false] )
