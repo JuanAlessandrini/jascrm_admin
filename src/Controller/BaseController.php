@@ -30,7 +30,8 @@ class BaseController extends AbstractController
     $this->reportes = $reportes->findAll();
     $this->security = $security;
     $user = $this->security->getUser();
-    $this->clientes =  $user->getClientes() ?? $clientes->findAll();
+
+    $this->clientes =  sizeof($user->getClientes()) > 0 ? $user->getClientes() : $clientes->findAll();
 
     if(!$user->getDefaultCliente()){
         $user->setDefaultCliente($this->clientes[0]);
