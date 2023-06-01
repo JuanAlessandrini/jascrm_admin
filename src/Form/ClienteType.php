@@ -22,7 +22,7 @@ class ClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['attr'=>['class'=>'form-control text-uppercase'], 'label'=>'Nombre'])
+            ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Nombre'])
             ->add('province', EntityType::class, [
                 'class'=>Province::class,
                 'choice_label'=>'name',
@@ -31,8 +31,8 @@ class ClienteType extends AbstractType
                         ->orderBy('u.name', 'ASC');
                 },
                 'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Provincia'])
-            ->add('city', TextType::class, ['attr'=>['class'=>'form-control style-title'], 'label'=>'Ciudad'])
-            ->add('address', TextType::class, ['attr'=>['class'=>'form-control style-title'], 'label'=>'Domicilio'])
+            ->add('city', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Ciudad'])
+            ->add('address', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'])
         ;
     }
 

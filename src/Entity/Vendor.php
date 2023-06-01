@@ -49,6 +49,16 @@ class Vendor extends BaseEntity
      */
     private $condicion_impositiva;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $provincia;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
     public function __construct()
     {
         $this->cheques = new ArrayCollection();
@@ -145,6 +155,30 @@ class Vendor extends BaseEntity
     public function setCondicionImpositiva(?string $condicion_impositiva): self
     {
         $this->condicion_impositiva = $condicion_impositiva;
+
+        return $this;
+    }
+
+    public function getProvincia(): ?string
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(?string $provincia): self
+    {
+        $this->provincia = $provincia;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

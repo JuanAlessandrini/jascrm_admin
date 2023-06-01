@@ -11,4 +11,12 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </div>
+     <script>
+        var element = document.getElementById('vendor_cuit');
+            var maskOptions = {
+            mask: '00-00000000-0',
+            lazy: false,
+            };
+            var mask = IMask(element, maskOptions);
+    </script>
 {{ form_end(form) }}
