@@ -18,12 +18,12 @@ class VendorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Razon Social'])
-            ->add('cuit', TextType::class, ['attr'=>['class'=>'form-control numeric','max-length'=>'13','data-mask'=>'##-########-#'],'label'=>'CUIT'])
-            ->add('address', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'])
-            ->add('city', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Ciudad'])
-            ->add('provincia', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Provincia'])
-            ->add('phone', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Telefono'])
+            ->add('name', TextType::class, ['attr'=>['class'=>'form-control', 'required'=>'required'], 'label'=>'Razon Social', 'required'=>'required'])
+            ->add('cuit', TextType::class, ['attr'=>['class'=>'form-control numeric', 'required'=>'required','max-length'=>'13','data-mask'=>'##-########-#'],'label'=>'CUIT'])
+            ->add('address', TextType::class, ['attr'=>['class'=>'form-control', 'required'=>'required'], 'label'=>'Domicilio'])
+            ->add('city', TextType::class, ['attr'=>['class'=>'form-control', 'required'=>'required'], 'label'=>'Ciudad'])
+            ->add('provincia', TextType::class, ['attr'=>['class'=>'form-control', 'required'=>'required'], 'label'=>'Provincia'])
+            ->add('phone', TextType::class, ['attr'=>['class'=>'form-control', 'required'=>'required'], 'label'=>'Telefono'])
             ->add('condicion_impositiva', ChoiceType::class, ['choices'=>[
                 'Responsable Inscripto'=>'Responsable Inscripto',
                 'Responsable Monotributo'=>'Responsable Monotributo',
