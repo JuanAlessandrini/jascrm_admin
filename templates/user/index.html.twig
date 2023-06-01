@@ -3,8 +3,11 @@
 {% block title %}SubCuentas{% endblock %}
 
 {% block content %}
+    <div>
     <h4>Usuarios</h4>
+    <button class="btn btn-primary me-2 " onclick="showFormLg('{{ path('app_user_new') }}')"><span class="tf-icons bx bx-add-alt"></span> Nuevo</button>
     <div class="card card-body">
+        
         <table class="table">
             <thead>
                 <tr>
@@ -43,6 +46,7 @@
             </tbody>
         </table>
 
-        <div  class="btn btn-primary"><a onclick="showFormLg('{{ path('app_user_new') }}')">Nuevo</a></div>
-        </div>
+        
+    </div>
+    </div>
 {% endblock %}
