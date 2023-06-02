@@ -51,24 +51,17 @@ class GranoController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="app_grano_show", methods={"GET"})
-     */
-    public function show(Grano $grano): Response
-    {
-        return $this->render('grano/show.html.twig', [
-            'grano' => $grano,
-            'documentos'=>$this->documents,
-            'clientes'=>$this->clientes
-        ]);
-    }
+   
 
     /**
-     * @Route("/{id}/edit", name="app_grano_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="app_grano_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Grano $grano, GranoRepository $granoRepository): Response
     {
-        $form = $this->createForm(GranoType::class, $grano);
+        $form = $this->createForm(GranoType::class, $grano,[
+            'action'=>$this->generateUrl('app_grano_edit',['id'=>$grano->getId()])
+            ,'method'=>'POST'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

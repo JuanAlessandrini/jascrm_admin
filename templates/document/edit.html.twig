@@ -17,6 +17,11 @@
     display: block;
     background: #edebeb;
     }
+    strong.big{
+        display: inline-block;
+        min-height: 30px;
+        width:100% !important;
+    }
      ul.tableImp{
         height: 150px;
         overflow: scroll;
@@ -59,7 +64,7 @@
     }
       
 </style>
-<div >
+<div>
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><strong>{{document.customer.name}}</strong> | {{document.tipo.name}} {{ document.emisor }}-{{ document.numero }}</h5>
         <button type="button" onclick="imprimir()" class="btn btn-just-icon float-right"><i class='bx bxs-printer' ></i></button>
@@ -69,7 +74,7 @@
     <div class="modal-body" id="context-printable">
         <div class="row">
             {% if view_field ('created_at', document) %}
-                <div class="col-sm-6">
+                <div class="col-sm-4 col-md-4">
                     <label>Fecha: <strong class="field">{{ (document.getCreatedAt | date('d/m/Y')) }}</strong class="field"></label>
                     
                 </div>
@@ -79,17 +84,17 @@
                     <label>Código: <strong class="field">{{ document.codigo }}</strong></label>
                 </div>
             {% endif %}
-            <div class="col-sm-3  text-end">
+            <div class="col-sm-3 col-md-5  text-end">
                 {% if view_field ('sucursal', document) %}
-                    <label>Sucursal: <strong class="field">{{ document.sucursal }}</strong></label>
+                    <label>Sucursal: <strong class="field big">{{ document.sucursal }}</strong></label>
                 {% endif %}
                 
             </div>
-        </div>
+         </div>
         <div class="row">
                 {% if view_field ('vendor', document) %}
                     <div class="col-sm-6">
-                        <label>Cliente: <strong class="field">{{ document.vendor.name }}</strong></label><br/>
+                        <label>Cliente: <strong class="field big">{{ document.vendor.name }}</strong></label><br/>
                         CUIT: <strong>{{document.vendor.cuit}}</strong><br/>
                         Domicilio: <strong>{{document.vendor.address}}</strong>
                     </div>
@@ -105,7 +110,7 @@
                         
                     </div>
                 </div>
-                <div class="col-sm-3 text-end">
+                <div class="col-sm-6 col-md-3 text-end">
                     {% if view_field ('campania', document) %}
                         <label>Campaña: <strong class="field">{{ document.campania }}</strong></label>                
                     {% endif %}
@@ -113,7 +118,7 @@
                         <label>Grano: <strong class="field">{{ document.grano.name ?? "-" }}</strong></label>                
                     {% endif %}
                     {% if view_field ('centro_costo', document) %}
-                       <label>Centro Costo: <strong>{{ (document.getCentroCosto) }}</strong></label>
+                       <label>Centro Costo: <strong>{{ (document.getCentroCosto ?? 'No posee') }}</strong></label>
                     {% endif %}
                 </div>
         </div>
@@ -121,7 +126,7 @@
         {% if view_field ('concepto_caja', document) %}
             
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-col-sm-4 col-md-8">
                     <label> Concepto: <strong class="field">{{ (document.getConceptoCaja.name) }}</strong></label>
                 </div>
                 
@@ -200,6 +205,7 @@
                             {% endfor %}
                     </ul>
                 </div>
+                
             {% endif %}
 
             {% if view_field ('percepciones', document) %} 
@@ -223,7 +229,7 @@
                 </div>
             {% endif %}
             {% if view_field ('retenciones', document) %} 
-                <div class="col-sm-8">
+                <div class="col-sm-4 col-md-8">
                     <div class="d-flex">
                         <label>Retenciones</label>
                         
@@ -243,13 +249,15 @@
                 </div>
             {% endif %}
 
-            <div class="col-sm-4 text-end" style="align-self: end;">
+            <div class="col-sm-4" style="align-self: end;">
                 <label>Total: <strong class="field pesos">{{ document.total }}</strong></label>
                
             </div>
+        </div>
+        <div class="row"
             {% if view_field ('centro_costo', document) %}
                 <div class="col-sm-8">
-                    <label>Observaciones: <strong class="field">
+                    <label>Observaciones: <strong class="field big">
                     {{ (document.observaciones) }}</strong>
                     </label>
                 </div>
@@ -260,7 +268,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        
     </div>
  </div>
     <script>
@@ -269,9 +276,12 @@
             printable:'context-printable', 
             type:'html', 
             showModal:true,
-            css: '/css/tablePdf.css',
+            css: ['/css/tablePdf.css','{{asset('dashboard/assets/vendor/css/theme-default.css')}}','{{asset('dashboard/assets/vendor/css/core.css')}}','{{asset('dashboard/libs/datatables/responsive.bootstrap5.css')}}']
             /*header: "<div style='display:block;'><img width='100' src='{{ asset('img/logo-grande.png')}}'></img><h4>Listado de Asistencias</h4></div>", */
-            style: 'tr{border-bottom: 1px solid rgb(203, 203, 203);} table{display:block;}'
+            /*style: 'tr{border-bottom: 1px solid rgb(203, 203, 203);} table{display:block;}'
+            ['/css/tablePdf.css',
+            ,'{{asset('dashboard/assets/vendor/css/theme-default.css')}}','{{asset('dashboard/libs/datatables/responsive.bootstrap5.css')}}'],
+            */
         });
     }
 </script>

@@ -11,7 +11,9 @@
                     <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Sucursal</th>
+                            <th>Ctro. Costo</th>
+                            <th>Código</th>
+                            <th>Emisor</th>
                             <th>Número</th>
                             <th>Cliente</th>
                             <th>Total</th>
@@ -23,7 +25,9 @@
                     {% for documento in documents %}
                         <tr>
                             <td>{{ documento.getCreatedAt | date('d/m/Y') }}</td>
-                            <td>{{ documento.sucursal }}</td>
+                            <td>{{ documento.getCentroCosto }}</td>
+                            <td>{{ documento.codigo }}</td>
+                            <td>{{ documento.emisor }}</td>
                             <td>{{ documento.numero }}</td>
                             <td>{{ documento.vendor.name }}</td>
                             

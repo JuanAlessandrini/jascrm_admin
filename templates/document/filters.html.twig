@@ -49,7 +49,15 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                
+                    <div class="form-group">
+                        <label>Centro Costo</label>
+                        <select class="form-control filter" id="centro_costo" name="centro_costo">
+                            <option value>Todos</option>
+                            {% for cc in (customer.getCentroCostos | split(',')) %}
+                                <option value="{{cc}}">{{cc}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,15 +1,20 @@
-{{ form_start(form) }}
+
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{grano.id ? 'Editar Grano' : 'Nuevo Grano' }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </button>
     </div>
     <div class="modal-body">
-        {{ form_widget(form) }}
-            
+        {{ form_start(form, {'attr':{'id':'frm_granos'}}) }}
+            {{ form_widget(form) }}
+        {{ form_end(form) }}
     </div>
     <div class="modal-footer">
+        {% if delete is defined %}
+            <button type="button" class="btn btn-danger pull-left" onclick="document.forms.grano_delete.submit()">Eliminar</button>
+        {% endif %}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="submit" onclick="document.forms.frm_granos.submit()" class="btn btn-primary">Guardar Cambios</button>
+
     </div>
-{{ form_end(form) }}
+

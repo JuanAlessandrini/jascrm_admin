@@ -46,7 +46,8 @@ class DocumentController extends BaseController
             'entidadTypeDoc'=> $typeEnt,
             'controller_name'=>$typeEnt->getName(),
             'campanias'=>$this->getCampanias(),
-            'granos'=>$granoRepository->findAll()
+            'granos'=>$granoRepository->findAll(),
+            'customer'=>$this->getUser()->getDefaultCliente()
         ]);
     }
 
@@ -74,9 +75,13 @@ class DocumentController extends BaseController
             if(array_key_exists('sucursal', $request->get("document"))){
                 $document->setSucursal($request->get("document")['sucursal']);
             }
+            if(array_key_exists('centro_costo', $request->get("document"))){
+                $document->setCentroCosto($request->get("document")['centro_costo']);
+            }
             if(array_key_exists('codigo', $request->get("document"))){
                 $document->setCodigo($request->get("document")['codigo']);
             }
+            $document->setTotal($request->get("document")['total']);
             $documentRepository->add($document, true);
 
             return $this->redirectToRoute('app_document_index', ['typeEnt'=>$document->getTipo()->getId()], Response::HTTP_SEE_OTHER);

@@ -351,7 +351,7 @@ class Document extends BaseEntity
 
     public function setTotal(string $total): self
     {
-        $this->total = $total;
+        $this->total = str_replace(',','',$total);
 
         return $this;
     }

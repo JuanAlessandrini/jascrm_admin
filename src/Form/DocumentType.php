@@ -47,7 +47,7 @@ class DocumentType extends AbstractType
             ->add('emisor', NumberType::class, ['attr'=>['class'=>'form-control '], 'label'=>'Emisor'])
             ->add('numero', NumberType::class, ['attr'=>['class'=>'form-control '], 'label'=>'Numero'])
             ->add('subtotal', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase suma-total'], 'label'=>'Monto'])
-            ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-uppercase disabled ver-total'], 'label'=>'Total'])
+            ->add('total', NumberType::class, ['attr'=>['class'=>'form-control style-title text-end disabled ver-total'], 'label'=>'Total'])
             ->add('sucursal', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'], 'label'=>'Sucursal'])
             ->add('campania', ChoiceType::class, ['attr'=>['class'=>'form-control style-title text-uppercase'],
             'choices' => [
@@ -63,7 +63,7 @@ class DocumentType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.name', 'ASC');
                 },
-                'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Grano'])
+                'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Grano', 'required'=>false])
             ->add('detail', CollectionType::class, [
                 'entry_type' => DocumentDetailType::class,
                 'entry_options' => ['label' => false],
@@ -126,7 +126,7 @@ class DocumentType extends AbstractType
                 'by_reference' => false,
                 'label'=>false
             ])
-            ->add('observaciones', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Observaciones'])
+            ->add('observaciones', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Observaciones', 'required'=>false])
             ;
 
         $formModifier = function (FormInterface $form,Document $document) {
