@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Tipo</th>
+                <th>Tipo Concepto</th>
                 <th>Nombre</th>
                 <th>Acciones</th>
             </tr>
@@ -18,7 +19,7 @@
         {% for sub_cuentum in sub_cuentas %}
             <tr>
                 <td>{{ sub_cuentum.id }}</td>
-                <td>{{ sub_cuentum.tipo }}</td>
+                <td><span class="badge {{ sub_cuentum.tipo == 'Todos' ? 'bg-warning' : (sub_cuentum.tipo == 'Ingreso' ? 'bg-success' : 'bg-danger' )}}">{{ sub_cuentum.tipo }}</span></td>
                 <td>{{ sub_cuentum.name }}</td>
                 <td>
                     {# <a href="{{ path('app_sub_cuenta_show', {'id': sub_cuentum.id}) }}">show</a> #}

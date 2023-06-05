@@ -57,6 +57,8 @@ class DocumentRepository extends ServiceEntityRepository
             ->setParameter('fechafrom', new \DateTime($request->get('fromdate')));
         }
 
+        
+
         if($request->get('todate')){
             $query->andWhere('d.created_at <= :todate')
             ->setParameter('todate', new \DateTime($request->get('todate')));
@@ -79,6 +81,11 @@ class DocumentRepository extends ServiceEntityRepository
             $query
                 ->andWhere('d.campania = :campana')
                 ->setParameter('campana', $request->get('campana'));
+        }
+
+        if($request->get('centro_costo')){
+            $query->andWhere('d.centro_costo >= :centrocosto')
+            ->setParameter('centrocosto', $request->get('centro_costo'));
         }
 
         if($request->get('grano')){

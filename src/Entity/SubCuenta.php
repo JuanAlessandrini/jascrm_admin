@@ -40,6 +40,11 @@ class SubCuenta
      */
     private $tipo;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tipo_concepto;
+
     public function __construct()
     {
         $this->cuentasAuxiliares = new ArrayCollection();
@@ -112,6 +117,18 @@ class SubCuenta
     public function setTipo(string $tipo): self
     {
         $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    public function getTipoConcepto(): ?string
+    {
+        return $this->tipo_concepto;
+    }
+
+    public function setTipoConcepto(?string $tipo_concepto): self
+    {
+        $this->tipo_concepto = $tipo_concepto;
 
         return $this;
     }

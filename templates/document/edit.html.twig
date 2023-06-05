@@ -94,9 +94,9 @@
         <div class="row">
                 {% if view_field ('vendor', document) %}
                     <div class="col-sm-6">
-                        <label>Cliente: <strong class="field big">{{ document.vendor.name }}</strong></label><br/>
+                        <label>Cliente: </label><br/><strong class="field big">{{ document.vendor.name }}</strong>
                         CUIT: <strong>{{document.vendor.cuit}}</strong><br/>
-                        Domicilio: <strong>{{document.vendor.address}}</strong>
+                        Domicilio: <strong>{{document.vendor.address ~ ', ' ~ document.vendor.city ~ ' - ' ~ document.vendor.provincia}}</strong>
                     </div>
                 {% endif %}
                 <div class="col-sm-3">

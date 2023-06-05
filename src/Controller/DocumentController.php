@@ -68,7 +68,9 @@ class DocumentController extends BaseController
         $document->setCreatedBy($this->getUser());
         $document->setModifiedBy($this->getUser());
         $document->setCustomer($this->getUser()->getDefaultCliente());
-        $form = $this->createForm(DocumentType::class, $document,['action'=>$this->generateUrl('app_document_new', Array('typeEnt'=>$typeEnt->getId())),'method'=>'POST']);
+        $form = $this->createForm(DocumentType::class, $document,[
+                'tipo'=>($typeEnt->getEntidad()->getName()=='Ventas' ? 'Ingreso' : 'Egreso') ,
+                'action'=>$this->generateUrl('app_document_new', Array('typeEnt'=>$typeEnt->getId())),'method'=>'POST']);
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {

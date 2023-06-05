@@ -30,7 +30,9 @@ class SubCuentaType extends AbstractType
                 },
                 'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Cuenta'])
             ->add('tipo', ChoiceType::class, ['choices'=>[
-                'Concepto'=>'Concepto',
+                'Concepto - Ingreso'=>'Ingreso',
+                'Concepto - Egreso'=>'Egreso',
+                'Concepto - Ambos'=>'Todos',
                 'Impuesto'=>'Impuesto',
                 'Percepcion'=>'Percepcion',
                 'Producto'=>'Producto',

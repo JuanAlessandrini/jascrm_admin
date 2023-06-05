@@ -66,10 +66,11 @@ class DocumentType extends AbstractType
                 'attr'=>['class'=>'form-control  js-choice-select'], 'label'=>'Grano', 'required'=>false])
             ->add('detail', CollectionType::class, [
                 'entry_type' => DocumentDetailType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => ['label' => false, 'tipo'=>$options['tipo']],
                 'allow_add' => true,
                 'by_reference' => false,
                 'label'=>false
+                
             ])
             ->add('impuestos', CollectionType::class, [
                 'entry_type' => DocumentImpuestoType::class,
@@ -163,6 +164,7 @@ class DocumentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Document::class,
+            'tipo'=>null
         ]);
     }
 }

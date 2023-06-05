@@ -25,14 +25,14 @@ class DocumentDetailType extends AbstractType
             ->add('concepto',EntityType::class, [
                 'class'=>SubCuenta::class,
                 'choice_label'=>'name',
-                'query_builder' => function (SubCuentaRepository $er) {
+                'query_builder' => function (SubCuentaRepository $er)use ($options) {
                     return $er->createQueryBuilder('u')
                         ->join('u.cuenta', 'c')
-                        ->andWhere('u.tipo = :tipo')
                         ->andWhere('c.name <> :caja')
+                        ->andWhere("u.tipo = :tipoConcepto1 OR u.tipo = 'Todos'")
                         ->orderBy('u.name', 'ASC')
-                        ->setParameter('tipo', 'Concepto')
-                        ->setParameter('caja', 'Caja y Bancos');
+                        ->setParameter('caja', 'Caja y Bancos')
+                        ->setParameter('tipoConcepto1', $options['tipo']);
                 },
                 'attr'=>['class'=>'form-control  js-choice-cuenta'], 'label'=>'Concepto'])
                 ->add('cantidad', NumberType::class, ['attr'=>['class'=>'form-control suma-subtotal-cant '], 'label'=>'Cantidad'])
@@ -45,6 +45,7 @@ class DocumentDetailType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DocumentDetail::class,
+            'tipo'=>null
         ]);
     }
 }
