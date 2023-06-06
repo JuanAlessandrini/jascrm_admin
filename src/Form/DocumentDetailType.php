@@ -35,9 +35,9 @@ class DocumentDetailType extends AbstractType
                         ->setParameter('tipoConcepto1', $options['tipo']);
                 },
                 'attr'=>['class'=>'form-control  js-choice-cuenta'], 'label'=>'Concepto'])
-                ->add('cantidad', NumberType::class, ['attr'=>['class'=>'form-control suma-subtotal-cant '], 'label'=>'Cantidad'])
-                ->add('precio_unitario', NumberType::class, ['attr'=>['class'=>'form-control suma-subtotal-pu '], 'label'=>'Precio Unitario'])
-                ->add('ammount', NumberType::class, ['attr'=>['class'=>'form-control suma-total '], 'label'=>'Monto'])
+                ->add('cantidad', TextType::class, ['attr'=>['class'=>'form-control suma-subtotal-cant  number'], 'label'=>'Cantidad'])
+                ->add('precio_unitario', TextType::class, ['attr'=>['class'=>'form-control suma-subtotal-pu  number'], 'label'=>'Precio Unitario'])
+                ->add('ammount', TextType::class, ['attr'=>['class'=>'form-control suma-total text-end number'], 'label'=>'Monto'])
         ;
     }
 

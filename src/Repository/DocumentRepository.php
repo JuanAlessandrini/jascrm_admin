@@ -45,7 +45,7 @@ class DocumentRepository extends ServiceEntityRepository
     public function aplicaFiltros($request, $customer, $typeEnt){
         $query = $this->createQueryBuilder('d')
         ->join('d.vendor', 'v')
-        ->join('d.grano', 'g')
+        
         ->andWhere('d.customer = :customer')
         ->andWhere('d.tipo = :tipo')
         ->setParameter('customer', $customer)
@@ -84,12 +84,13 @@ class DocumentRepository extends ServiceEntityRepository
         }
 
         if($request->get('centro_costo')){
-            $query->andWhere('d.centro_costo >= :centrocosto')
+            $query->andWhere('d.centro_costo = :centrocosto')
             ->setParameter('centrocosto', $request->get('centro_costo'));
         }
 
         if($request->get('grano')){
             $query
+            ->join('d.grano', 'g')
                 ->andWhere('g.id = :grano')
                 ->setParameter('grano', $request->get('grano'));
         }

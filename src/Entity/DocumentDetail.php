@@ -68,7 +68,7 @@ class DocumentDetail
 
     public function setAmmount(string $ammount): self
     {
-        $this->ammount = $ammount;
+        $this->ammount = str_replace(',','',$ammount);
 
         return $this;
     }

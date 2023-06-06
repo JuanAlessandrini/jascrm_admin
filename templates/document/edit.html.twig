@@ -132,7 +132,7 @@
                 
                 <div class="col-sm-4  text-end" style="align-self: end;">
                      {% if view_field ('subtotal', document) %}
-                        <label>Monto: <strong class="field pesos">{{ document.subtotal }}</strong></label>
+                        <label>Monto: <strong class="field">{{ get_formatted_number(document.subtotal) }}</strong></label>
                     {% endif %}
                 </div>
             </div>
@@ -160,7 +160,7 @@
                     </li>
                             {% for detalle in document.detail %}
                                 <li>
-                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.getPrecioUnitario }}</label><label class="pesos">{{ detalle.ammount }}</label>
+                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.getPrecioUnitario }}</label><label class="">{{ get_formatted_number(detalle.ammount) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -178,7 +178,7 @@
                             </li>
                             {% for cheque in document.cheques %}
                                 <li>
-                                    <label>{{ cheque.numero }}</label><label>{{ cheque.vencimiento | date('d/m/Y')}}</label><label class="pesos">{{ cheque.monto }}</label>
+                                    <label>{{ cheque.numero }}</label><label>{{ cheque.vencimiento | date('d/m/Y')}}</label><label class="">{{ get_formatted_number(cheque.monto) }}</label>
                                 </li>
                             {% endfor %}
                     </ul>
@@ -200,7 +200,7 @@
                     </li>
                             {% for impuesto in document.impuestos %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{impuesto.value }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="">{{get_formatted_number(impuesto.value) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -222,7 +222,7 @@
                     </li>
                             {% for impuesto in document.percepciones %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{ impuesto.ammount }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="">{{ get_formatted_number(impuesto.ammount) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -242,7 +242,7 @@
                     </li>
                             {% for impuesto in document.retenciones %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label class="pesos">{{ impuesto.ammount }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="">{{get_formatted_number(impuesto.ammount) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -250,7 +250,7 @@
             {% endif %}
 
             <div class="col-sm-4" style="align-self: end;">
-                <label>Total: <strong class="field pesos">{{ document.total }}</strong></label>
+                <label>Total: <strong class="field">{{get_formatted_number(document.total) }}</strong></label>
                
             </div>
         </div>

@@ -15,13 +15,18 @@ class MyExtension extends AbstractExtension
             new TwigFunction('is_granted_role_list', [$this, 'is_granted_role_list']),
             new TwigFunction('view_field', [$this, 'view_field']),
             new TwigFunction('cast_to_array', [$this, 'cast_to_array']),
+            new TwigFunction('get_formatted_number', [$this, 'get_formatted_number']),
             // new Twig_SimpleFilter('cast_to_array', array($this, 'cast_to_array')),
             
             
         ];
     }
 
-    
+    public function get_formatted_number( $number)
+    {
+        setlocale(LC_MONETARY,"en_US");
+        return money_format(" %.2n", $number);
+    }
 
     public function is_granted_role_list( $documento, User $usuario)
     {

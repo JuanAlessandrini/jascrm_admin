@@ -107,7 +107,7 @@ class DocumentType extends AbstractType
                     ->andWhere('u.tipo = :tipo')
                     ->andWhere('c.name = :caja')
                     ->orderBy('u.name', 'ASC')
-                    ->setParameter('tipo', 'Concepto')
+                    ->setParameter('tipo', 'Todos')
                     ->setParameter('caja', 'Caja y Bancos');
                 },
                 'attr'=>['class'=>'form-control '], 'label'=>'Origen / Destino'])

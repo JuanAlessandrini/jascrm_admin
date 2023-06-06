@@ -5,7 +5,7 @@ function showForm(name){
   getHtmlContent(name, function(res){
       $("#modalContent").html(res);
       // $("#modalLg").modal();
-      options = {};
+      options = {backdrop:'static'};
       var myModal = new bootstrap.Modal(document.getElementById('modalLg'), options)
       // var modal = new bootstrap.Modal(document.getElementById('modalLg'));
       myModal.show();
@@ -31,7 +31,7 @@ function showFormLg(name){
   getHtmlContent(name, function(res){
       $("#modalContentLg").html(res);
       // $("#modalLg").modal();
-      options = {};
+      options = {backdrop:'static'};
       var myModal = new bootstrap.Modal(document.getElementById('modalLg'), options)
       // var modal = new bootstrap.Modal(document.getElementById('modalLg'));
       myModal.show();
@@ -52,7 +52,7 @@ function showFormFullScreen(name){
       $(".modal-dialog").height(h);
       $(".modal-dialog").css('top',($(window).height() * 0.05)  + "px");
       $(".modal-dialog").css('margin', 'auto auto');
-      options = {};
+      options = {backdrop:'static'};
       var myModal = new bootstrap.Modal(document.getElementById('modalLg'), options)
       // var modal = new bootstrap.Modal(document.getElementById('modalLg'));
       myModal.show();

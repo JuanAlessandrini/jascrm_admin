@@ -235,7 +235,7 @@
             </div>
             {% if view_field ('total', document) %}
                 <div class="col-sm-4 " style="align-self: end;">
-                    {{ form_row(form.total) }}
+                    {{ (form_row(form.total)) }}
                 
                 </div>
             {% endif %}
@@ -253,7 +253,10 @@
     </div>
 {{ form_end(form, {'render_rest': false}) }}
 <script>
+var sumatoriaTotal;
+
 var totalMask;
+var totalMaskPu;
 var addFormToCollection = (e) => {
   var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
@@ -328,9 +331,10 @@ var addFormToCollection = (e) => {
   $(document).on("change", ".suma-total", function(){
         var total = 0;
         $(".suma-total").each(function(){
-            var val = $(this).val();
+            console.log(($(this).val().replaceAll(',','')));
+            var val = parseFloat($(this).val().replace(',',''))
             if(!isNaN(val)){
-                total += parseFloat(val);
+                total += (val);
             }
         });
         
@@ -341,18 +345,36 @@ var addFormToCollection = (e) => {
         
   });
     
-    
-    
 
 $(document).on("change", ".suma-subtotal-pu", function(){
         var subtotal = 0;
         var pu = $(this).val();
+        
         var cant = $(this).closest("li").find(".suma-subtotal-cant").val();
 
         if(!isNaN(cant)){
             if(!isNaN(pu)){
                 subtotal = parseFloat(pu * cant);
-                $(this).closest("li").find(".suma-total").val(subtotal).trigger("change");
+                var element = $(this).closest("li").find(".suma-total")[0];
+                var maskOptions = {
+                    mask: Number, 
+                // other options are optional with defaults below
+                scale: 2,  // digits after point, 0 for integers
+                signed: false,  // disallow negative
+                thousandsSeparator: ',',  // any single char
+                padFractionalZeros: false,  // if true, then pads zeros at end to the length of scale
+                normalizeZeros: true,  // appends or removes zeros at ends
+                radix: '.',  // fractional delimiter
+                mapToRadix: [',','.'],  // symbols to process as radix
+
+                };
+                totalMaskPu = IMask(element, maskOptions);
+                
+                //$(this).closest("li").find(".suma-total").val(subtotal).trigger("change");
+                
+                totalMaskPu.unmaskedValue = subtotal.toString();
+                totalMaskPu.updateValue();
+                $(this).closest("li").find(".suma-total").trigger("change");
             }else{
                 console.log(pu);
             }
@@ -407,4 +429,6 @@ $medio_pago.change(function() {
     };
      totalMask = IMask(element, maskOptions);
 })();
+
+
 </script>

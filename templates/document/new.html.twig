@@ -21,6 +21,7 @@
         });
     {% endif %}
 
+{% if view_field('codigo', document) %}
     var element3 = document.querySelector('#document_codigo');
     var choices = new Choices(element3, {
          choices:[
@@ -34,13 +35,14 @@
         {% endfor %}
         ]
     });
-
+ {% endif %}
 
      {% if view_field('centro_costo', document) %}
         var element4 = document.querySelector('#document_centro_costo');
         var choices = new Choices(element4, {
             itemSelectText: '',
             choices:[
+                
             {% for centroCosto in ((app.user.getDefaultCliente.getCentroCostos ?? 'Servicios de Siembra, Servicios de Cosecha') | split (',')) %}
                 {
                     value: '{{centroCosto}}',
