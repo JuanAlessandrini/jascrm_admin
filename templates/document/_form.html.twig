@@ -1,6 +1,12 @@
 {{ form_start(form) }}
 
 <style>
+ul>li.header{
+        background: #f1f1f1;
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: stretch;
+    }
 @media (min-width: 640px){
     .choices__list--dropdown .choices__item--selectable, .choices__list[aria-expanded] .choices__item--selectable {
         padding-right: 0px !important;
@@ -167,12 +173,14 @@
                     <ul class="tableImp detail" 
                         data-index="{{ form.detail|length > 0 ? form.detail|last.vars.name + 1 : 0 }}"
                         data-prototype="{{ form_widget(form.detail.vars.prototype)|e('html_attr') }}">
-                    
-                            {% for detalle in document.detail %}
-                                <li>
-                                        {{ detalle.concepto.name ~ ' ' ~ detalle.ammount }}
-                                    </li>
-                            {% endfor %}
+                    {# <li class="header">
+                        <label>Concepto</label><label>Cantidad</label><label>Precio Unitario</label><label>Monto</label>
+                    </li> #}
+                        {% for detalle in document.detail %}
+                            <li>
+                                {{ detalle.concepto.name ~ ' ' ~ detalle.ammount }}
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -355,26 +363,7 @@ $(document).on("change", ".suma-subtotal-pu", function(){
         if(!isNaN(cant)){
             if(!isNaN(pu)){
                 subtotal = parseFloat(pu * cant);
-                var element = $(this).closest("li").find(".suma-total")[0];
-                var maskOptions = {
-                    mask: Number, 
-                // other options are optional with defaults below
-                scale: 2,  // digits after point, 0 for integers
-                signed: false,  // disallow negative
-                thousandsSeparator: ',',  // any single char
-                padFractionalZeros: false,  // if true, then pads zeros at end to the length of scale
-                normalizeZeros: true,  // appends or removes zeros at ends
-                radix: '.',  // fractional delimiter
-                mapToRadix: [',','.'],  // symbols to process as radix
-
-                };
-                totalMaskPu = IMask(element, maskOptions);
-                
-                //$(this).closest("li").find(".suma-total").val(subtotal).trigger("change");
-                
-                totalMaskPu.unmaskedValue = subtotal.toString();
-                totalMaskPu.updateValue();
-                $(this).closest("li").find(".suma-total").trigger("change");
+                $(this).closest("li").find(".suma-total").val(subtotal).trigger("change");
             }else{
                 console.log(pu);
             }
@@ -430,5 +419,7 @@ $medio_pago.change(function() {
      totalMask = IMask(element, maskOptions);
 })();
 
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 </script>

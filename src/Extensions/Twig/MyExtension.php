@@ -24,8 +24,8 @@ class MyExtension extends AbstractExtension
 
     public function get_formatted_number( $number)
     {
-        setlocale(LC_MONETARY,"en_US");
-        return money_format(" %.2n", $number);
+        //setlocale(LC_MONETARY,"en_US");
+        return $number; //money_format(" %.2n", $number);
     }
 
     public function is_granted_role_list( $documento, User $usuario)
