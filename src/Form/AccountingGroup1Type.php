@@ -20,7 +20,9 @@ class AccountingGroup1Type extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Nombre'])
-            ->add('type', ChoiceType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Tipo'])
+            ->add('type', ChoiceType::class, ['choices'=>[
+                '1'=>'1',
+                '-1'=>'-1'],'attr'=>['class'=>'form-control'], 'label'=>'Tipo'])
         ;
     }
 
