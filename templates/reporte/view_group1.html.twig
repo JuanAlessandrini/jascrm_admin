@@ -35,4 +35,8 @@
         {# {{ td | json_encode}} #}
     </div>
 </div>
+<script>
+console.log('docs:');
+    console.log({{documentos | json_encode | raw}});
+</script>
 {% endblock %}

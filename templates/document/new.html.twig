@@ -29,7 +29,7 @@
             {
                 value: '{{codigo}}',
                 label: '{{codigo}}',
-                selected: true,
+                selected: false,
                 disabled: false,
             },
         {% endfor %}
@@ -42,17 +42,17 @@
         var choices = new Choices(element4, {
             itemSelectText: '',
             choices:[
-                
+               
             {% for centroCosto in ((app.user.getDefaultCliente.getCentroCostos ?? 'Servicios de Siembra, Servicios de Cosecha') | split (',')) %}
                 {
                     value: '{{centroCosto}}',
                     label: '{{centroCosto}}',
-                    selected: true,
+                    selected: false,
                     disabled: false,
                 },
             {% endfor %}
             ]
-        });
+        }).clearInput();
     {% endif %}
     
 </script>

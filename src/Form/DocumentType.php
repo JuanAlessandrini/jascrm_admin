@@ -54,6 +54,7 @@ class DocumentType extends AbstractType
                 '2023'=>'2023','2024' =>'2024','2025'=> '2025']
              , 'label'=>'Campaña'])
              ->add('centro_costo', ChoiceType::class, ['attr'=>['class'=>'form-control'],
+             'placeholder'=>'Seleccionar Centro de Costo',
              'label'=>'Centro de Costo'])
             ->add('grano',EntityType::class, [
                 'class'=>Grano::class,
