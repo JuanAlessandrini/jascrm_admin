@@ -12,18 +12,18 @@
             <thead>
                 <tr>
                     <th>Descripcion</th>
-                    <th>Cantidad</th>
-                    <th>Promedio</th>
-                    <th>Total</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Promedio</th>
+                    <th class="text-center">Total</th>
                 </tr>
             </thead>
             <tbody>
             {% for row in td %}
                 <tr>
-                    <td>{{row.concepto.concepto}}</td>
-                    <td>{{row.cantidad}}</td>
-                    <td>{{row.promedio}}</td>
-                    <td>{{row.total}}</td>
+                    <td>{{row.concepto}}<br/><small>{{row.itemCant}} documentos</small></td>
+                    <td class="text-end">{{row.cantidad}}</td>
+                    <td  class="text-end">{{row.promedio}}</td>
+                    <td class="text-end">{{row.total}}</td>
                 </tr>
             {% else %}
                 <tr>
@@ -32,6 +32,7 @@
             {% endfor %}
             </tbody>
         </table>
+        <a>Total : {{total}}</a>
         {# {{ td | json_encode}} #}
     </div>
 </div>

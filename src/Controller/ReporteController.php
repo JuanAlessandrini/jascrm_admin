@@ -47,6 +47,8 @@ class ReporteController extends BaseController
             'granos'=>$granoRepository->findAll(),
             'documentos'=>$this->documents,
             'listaDocumentos'=>$documentos,
+            'filters'=>$request->request->All(),
+            'total'=>sizeOf($documentos),
             'td'=>$td
         ]);
     }
@@ -130,40 +132,47 @@ class ReporteController extends BaseController
 
         foreach ($reporte->getConceptos() as $concepto) {
             $detail = $this->getDinamicTableDetail($listaDocumentos, $concepto->getId());
-            array_push($conceptos,Array('id'=>$concepto->getId(),'concepto'=>$concepto->getName()));
-            array_push($cantidades, $detail['cantidad']);
-            array_push($promedios,$detail['promedio']);
-            array_push($totales, $detail['total']);
+            
+            // array_push($conceptos,Array('id'=>$concepto->getId(),'concepto'=>));
+            // array_push($cantidades, $detail['cantidad']);
+            // array_push($promedios,$detail['promedio']);
+            // array_push($totales, $detail['total']);
 
-            foreach ($conceptos as $key=>$value) {
+            
                 array_push($respuesta, Array(
-                    'concepto'=>$value,
-                    'cantidad'=>$cantidades[$key],
-                    'promedio'=>$promedios[$key],
-                    'total'=>$totales[$key],
+                    'concepto'=>$concepto->getName(),
+                    'cantidad'=>number_format($detail['cantidad'], 2, '.',','),
+                    'promedio'=>number_format($detail['promedio'], 2, '.',','),
+                    'itemCant'=>$detail['itemCant'],
+                    'total'=>number_format($detail['total'], 2, '.',','),
                 ));
-            }
-            return $respuesta;
+            
+            
         }
-
+        return $respuesta;
     }
     public function getDinamicTableDetail($listaDocumentos, $conceptoId){
         $cantidad = 0;
         $promedio = 0;
         $total = 0;
+        $i =0;
         foreach ($listaDocumentos as $documento) {
             foreach ($documento->getDetail() as $detail) {
                 if($detail->getConcepto()->getId() == $conceptoId){
-                    $cantidad += $detail->getCantidad();
-                    $total += $detail->getAmmount();
+                    $cantidad += @$detail->getCantidad();
+                    $total += @$detail->getAmmount();
+                    $i++;
                 }
+                
             }
+            
         }
         $promedio = ($total /( $cantidad == 0 ? 1 : $cantidad));
 
         return [
             'cantidad'=>$cantidad,
             'promedio'=>$promedio,
+            'itemCant'=>$i,
             'total'=>$total,
         ];
     }

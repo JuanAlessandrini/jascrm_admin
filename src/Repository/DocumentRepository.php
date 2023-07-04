@@ -110,12 +110,14 @@ class DocumentRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('d')
         ->join('d.vendor', 'v')
         ->join('d.grano', 'g')
-        ->andWhere('d.customer = :customer')
         ->andWhere('d.tipo IN (:tipos)')
-        ->setParameter('customer', $customer)
         ->setParameter('tipos', $report->getTipos())
         ;
 
+        
+            $query->andWhere('d.customer = :customer')
+            ->setParameter('customer', $customer);
+        
         if($request->get('fromdate')){
             $query->andWhere('d.created_at >= :fechafrom')
             ->setParameter('fechafrom', new \DateTime($request->get('fromdate')));
@@ -139,6 +141,13 @@ class DocumentRepository extends ServiceEntityRepository
                 ->andWhere('v.name LIKE :vendor')
                 ->setParameter('vendor', '%'.$request->get('proveedor').'%');
         }
+        if($request->get('centroCosto')){
+           if($request->get('centroCosto')!==''){
+                $query
+                ->andWhere('d.centro_costo LIKE :ccosto')
+                ->setParameter('ccosto', '%'.$request->get('centroCosto').'%');
+            }
+        }
         if($request->get('campana')){
             $query
                 ->andWhere('d.campania = :campana')
@@ -154,7 +163,7 @@ class DocumentRepository extends ServiceEntityRepository
         
 
         $result = $query->orderBy('d.id', 'ASC')
-        ->setMaxResults(100)
+        ->setMaxResults(1000)
         ->getQuery()
         ->getResult();
 

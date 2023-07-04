@@ -36,7 +36,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Nro Comprobante</label>
-                            <input type="text" value="" class="form-control filter" id="nrocmpbte" name="nrocmpbte"/>
+                            <input type="text" value="" class="form-control filter" id="nrocmpbte" name="nrocmpbte" value="{{ filters.nrocmpbte is defined ? filters.nrocmpbte : '' }}"/>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,18 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                    
+                        <div class="form-group">
+                            <label>Centro de Costo</label>
+                           
+                            
+                            <select class="form-control filter" id="centro_costo" name="centroCosto">
+                                <option value>Todos</option>
+                            
+                                {% for centroCosto in ((app.user.getDefaultCliente.getCentroCostos ?? 'Servicios de Siembra, Servicios de Cosecha') | split (',')) %}
+                                    <option {% if filters.centroCosto is defined %}{{  (filters['centroCosto'] == centroCosto ? 'selected' : '') }}{% endif %} value="{{centroCosto}}">{{centroCosto}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
