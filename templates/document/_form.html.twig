@@ -339,31 +339,34 @@ var addFormToCollection = (e) => {
   $(document).on("change", ".suma-total", function(){
         var total = 0;
         $(".suma-total").each(function(){
-            console.log(($(this).val().replaceAll(',','')));
-            var val = parseFloat($(this).val().replace(',',''))
+            $(this).val(numeral($(this).val()).format("0,0.00"));
+            var val = parseFloat(numeral($(this).val()).value())
             if(!isNaN(val)){
                 total += (val);
             }
         });
         
-        $(".ver-total").val(total).trigger("change");
-        totalMask.unmaskedValue = total.toString();
-        totalMask.updateValue();
+        $(".ver-total").val(numeral(total).format("0,0.00")).trigger("change");
+        
         
         
   });
-    
+
+
+$(document).on("change", ".suma-subtotal-cant", function(){
+    $(this).val(numeral($(this).val()).format("0,0.00"));
+});
 
 $(document).on("change", ".suma-subtotal-pu", function(){
+        $(this).val(numeral($(this).val()).format("0,0.00"));
         var subtotal = 0;
-        var pu = $(this).val();
-        
-        var cant = $(this).closest("li").find(".suma-subtotal-cant").val();
+        var pu = numeral($(this).val()).value();
+        var cant = numeral($(this).closest("li").find(".suma-subtotal-cant").val()).value();
 
         if(!isNaN(cant)){
             if(!isNaN(pu)){
                 subtotal = parseFloat(pu * cant);
-                $(this).closest("li").find(".suma-total").val(subtotal).trigger("change");
+                $(this).closest("li").find(".suma-total").val(numeral(subtotal).format("0,0.00")).trigger("change");
             }else{
                 console.log(pu);
             }
