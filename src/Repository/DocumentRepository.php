@@ -97,7 +97,7 @@ class DocumentRepository extends ServiceEntityRepository
         
         
 
-        $result = $query->orderBy('d.id', 'ASC')
+        $result = $query->orderBy('d.created_at', 'DESC')
         ->setMaxResults(100)
         ->getQuery()
         ->getResult();

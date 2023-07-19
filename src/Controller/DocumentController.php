@@ -34,7 +34,7 @@ class DocumentController extends BaseController
             $documentos = $documentRepository->findBy(Array(
                 'customer'=>$this->getUser()->getDefaultCliente(),
                 'tipo'=>$typeEnt
-            ));
+            ), Array('created_at'=>'DESC'));
             
         }
 
