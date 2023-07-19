@@ -32,7 +32,7 @@ class DocumentImpuestoType extends AbstractType
                         ->setParameter('tipo', 'Impuesto');
                 },
                 'attr'=>['class'=>'form-control  js-choice-cuenta'], 'label'=>'Concepto'])
-                ->add('value', NumberType::class, ['attr'=>['class'=>'form-control style-title suma-total number'], 'label'=>'Monto'])
+                ->add('value', TextType::class, ['attr'=>['class'=>'form-control style-title suma-total number'], 'label'=>'Monto'])
         ;
     }
 

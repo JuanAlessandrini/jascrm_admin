@@ -92,7 +92,7 @@ class DocumentDetail
 
     public function setCantidad(string $cantidad): self
     {
-        $this->cantidad = $cantidad;
+        $this->cantidad = str_replace(',','',$cantidad);
 
         return $this;
     }
@@ -104,7 +104,7 @@ class DocumentDetail
 
     public function setPrecioUnitario(string $precio_unitario): self
     {
-        $this->precio_unitario = $precio_unitario;
+        $this->precio_unitario = str_replace(',','',$precio_unitario);
 
         return $this;
     }

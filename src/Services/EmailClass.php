@@ -22,7 +22,7 @@ class EmailClass extends AbstractController{
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = $_ENV['MAIL_DOMAIN'];                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;  
-                $mail->Port       = 587;                                   //Enable SMTP authentication
+                $mail->Port       = 465;                                   //Enable SMTP authentication
                 $mail->Username   = $smtpUsuario;                     //SMTP username
                 $mail->Password   = $smtpClave;                               //SMTP password
                 $mail->isHTML(true);   

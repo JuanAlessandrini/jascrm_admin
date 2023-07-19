@@ -355,27 +355,32 @@ var addFormToCollection = (e) => {
 
 $(document).on("change", ".suma-subtotal-cant", function(){
     $(this).val(numeral($(this).val()).format("0,0.00"));
+    let u = $(this).closest("li").find(".suma-subtotal-pu")
+    calculaSubtotalLinea(u);
 });
 
 $(document).on("change", ".suma-subtotal-pu", function(){
         $(this).val(numeral($(this).val()).format("0,0.00"));
-        var subtotal = 0;
-        var pu = numeral($(this).val()).value();
-        var cant = numeral($(this).closest("li").find(".suma-subtotal-cant").val()).value();
-
-        if(!isNaN(cant)){
-            if(!isNaN(pu)){
-                subtotal = parseFloat(pu * cant);
-                $(this).closest("li").find(".suma-total").val(numeral(subtotal).format("0,0.00")).trigger("change");
-            }else{
-                console.log(pu);
-            }
-        }else{
-                console.log(cant);
-            }
-    
-        
+        calculaSubtotalLinea(this);
   });
+
+function calculaSubtotalLinea(e){
+    
+    var subtotal = 0;
+    var pu = numeral($(e).val()).value();
+    var cant = numeral($(e).closest("li").find(".suma-subtotal-cant").val()).value();
+
+    if(!isNaN(cant)){
+        if(!isNaN(pu)){
+            subtotal = parseFloat(pu * cant);
+            $(e).closest("li").find(".suma-total").val(numeral(subtotal).format("0,0.00")).trigger("change");
+        }else{
+            console.log(pu);
+        }
+    }else{
+        console.log(cant);
+    }
+}
 
 var $concepto_caja = $('#document_concepto_caja');
 var $cuenta_bancaria = $('#cont_document_cuenta_bancaria')

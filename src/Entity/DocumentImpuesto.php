@@ -58,7 +58,7 @@ class DocumentImpuesto
 
     public function setValue(string $value): self
     {
-        $this->value = $value;
+        $this->value = str_replace(',','',$value);
 
         return $this;
     }

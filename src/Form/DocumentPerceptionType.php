@@ -32,7 +32,7 @@ class DocumentPerceptionType extends AbstractType
                         ->setParameter('tipo', 'Percepcion');
                 },
                 'attr'=>['class'=>'form-control  js-choice-cuenta'], 'label'=>'Concepto'])
-                ->add('ammount', NumberType::class, ['attr'=>['class'=>'form-control style-title suma-total number'], 'label'=>'Monto'])
+                ->add('ammount', TextType::class, ['attr'=>['class'=>'form-control style-title suma-total number'], 'label'=>'Monto'])
         ;
     }
 
