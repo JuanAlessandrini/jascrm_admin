@@ -14,13 +14,16 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use IT\InputMaskBundle\Form\Type\TextMaskType;
+use IT\InputMaskBundle\Form\Type\EmailMaskType;
+
 class CustomerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Razon Social'] )
-            ->add('cuit',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'CUIT'] )
+            ->add('cuit',TextMaskType::class, ['attr'=>['class'=>'form-control'], 'label'=>'CUIT','mask' => '99.99.99.99.99'] )
             ->add('address',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'] )
             ->add('city',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Localidad'] )
             ->add('provincia',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Provincia'] )

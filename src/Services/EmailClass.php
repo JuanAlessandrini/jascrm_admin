@@ -26,7 +26,7 @@ class EmailClass extends AbstractController{
                 $mail->Username   = $smtpUsuario;                     //SMTP username
                 $mail->Password   = $smtpClave;                               //SMTP password
                 $mail->isHTML(true);   
-                //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                     
                 
 
@@ -90,7 +90,7 @@ class EmailClass extends AbstractController{
                 $mail->Username   = $smtpUsuario;                     //SMTP username
                 $mail->Password   = $smtpClave;                               //SMTP password
                 $mail->isHTML(true);   
-                //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                     
                 
 
@@ -153,7 +153,7 @@ class EmailClass extends AbstractController{
             $mail->Username   = $smtpUsuario;                     //SMTP username
             $mail->Password   = $smtpClave;                               //SMTP password
             $mail->isHTML(true);   
-            //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 
             
 
