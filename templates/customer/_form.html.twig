@@ -172,5 +172,14 @@ var addFormImpToCollection = (e) => {
       btn.addEventListener("click", addFormToCollection)
   });
 
+$(document).ready(() => {
+  //$("#customer_cuit").inputmask({"mask": "##-########-#"});
+    var element = document.getElementById('customer_cuit');
+    var maskOptions = {
+        mask: '00-00000000-0',
+        lazy: false,
+    };
+    var mask = IMask(element, maskOptions);
+});
   
 </script>

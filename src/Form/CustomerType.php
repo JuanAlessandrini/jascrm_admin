@@ -23,7 +23,7 @@ class CustomerType extends AbstractType
     {
         $builder
             ->add('name',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Razon Social'] )
-            ->add('cuit',TextMaskType::class, ['attr'=>['class'=>'form-control'], 'label'=>'CUIT','mask' => '99.99.99.99.99'] )
+            ->add('cuit',TextType::class, ['attr'=>['class'=>'form-control numeric'], 'label'=>'CUIT'] )
             ->add('address',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Domicilio'] )
             ->add('city',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Localidad'] )
             ->add('provincia',TextType::class, ['attr'=>['class'=>'form-control'], 'label'=>'Provincia'] )

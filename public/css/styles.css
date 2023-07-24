@@ -21,3 +21,69 @@ input.form-check-input[type="checkbox"] {
 .pesos::before{
     content: '$ ';
 }
+ul.table{
+    height: 250px;
+    overflow: scroll;
+    border: 1px solid #d8d7d7;
+    border-radius: 5px;
+    margin-block-start: 0em !important;
+    padding-inline-start: 0px !important;
+}
+ul>li.header{
+    background: #f1f1f1;
+}
+strong.field{
+    border: 1px solid gray;
+border-radius: 3px;
+padding: 3px 5px 3px 9px;
+min-width: 120px;
+display: block;
+background: #edebeb;
+}
+strong.big{
+    display: inline-block;
+    min-height: 30px;
+    width:100% !important;
+}
+ ul.tableImp{
+    height: 150px;
+    overflow: scroll;
+    border: 1px solid #d8d7d7;
+    border-radius: 5px;
+    margin-block-start: 0em !important;
+    padding-inline-start: 0px !important;
+}
+ul.table>li{
+    list-style:none;
+        display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: stretch;
+    padding: 10px;
+    border-bottom: solid 1px #ececec;
+}
+ ul.tableImp>li{
+    list-style:none;
+        display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: stretch; 
+        padding: 10px;
+        border-bottom: solid 1px #ececec;
+}
+ul.table>li>div{
+   display: flex;
+   /* border-bottom: 1px solid #eae6e6;*/
+        justify-content: space-between;
+}
+ul.tableImp>li>div{
+   display: flex;
+   /* border-bottom: 1px solid #eae6e6;*/
+        justify-content: space-between;
+}
+ul.table>li>div>div:first-child{
+    width: 100%;
+}
+ul.tableImp>li>div>div:first-child{
+    width: 100%;
+}

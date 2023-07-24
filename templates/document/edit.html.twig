@@ -1,69 +1,4 @@
 
-<style>
-    ul.table{
-        height: 250px;
-        overflow: scroll;
-        border: 1px solid #d8d7d7;
-        border-radius: 5px;
-    }
-    ul>li.header{
-        background: #f1f1f1;
-    }
-    strong.field{
-        border: 1px solid gray;
-    border-radius: 3px;
-    padding: 3px 5px 3px 9px;
-    min-width: 120px;
-    display: block;
-    background: #edebeb;
-    }
-    strong.big{
-        display: inline-block;
-        min-height: 30px;
-        width:100% !important;
-    }
-     ul.tableImp{
-        height: 150px;
-        overflow: scroll;
-        border: 1px solid #d8d7d7;
-        border-radius: 5px;
-    }
-    ul.table>li{
-        list-style:none;
-            display: flex;
-        justify-content: space-between;
-        align-content: space-between;
-        align-items: stretch;
-        padding: 10px;
-        border-bottom: solid 1px #ececec;
-    }
-     ul.tableImp>li{
-        list-style:none;
-            display: flex;
-            justify-content: space-between;
-            align-content: space-between;
-            align-items: stretch; 
-            padding: 10px;
-            border-bottom: solid 1px #ececec;
-    }
-    ul.table>li>div{
-       display: flex;
-       /* border-bottom: 1px solid #eae6e6;*/
-            justify-content: space-between;
-    }
-    ul.tableImp>li>div{
-       display: flex;
-       /* border-bottom: 1px solid #eae6e6;*/
-            justify-content: space-between;
-    }
-    ul.table>li>div>div:first-child{
-        width: 100%;
-    }
-    ul.tableImp>li>div>div:first-child{
-        width: 100%;
-    }
-      
-</style>
 <div>
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><strong>{{document.customer.name}}</strong> | {{document.tipo.name}} {{ document.emisor }}-{{ document.numero }}</h5>
@@ -74,32 +9,31 @@
     <div class="modal-body" id="context-printable">
         <div class="row">
             {% if view_field ('created_at', document) %}
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-6 col-md-6">
                     <label>Fecha: <strong class="field">{{ (document.getCreatedAt | date('d/m/Y')) }}</strong class="field"></label>
-                    
                 </div>
             {% endif %}
             {% if view_field ('codigo', document) %}
-                <div class="col-sm-3">
+                <div class="col-sm-2 col-md-2">
                     <label>Código: <strong class="field">{{ document.codigo }}</strong></label>
                 </div>
             {% endif %}
-            <div class="col-sm-3 col-md-5  text-end">
+            <div class="col-sm-4 col-md-4  text-end">
                 {% if view_field ('sucursal', document) %}
                     <label>Sucursal: <strong class="field big">{{ document.sucursal }}</strong></label>
                 {% endif %}
                 
             </div>
-         </div>
+        </div>
         <div class="row">
                 {% if view_field ('vendor', document) %}
-                    <div class="col-sm-6">
+                    <div class="col-sm-6  col-md-6">
                         <label>Cliente: </label><br/><strong class="field big">{{ document.vendor.name }}</strong>
                         CUIT: <strong>{{document.vendor.cuit}}</strong><br/>
                         Domicilio: <strong>{{document.vendor.address ~ ', ' ~ document.vendor.city ~ ' - ' ~ document.vendor.provincia}}</strong>
                     </div>
                 {% endif %}
-                <div class="col-sm-3">
+                <div class="col-sm-2  col-md-2">
                     <div >
                         {% if view_field ('emisor', document) %}
                             <label>Emisor: <strong class="field">{{ document.emisor }}</strong></label><br/>
@@ -110,7 +44,7 @@
                         
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 text-end">
+                <div class="col-sm-4 col-md-4  text-end">
                     {% if view_field ('campania', document) %}
                         <label>Campaña: <strong class="field">{{ document.campania }}</strong></label>                
                     {% endif %}
@@ -126,7 +60,7 @@
         {% if view_field ('concepto_caja', document) %}
             
             <div class="row">
-                <div class="col-sm-col-sm-4 col-md-8">
+                <div class="col-sm-4 col-md-8">
                     <label> Concepto: <strong class="field">{{ (document.getConceptoCaja.name) }}</strong></label>
                 </div>
                 
@@ -167,7 +101,7 @@
                 </div>
             {% endif %}
             {% if view_field ('cheque', document) %} 
-                <div class="col-sm-8">
+                <div class="col-sm-6 col-md-8">
                     <div class="d-flex">
                         <label>Cheques</label>
                         
@@ -276,7 +210,7 @@
             printable:'context-printable', 
             type:'html', 
             showModal:true,
-            css: ['/css/tablePdf.css','{{asset('dashboard/assets/vendor/css/theme-default.css')}}','{{asset('dashboard/assets/vendor/css/core.css')}}','{{asset('dashboard/libs/datatables/responsive.bootstrap5.css')}}']
+            css: ['{{asset('css/styles.css?v=1')}}', '{{asset('dashboard/assets/vendor/css/core.css')}}','{{asset('dashboard/assets/vendor/css/material-dashboard.min-v1.css')}}','{{asset('/css/tablePdf.css')}}']
             /*header: "<div style='display:block;'><img width='100' src='{{ asset('img/logo-grande.png')}}'></img><h4>Listado de Asistencias</h4></div>", */
             /*style: 'tr{border-bottom: 1px solid rgb(203, 203, 203);} table{display:block;}'
             ['/css/tablePdf.css',

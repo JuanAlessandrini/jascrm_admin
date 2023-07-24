@@ -19,11 +19,14 @@
 {{ form_end(form) }}
     
      <script>
+     $(document).ready(()=>{
         var element = document.getElementById('vendor_cuit');
-            var maskOptions = {
-            mask: '00-00000000-0',
-            lazy: false,
-            };
-            var mask = IMask(element, maskOptions);
+        var maskOptions = {
+        mask: '00-00000000-0',
+        lazy: false,
+        };
+        var mask = IMask(element, maskOptions);
+     })
+        
     </script>
 
