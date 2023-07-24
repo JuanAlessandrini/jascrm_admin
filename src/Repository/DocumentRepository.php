@@ -110,8 +110,8 @@ class DocumentRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('d')
         ->join('d.vendor', 'v')
         ->join('d.grano', 'g')
-        ->andWhere('d.tipo IN (:tipos)')
-        ->setParameter('tipos', $report->getTipos())
+        // ->andWhere('d.tipo IN (:tipos)')
+        // ->setParameter('tipos', $report->getTipos())
         ;
 
         
@@ -129,17 +129,22 @@ class DocumentRepository extends ServiceEntityRepository
         }
 
         if($request->get('codigo')){
-            $query->andWhere('d.codigo = :codigo')
-            ->setParameter('codigo', $request->get('codigo'));
+            if($request->get('codigo')!==''){
+                $query->andWhere('d.codigo = :codigo')
+                ->setParameter('codigo', $request->get('codigo'));
+            }
         }
         if($request->get('nrocmpbte')){
-            $query->andWhere('d.numero = :nrocmpbte')
-            ->setParameter('nrocmpbte', $request->get('nrocmpbte'));
+            if($request->get('nrocmpbte')!==''){
+                $query->andWhere('d.numero = :nrocmpbte')
+                ->setParameter('nrocmpbte', $request->get('nrocmpbte'));
+            }
         }
         if($request->get('proveedor')){
-            $query
-                ->andWhere('v.name LIKE :vendor')
+            if($request->get('proveedor')!==''){
+                $query->andWhere('v.name LIKE :vendor')
                 ->setParameter('vendor', '%'.$request->get('proveedor').'%');
+            }
         }
         if($request->get('centroCosto')){
            if($request->get('centroCosto')!==''){
@@ -149,15 +154,17 @@ class DocumentRepository extends ServiceEntityRepository
             }
         }
         if($request->get('campana')){
-            $query
-                ->andWhere('d.campania = :campana')
+            if($request->get('campana')!==''){
+                $query->andWhere('d.campania = :campana')
                 ->setParameter('campana', $request->get('campana'));
+            }
         }
 
         if($request->get('grano')){
-            $query
-                ->andWhere('g.id = :grano')
+            if($request->get('grano')!==''){
+                $query->andWhere('g.id = :grano')
                 ->setParameter('grano', $request->get('grano'));
+            }
         }
         
         

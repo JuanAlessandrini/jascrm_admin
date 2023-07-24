@@ -99,7 +99,7 @@
                                             {% if value.timestamp is defined %}
                                                 <td>{{ value | date('d/m/Y') }}</td>
                                             {% else %}
-                                                <td>{{ value }}</td>
+                                                <td class='number text-end'>{{ value }}</td>
                                             {% endif %}
                                         
                                     {% endif %}
@@ -118,8 +118,12 @@
         </table>
     </div>
 </div>
+<a>Cantidad registros: {{total}}</a>
 <script>
     console.log('docs:');
     console.log({{documentos | json_encode | raw}});
+    $(".number").each(function (){
+        $(this).html(numeral($(this).html()).format("0,0.00"));
+    })
 </script>
 {% endblock %}

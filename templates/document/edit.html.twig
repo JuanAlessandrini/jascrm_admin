@@ -94,7 +94,7 @@
                     </li>
                             {% for detalle in document.detail %}
                                 <li>
-                                        <label>{{ detalle.concepto.name }}</label><label>{{ detalle.cantidad }}</label><label>{{ detalle.getPrecioUnitario }}</label><label class="">{{ get_formatted_number(detalle.ammount) }}</label>
+                                        <label>{{ detalle.concepto.name }}</label><label class="number">{{ detalle.cantidad }}</label><label class="number">{{ detalle.getPrecioUnitario }}</label><label class="number">{{ get_formatted_number(detalle.ammount) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -134,7 +134,7 @@
                     </li>
                             {% for impuesto in document.impuestos %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label class="">{{get_formatted_number(impuesto.value) }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="number">{{get_formatted_number(impuesto.value) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -156,7 +156,7 @@
                     </li>
                             {% for impuesto in document.percepciones %}
                                 <li>
-                                        <label>{{ impuesto.type.name }}</label><label class="">{{ get_formatted_number(impuesto.ammount) }}</label>
+                                        <label>{{ impuesto.type.name }}</label><label class="number">{{ get_formatted_number(impuesto.ammount) }}</label>
                                     </li>
                             {% endfor %}
                     </ul>
@@ -184,7 +184,7 @@
             {% endif %}
 
             <div class="col-sm-4" style="align-self: end;">
-                <label>Total: <strong class="field">{{get_formatted_number(document.total) }}</strong></label>
+                <label>Total: <strong class="field number">{{(document.total) }}</strong></label>
                
             </div>
         </div>
@@ -218,4 +218,8 @@
             */
         });
     }
+
+    $(".number").each(function (){
+        $(this).html(numeral($(this).html()).format("0,0.00"));
+    })
 </script>

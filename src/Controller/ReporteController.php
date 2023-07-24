@@ -141,10 +141,10 @@ class ReporteController extends BaseController
             
                 array_push($respuesta, Array(
                     'concepto'=>$concepto->getName(),
-                    'cantidad'=>number_format($detail['cantidad'], 2, '.',','),
-                    'promedio'=>number_format($detail['promedio'], 2, '.',','),
+                    'cantidad'=>$detail['cantidad'],
+                    'promedio'=>$detail['promedio'],
                     'itemCant'=>$detail['itemCant'],
-                    'total'=>number_format($detail['total'], 2, '.',','),
+                    'total'=>$detail['total'],
                 ));
             
             
