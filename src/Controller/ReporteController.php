@@ -38,7 +38,13 @@ class ReporteController extends BaseController
     {
         $customer = $this->getUser()->getDefaultCliente();
         $documentos = $documentoRepository->getBaseReport($request, $reporte, $customer);
-        $td = $this->getDinamicTable($documentos, $reporte);
+        if($reporte->getId()==1){
+            $ccostos = explode(',', $customer->getCentroCostos()) ;
+            $td = $this->getDinamicTableByCentroCosto($documentos, $ccostos);
+        }else{
+            $td = $this->getDinamicTable($documentos, $reporte);
+        }
+        
         return $this->render('reporte/'.$reporte->getTemplate().'.html.twig', [
             'reportes' => $this->reportes,
             'clientes'=>$this->clientes,
@@ -49,6 +55,7 @@ class ReporteController extends BaseController
             'listaDocumentos'=>$documentos,
             'filters'=>$request->request->All(),
             'total'=>sizeOf($documentos),
+            'customer'=>$customer,
             'td'=>$td
         ]);
     }
@@ -123,13 +130,42 @@ class ReporteController extends BaseController
         return $this->redirectToRoute('app_reporte_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    public function getDinamicTableByCentroCosto($listaDocumentos, $ccostos){
+        $conceptos = [];
+        $cantidades = [];
+        $promedios = [];
+        $totales = [];
+        $respuesta = [];
+        
+        foreach ($ccostos as $concepto) {
+            $detail = $this->getDinamicTableDetailByCentroCosto($listaDocumentos, $concepto);
+            
+            // array_push($conceptos,Array('id'=>$concepto->getId(),'concepto'=>));
+            // array_push($cantidades, $detail['cantidad']);
+            // array_push($promedios,$detail['promedio']);
+            // array_push($totales, $detail['total']);
+
+            
+                array_push($respuesta, Array(
+                    'concepto'=>$concepto,
+                    'cantidad'=>$detail['cantidad'],
+                    'promedio'=>$detail['promedio'],
+                    'itemCant'=>$detail['itemCant'],
+                    'total'=>$detail['total'],
+                ));
+            
+            
+        }
+        return $respuesta;
+    }
+
     public function getDinamicTable($listaDocumentos, $reporte){
         $conceptos = [];
         $cantidades = [];
         $promedios = [];
         $totales = [];
         $respuesta = [];
-
+        
         foreach ($reporte->getConceptos() as $concepto) {
             $detail = $this->getDinamicTableDetail($listaDocumentos, $concepto->getId());
             
@@ -157,15 +193,41 @@ class ReporteController extends BaseController
         $total = 0;
         $i =0;
         foreach ($listaDocumentos as $documento) {
+            $signo = $documento->getTipo()->getSigno();
             foreach ($documento->getDetail() as $detail) {
                 if($detail->getConcepto()->getId() == $conceptoId){
-                    $cantidad += @$detail->getCantidad();
-                    $total += @$detail->getAmmount();
+                    $cantidad += (@$detail->getCantidad() * ($signo));
+                    $total += @$detail->getAmmount() * ($signo);
                     $i++;
                 }
                 
             }
             
+        }
+        $promedio = ($total /( $cantidad == 0 ? 1 : $cantidad));
+
+        return [
+            'cantidad'=>$cantidad,
+            'promedio'=>$promedio,
+            'itemCant'=>$i,
+            'total'=>$total,
+        ];
+    }
+
+    private function getDinamicTableDetailByCentroCosto($listaDocumentos, $concepto){
+        $cantidad = 0;
+        $promedio = 0;
+        $total = 0;
+        $i =0;
+        foreach ($listaDocumentos as $documento) {
+            $signo = $documento->getTipo()->getSigno();
+            if($documento->getCentroCosto() == $concepto){
+                foreach ($documento->getDetail() as $detail){
+                    $cantidad += (@$detail->getCantidad() * ($signo));
+                    $total += @$detail->getAmmount() * ($signo);
+                }
+                $i++;
+            }
         }
         $promedio = ($total /( $cantidad == 0 ? 1 : $cantidad));
 

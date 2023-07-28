@@ -21,9 +21,9 @@
             {% for row in td %}
                 <tr>
                     <td>{{row.concepto}}<br/><small>{{row.itemCant}} documentos</small></td>
-                    <td class="text-end">{{row.cantidad}}</td>
-                    <td  class="text-end">{{row.promedio}}</td>
-                    <td class="text-end">{{row.total}}</td>
+                    <td class="text-end number">{{row.cantidad}}</td>
+                    <td  class="text-end number">{{row.promedio}}</td>
+                    <td class="text-end number">{{row.total}}</td>
                 </tr>
             {% else %}
                 <tr>
@@ -32,12 +32,15 @@
             {% endfor %}
             </tbody>
         </table>
-        <a>Total : {{total}}</a>
+        <a>Total de documentos de {{customer.name}}: {{total}}</a>
         {# {{ td | json_encode}} #}
     </div>
 </div>
 <script>
-console.log('docs:');
-    console.log({{documentos | json_encode | raw}});
+    console.log('docs view_group1:');
+    console.log({{listaDocumentos | json_encode | raw}});
+    $(".number").each(function (){
+        $(this).html(numeral($(this).html()).format("0,0.00"));
+    })
 </script>
 {% endblock %}

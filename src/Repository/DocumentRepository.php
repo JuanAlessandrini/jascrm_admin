@@ -108,15 +108,13 @@ class DocumentRepository extends ServiceEntityRepository
     public function getBaseReport($request, Reporte $report, Customer $customer){
 
         $query = $this->createQueryBuilder('d')
-        ->join('d.vendor', 'v')
-        ->join('d.grano', 'g')
-        // ->andWhere('d.tipo IN (:tipos)')
-        // ->setParameter('tipos', $report->getTipos())
+        // ->join('d.vendor', 'v')
+        // ->join('d.grano', 'g')
+        ->andWhere('d.customer = :cliente')
+        ->andWhere('d.tipo IN (:tipos)')
+        ->setParameter('cliente', $customer)
+        ->setParameter('tipos', $report->getTipos())
         ;
-
-        
-            $query->andWhere('d.customer = :customer')
-            ->setParameter('customer', $customer);
         
         if($request->get('fromdate')){
             $query->andWhere('d.created_at >= :fechafrom')
