@@ -38,7 +38,7 @@ class ReporteController extends BaseController
     {
         $customer = $this->getUser()->getDefaultCliente();
         $documentos = $documentoRepository->getBaseReport($request, $reporte, $customer);
-        if($reporte->getId()==1){
+        if(in_array($reporte->getId(), [ 1, 2])){
             $ccostos = explode(',', $customer->getCentroCostos()) ;
             $td = $this->getDinamicTableByCentroCosto($documentos, $ccostos);
         }else{
