@@ -225,6 +225,13 @@
                     <div data-i18n="Basic">Sub Cuentas</div>
                   </a>
                 </li>
+
+                 <li class="menu-item {{ controller_name is defined ? (controller_name == 'Bancos' ? 'active' : '') : ''}}">
+                  <a href="{{path('app_sub_cuenta_index')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Basic">Listado Bancos</div>
+                  </a>
+                </li>
                 {# <li class="menu-item {{ controller_name is defined ? (controller_name == 'Auxiliares' ? 'active' : '') : ''}}">
                   <a href="{{path('app_cuenta_auxiliar_index')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>

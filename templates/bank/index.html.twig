@@ -1,0 +1,34 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Nank index{% endblock %}
+
+{% block content %}
+    <h3>Bancos</h3>
+<a class="btn btn-primary" href="{{ path('app_bank_new') }}">Nuevo</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bank in banks %}
+            <tr>
+                <td>{{ bank.id }}</td>
+                <td>{{ bank.name }}</td>
+                <td>
+                    <a href="{{ path('app_bank_edit', {'id': bank.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'dashboard/dashboard_base.html.twig' %}
+
+{% block title %}Nank index{% endblock %}
+
+{% block content %}
+    <h1>Crear nuevo Banco</h1>
+
+    {{ include('bank/_form.html.twig') }}
+
+    <a class="btn btn-default" href="{{ path('app_bank_index') }}">Volver</a>
+{% endblock %}
