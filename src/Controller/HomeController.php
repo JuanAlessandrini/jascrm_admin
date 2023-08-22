@@ -15,6 +15,7 @@ class HomeController extends AbstractController
     {
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomeController',
+            'pago_al_dia'=>false
         ]);
     }
 }

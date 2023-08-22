@@ -33,15 +33,17 @@ https://templatemo.com/tm-535-softy-pinko
               <div></div>
           </div>
       </div>  
-      {% include('homepage/_section_hero.html.twig') %}
-      {% include('homepage/_section_welcome.html.twig') %}
-      <!-- ***** Preloader Start ***** -->
-      
+      {% if pago_al_dia == true %}
+        {% include('homepage/_section_hero.html.twig') %}
+        {% include('homepage/_section_welcome.html.twig') %}
+        <!-- ***** Preloader Start ***** -->
+        
      
-      {% block content %}
-      {% endblock %} 
-     
+        {% block content %}
+        {% endblock %} 
       
+      
+      {% endif %}
       {% include('homepage/_scripts.html.twig') %}
       
   </body>

@@ -111,7 +111,7 @@ class DocumentType extends AbstractType
                     ->setParameter('tipo', 'Todos')
                     ->setParameter('caja', 'Caja y Bancos');
                 },
-                'attr'=>['class'=>'form-control '], 'label'=>'Origen / Destino'])
+                'attr'=>['class'=>'form-control '], 'label'=>$builder->getData()->getTipo()->getEntidad()->getName() == 'Pago' ? 'Origen' : 'Destino'])
             ->add('medio_pago', ChoiceType::class, ['attr'=>['class'=>'form-control'],
             'placeholder'=>'Seleccionar...',
             'choices' => [
