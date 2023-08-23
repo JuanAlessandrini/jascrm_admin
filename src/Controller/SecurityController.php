@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('dashboard/auth-login-basic.html.twig', 
-            ['last_username' => $lastUsername, 'error' => $error, 'pago_al_dia'=>false]
+            ['last_username' => $lastUsername, 'error' => $error, 'pago_al_dia'=>$_ENV['APP_ENV']!=='unpaid']
         );
     }
 
