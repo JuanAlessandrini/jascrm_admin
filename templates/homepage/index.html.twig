@@ -1,7 +1,6 @@
  {% include('homepage/base.html.twig') %}
  
     {% block content %}
-      {% if pago_al_dia == true %}
         {# {% include('homepage/_nav.html.twig') %} #}
         {% include('homepage/_section_home.html.twig') %}
 
@@ -12,11 +11,6 @@
         {# {% include('homepage/_section_getstarted.html.twig') %} #}
         {% include('homepage/_section_contacto.html.twig') %}
         {% include('homepage/_section_footer.html.twig') %}
-      {% else %}
-          <div class="container card-body">
-              <h5>🙁 Acceso Blockeado</h5>
-              <p>Por falta de Pago</p>
-          </div>
-      {% endif %}
+      
     {% endblock %} 
   
