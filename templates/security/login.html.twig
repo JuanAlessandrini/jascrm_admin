@@ -3,7 +3,7 @@
        <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/css/pages/page-auth.css')}}" />
     {% endblock %}
   {% block wrapper %}
-  {% if pago_al_dia == true %}
+  
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -42,9 +42,5 @@
                 </button>
             </div>
         </form>
-    {% else %}
-        <div class="container card-body">
-            <h5>Acceso Blockeado</h5>
-        </div>
-    {% endif %}
+    
 {% endblock %}
